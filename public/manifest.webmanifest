@@ -1,0 +1,17 @@
+{
+  "name": "Nudist Life",
+  "short_name": "Nudist Life",
+  "description": "Offline-first reader for your personal stories and chapters.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2eee4",
+  "theme_color": "#f2eee4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

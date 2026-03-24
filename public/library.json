@@ -1,0 +1,1302 @@
+{
+  "title": "Naked Stories",
+  "books": [
+    {
+      "id": "naked-family",
+      "title": "Naked Family",
+      "manuscriptKey": "naked-family",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "naked-family--cover",
+              "title": "Our Journey to Truth",
+              "file": "books/naked-family-cover.md"
+            },
+            {
+              "id": "naked-family--introduction",
+              "title": "Introduction The Myth of the Bathroom",
+              "file": "Stories/Naked Family/Introduction.docx"
+            },
+            {
+              "id": "naked-family--0",
+              "title": "Chapter 0 Our Journey to Truth",
+              "file": "Stories/Naked Family/0.docx"
+            },
+            {
+              "id": "naked-family--1",
+              "title": "Chapter 1 The Myth of the Bathroom",
+              "file": "Stories/Naked Family/1.docx"
+            },
+            {
+              "id": "naked-family--2",
+              "title": "Chapter 2 The Shared Sanctuary",
+              "file": "Stories/Naked Family/2.docx"
+            },
+            {
+              "id": "naked-family--3",
+              "title": "Chapter 3 A New Year, A New Skin",
+              "file": "Stories/Naked Family/3.docx"
+            },
+            {
+              "id": "naked-family--4",
+              "title": "Chapter 4 The Sacred Union",
+              "file": "Stories/Naked Family/4.docx"
+            },
+            {
+              "id": "naked-family--5",
+              "title": "Chapter 5 The Pilgrimage to Cap d’Agde",
+              "file": "Stories/Naked Family/5.docx"
+            },
+            {
+              "id": "naked-family--6",
+              "title": "Chapter 6 Sugar and Skin (The First Naked Bake)",
+              "file": "Stories/Naked Family/6.docx"
+            },
+            {
+              "id": "naked-family--7",
+              "title": "Chapter 7 The Double Miracle (New Life, No Shame)",
+              "file": "Stories/Naked Family/7.docx"
+            },
+            {
+              "id": "naked-family--8",
+              "title": "Chapter 8 The Naming Ceremony (Four Toddlers, No Tethers)",
+              "file": "Stories/Naked Family/8.docx"
+            },
+            {
+              "id": "naked-family--9",
+              "title": "Chapter 9 The Gurukul of the Home (Sacred Learning, Natural Living)",
+              "file": "Stories/Naked Family/9.docx"
+            },
+            {
+              "id": "naked-family--10",
+              "title": "Chapter 10 The Digital Tribe (Finding Our Voice on X)",
+              "file": "Stories/Naked Family/10.docx"
+            },
+            {
+              "id": "naked-family--11",
+              "title": "Chapter 11 The Uninvited Guest (The Test of the Mask)",
+              "file": "Stories/Naked Family/11.docx"
+            },
+            {
+              "id": "naked-family--12",
+              "title": "Chapter 12 The Adolescence of the Cubs (Puberty without Shame)",
+              "file": "Stories/Naked Family/12.docx"
+            },
+            {
+              "id": "naked-family--13",
+              "title": "Chapter 13 The Mountain Oasis (The Secret Sanctuary)",
+              "file": "Stories/Naked Family/13.docx"
+            },
+            {
+              "id": "naked-family--14",
+              "title": "Chapter 14 The First Gathering (The Secret of the Five)",
+              "file": "Stories/Naked Family/14.docx"
+            },
+            {
+              "id": "naked-family--15",
+              "title": "Chapter 15 The Infinite Legacy (Sun, Soil, and Soul)",
+              "file": "Stories/Naked Family/15.docx"
+            },
+            {
+              "id": "naked-family--17",
+              "title": "Chapter 17 The Myth of the Bathroom – Breaking the first social barrier.",
+              "file": "Stories/Naked Family/17.docx"
+            },
+            {
+              "id": "naked-family--conclusion",
+              "title": "Conclusion",
+              "file": "Stories/Naked Family/Conclusion.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "naked-festival",
+      "title": "Naked Festival",
+      "manuscriptKey": "naked-festival",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "naked-festival--1",
+              "title": "1",
+              "file": "Stories/Naked Festival/1.docx"
+            },
+            {
+              "id": "naked-festival--2",
+              "title": "2",
+              "file": "Stories/Naked Festival/2.docx"
+            },
+            {
+              "id": "naked-festival--3",
+              "title": "3",
+              "file": "Stories/Naked Festival/3.docx"
+            },
+            {
+              "id": "naked-festival--4",
+              "title": "4",
+              "file": "Stories/Naked Festival/4.docx"
+            },
+            {
+              "id": "naked-festival--5",
+              "title": "5",
+              "file": "Stories/Naked Festival/5.docx"
+            },
+            {
+              "id": "naked-festival--6",
+              "title": "6",
+              "file": "Stories/Naked Festival/6.docx"
+            },
+            {
+              "id": "naked-festival--7",
+              "title": "7",
+              "file": "Stories/Naked Festival/7.docx"
+            },
+            {
+              "id": "naked-festival--8",
+              "title": "8",
+              "file": "Stories/Naked Festival/8.docx"
+            },
+            {
+              "id": "naked-festival--9",
+              "title": "9",
+              "file": "Stories/Naked Festival/9.docx"
+            },
+            {
+              "id": "naked-festival--10",
+              "title": "10",
+              "file": "Stories/Naked Festival/10.docx"
+            },
+            {
+              "id": "naked-festival--epilogue",
+              "title": "Epilogue",
+              "file": "Stories/Naked Festival/Epilogue.docx"
+            },
+            {
+              "id": "naked-festival--intro",
+              "title": "Intro",
+              "file": "Stories/Naked Festival/Intro.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-3-day-kingdom",
+      "title": "The 3-Day Kingdom",
+      "manuscriptKey": "the-3-day-kingdom",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-3-day-kingdom--chapter-1-the-three-day-kingdom",
+              "title": "Chapter 1 The Three-Day Kingdom",
+              "file": "Stories/The 3-Day Kingdom/Chapter 1 The Three-Day Kingdom.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-2-the-skin-i",
+              "title": "Chapter 2 The Skin I",
+              "file": "Stories/The 3-Day Kingdom/Chapter 2 The Skin I.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-3-the-gospel-of",
+              "title": "Chapter 3 The Gospel of",
+              "file": "Stories/The 3-Day Kingdom/Chapter 3 The Gospel of.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-4-the-secret-room",
+              "title": "Chapter 4 The Secret Room",
+              "file": "Stories/The 3-Day Kingdom/Chapter 4 The Secret Room.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-5-the-ninety-day-summer",
+              "title": "Chapter 5 The Ninety-Day Summer",
+              "file": "Stories/The 3-Day Kingdom/Chapter 5 The Ninety-Day Summer.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-6-the-secret-garden",
+              "title": "Chapter 6 The Secret Garden",
+              "file": "Stories/The 3-Day Kingdom/Chapter 6 The Secret Garden.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-7-the-thin-partition",
+              "title": "Chapter 7 The Thin Partition",
+              "file": "Stories/The 3-Day Kingdom/Chapter 7 The Thin Partition.docx"
+            },
+            {
+              "id": "the-3-day-kingdom--chapter-8-the-unified-kingdom",
+              "title": "Chapter 8 The Unified Kingdom",
+              "file": "Stories/The 3-Day Kingdom/Chapter 8 The Unified Kingdom.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-ancestral-haveli-part-1",
+      "title": "The Ancestral Haveli",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-ancestral-haveli",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-1-the-copper-key",
+              "title": "Chapter 1 The Copper Key",
+              "file": "Stories/The Ancestral Haveli/Chapter 1 The Copper Key.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-2-the-hall-of-mirrors",
+              "title": "Chapter 2 The Hall of Mirrors",
+              "file": "Stories/The Ancestral Haveli/Chapter 2 The Hall of Mirrors.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-3-the-first-shedding",
+              "title": "Chapter 3 The First Shedding",
+              "file": "Stories/The Ancestral Haveli/Chapter 3 The First Shedding.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-4-the-script-of-the-sun",
+              "title": "Chapter 4 The Script of the Sun",
+              "file": "Stories/The Ancestral Haveli/Chapter 4 The Script of the Sun.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-5-the-hearth-and-the-harvest",
+              "title": "Chapter 5 The Hearth and the Harvest",
+              "file": "Stories/The Ancestral Haveli/Chapter 5 The Hearth and the Harvest.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-6-the-emerald-mirror",
+              "title": "Chapter 6 The Emerald Mirror",
+              "file": "Stories/The Ancestral Haveli/Chapter 6 The Emerald Mirror.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-7-the-whispers-of-the-walls",
+              "title": "Chapter 7 The Whispers of the Walls",
+              "file": "Stories/The Ancestral Haveli/Chapter 7 The Whispers of the Walls.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-8-the-skys-first-touch",
+              "title": "Chapter 8 The Skys First Touch",
+              "file": "Stories/The Ancestral Haveli/Chapter 8 The Skys First Touch.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-9-the-time-capsule-in-the-pillars",
+              "title": "Chapter 9 The Time Capsule in the Pillars",
+              "file": "Stories/The Ancestral Haveli/Chapter 9 The Time Capsule in the Pillars.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-1--chapter-10-the-rhythm-of-the-red-stone",
+              "title": "Chapter 10 The Rhythm of the Red Stone",
+              "file": "Stories/The Ancestral Haveli/Chapter 10 The Rhythm of the Red Stone.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-ancestral-haveli-part-2",
+      "title": "The Ancestral Haveli",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-ancestral-haveli",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-1-the-modern-invasion",
+              "title": "Part 2 Chapter 1 The Modern Invasion",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 1 The Modern Invasion.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-2-the-unraveling",
+              "title": "Part 2 Chapter 2 The Unraveling",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 2 The Unraveling.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-3-the-circle-of-truth",
+              "title": "Part 2 Chapter 3 The Circle of Truth",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 3 The Circle of Truth.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-4-the-midnight-mirror",
+              "title": "Part 2 Chapter 4 The Midnight Mirror",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 4 The Midnight Mirror.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-5-the-bloom-of-the-second-skin",
+              "title": "Part 2 Chapter 5 The Bloom of the Second Skin",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 5 The Bloom of the Second Skin.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-chapter-6-the-great-splash",
+              "title": "Part 2 Chapter 6 The Great Splash",
+              "file": "Stories/The Ancestral Haveli/Part 2 Chapter 6 The Great Splash.docx"
+            },
+            {
+              "id": "the-ancestral-haveli-part-2--part-2-final-chapter-the-eternal-skin",
+              "title": "Part 2 Final Chapter The Eternal Skin",
+              "file": "Stories/The Ancestral Haveli/Part 2 Final Chapter The Eternal Skin.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-bare-surprise-part-1",
+      "title": "The Bare Surprise",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-bare-surprise",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-bare-surprise-part-1--chapter-1-the-grotto-checkpoint",
+              "title": "Chapter 1 The Grotto Checkpoint",
+              "file": "Stories/The Bare Surprise/Chapter 1 The Grotto Checkpoint.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-2-the-glass-sanctuary",
+              "title": "Chapter 2 The Glass Sanctuary",
+              "file": "Stories/The Bare Surprise/Chapter 2 The Glass Sanctuary.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-3-the-gravity-of-the-situation",
+              "title": "Chapter 3 The Gravity of the Situation",
+              "file": "Stories/The Bare Surprise/Chapter 3 The Gravity of the Situation.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-4-the-moonlight-gala",
+              "title": "Chapter 4 The Moonlight Gala",
+              "file": "Stories/The Bare Surprise/Chapter 4 The Moonlight Gala.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-5-the-choice-of-the-tide",
+              "title": "Chapter 5 The Choice of the Tide",
+              "file": "Stories/The Bare Surprise/Chapter 5 The Choice of the Tide.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-6-the-union-of-the-sun-and-moondocx",
+              "title": "Chapter 6 The Union of. the Sun and Moondocx",
+              "file": "Stories/The Bare Surprise/Chapter 6 The Union of. the Sun and Moondocx.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-7-the-unveiled-legacy",
+              "title": "Chapter 7 The Unveiled Legacy",
+              "file": "Stories/The Bare Surprise/Chapter 7 The Unveiled Legacy.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--chapter-8-the-oasis-of-the-unburdened",
+              "title": "Chapter 8 The Oasis of the Unburdened",
+              "file": "Stories/The Bare Surprise/Chapter 8 The Oasis of the Unburdened.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-1--the-cast-of-the-unwrapped",
+              "title": "The Cast of The Unwrapped",
+              "file": "Stories/The Bare Surprise/The Cast of The Unwrapped.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-bare-surprise-part-2",
+      "title": "The Bare Surprise",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-bare-surprise",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-bare-surprise-part-2--part-2-chapter-1-the-children-of-the-sun",
+              "title": "Part 2  Chapter 1 The Children of the Sun",
+              "file": "Stories/The Bare Surprise/Part 2  Chapter 1 The Children of the Sun.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-2--part-2-chapter-2-the-education-of-the-soul",
+              "title": "Part 2  Chapter 2 The Education of the Soul",
+              "file": "Stories/The Bare Surprise/Part 2  Chapter 2 The Education of the Soul.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-2--part-2-chapter-3-the-french-sanctuary",
+              "title": "Part 2  Chapter 3 The French Sanctuary",
+              "file": "Stories/The Bare Surprise/Part 2  Chapter 3 The French Sanctuary.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-2--part-2-chapter-4-the-open-horizon",
+              "title": "Part 2  Chapter 4 The Open Horizon",
+              "file": "Stories/The Bare Surprise/Part 2  Chapter 4 The Open Horizon.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-2--part-2-chapter-5-the-digital-truth",
+              "title": "Part 2  Chapter 5 The Digital Truth",
+              "file": "Stories/The Bare Surprise/Part 2  Chapter 5 The Digital Truth.docx"
+            },
+            {
+              "id": "the-bare-surprise-part-2--part-2-the-finale-the-architect-of-truth",
+              "title": "Part 2  The Finale The Architect of Truth",
+              "file": "Stories/The Bare Surprise/Part 2  The Finale The Architect of Truth.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-glass-divide",
+      "title": "The Glass Divide",
+      "manuscriptKey": "the-glass-divide",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-glass-divide--chapter-1-the-glass-divider",
+              "title": "Chapter 1 The Glass Divider",
+              "file": "Stories/The Glass Divide/Chapter 1 The Glass Divider.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-2-the-table-of-transparency",
+              "title": "Chapter 2 The Table of Transparency",
+              "file": "Stories/The Glass Divide/Chapter 2 The Table of Transparency.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-3-the-winter-solstice-of-skin",
+              "title": "Chapter 3 The Winter Solstice of Skin",
+              "file": "Stories/The Glass Divide/Chapter 3 The Winter Solstice of Skin.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-4-the-architecture-of-honesty",
+              "title": "Chapter 4 The Architecture of Honesty",
+              "file": "Stories/The Glass Divide/Chapter 4 The Architecture of Honesty.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-5-the-pulse-of-presence",
+              "title": "Chapter 5 The Pulse of Presence",
+              "file": "Stories/The Glass Divide/Chapter 5 The Pulse of Presence.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-6-the-festival-of-form",
+              "title": "Chapter 6 The Festival of Form",
+              "file": "Stories/The Glass Divide/Chapter 6 The Festival of Form.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-7-the-fractured-reflection",
+              "title": "Chapter 7 The Fractured Reflection",
+              "file": "Stories/The Glass Divide/Chapter 7 The Fractured Reflection.docx"
+            },
+            {
+              "id": "the-glass-divide--chapter-8-the-roots-of-the-aetheria",
+              "title": "Chapter 8 The Roots of the Aetheria",
+              "file": "Stories/The Glass Divide/Chapter 8 The Roots of the Aetheria.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-1",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-1--chapter-1-the-descent-of-the-mercury",
+              "title": "Chapter 1 The Descent of the Mercury",
+              "file": "Stories/The Naked Haveli/Chapter 1 The Descent of the Mercury.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-2-the-parallel-sanctuaries",
+              "title": "Chapter 2 The Parallel Sanctuaries",
+              "file": "Stories/The Naked Haveli/Chapter 2 The Parallel Sanctuaries.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-3-the-surprise-at-the-gate",
+              "title": "Chapter 3 The Surprise at the Gate",
+              "file": "Stories/The Naked Haveli/Chapter 3 The Surprise at the Gate.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-4-the-silent-observer",
+              "title": "Chapter 4 The Silent Observer",
+              "file": "Stories/The Naked Haveli/Chapter 4 The Silent Observer.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-5-the-invisible-weight",
+              "title": "Chapter 5 The Invisible Weight",
+              "file": "Stories/The Naked Haveli/Chapter 5 The Invisible Weight.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-6-the-unveiling",
+              "title": "Chapter 6 The Unveiling",
+              "file": "Stories/The Naked Haveli/Chapter 6 The Unveiling.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-8-the-silicon-sanctuary",
+              "title": "Chapter 8 The Silicon Sanctuary",
+              "file": "Stories/The Naked Haveli/Chapter 8 The Silicon Sanctuary.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-9-the-dual-identity-setup",
+              "title": "Chapter 9 The Dual-Identity Setup",
+              "file": "Stories/The Naked Haveli/Chapter 9 The Dual-Identity Setup.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-1--chapter-10-the-fortress-of-freedom",
+              "title": "Chapter 10 The Fortress of Freedom",
+              "file": "Stories/The Naked Haveli/Chapter 10 The Fortress of Freedom.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-2",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-1-the-digital-echo",
+              "title": "Part 2 Chapter 1 The Digital Echo",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 1 The Digital Echo.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-2-the-silent-vows-of-the-haveli",
+              "title": "Part 2 Chapter 2 The Silent Vows of the Haveli",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 2 The Silent Vows of the Haveli.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-3-the-convergence-of-truth",
+              "title": "Part 2 Chapter 3 The Convergence of Truth",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 3 The Convergence of Truth.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-4-the-pilgrimage-of-vows",
+              "title": "Part 2 Chapter 4 The Pilgrimage of Vows",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 4 The Pilgrimage of Vows.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-5-the-saffron-and-sandstone-wedding",
+              "title": "Part 2 Chapter 5 The Saffron and Sandstone Wedding",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 5 The Saffron and Sandstone Wedding.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-6-the-garden-of-eden",
+              "title": "Part 2 Chapter 6 The Garden of Eden",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 6 The Garden of Eden.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-7-the-games-of-the-heart",
+              "title": "Part 2 Chapter 7 The Games of the Heart",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 7 The Games of the Heart.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-2--part-2-chapter-8-the-sovereign-sanctuary",
+              "title": "Part 2 Chapter 8 The Sovereign Sanctuary",
+              "file": "Stories/The Naked Haveli/Part 2 Chapter 8 The Sovereign Sanctuary.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-3",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 3",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 3,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-1-the-expanding-fortress",
+              "title": "Part 3 Chapter 1 The Expanding Fortress",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 1 The Expanding Fortress.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-2-the-merging-of-roots",
+              "title": "Part 3 Chapter 2 The Merging of Roots",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 2 The Merging of Roots.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-3-the-final-barrier",
+              "title": "Part 3 Chapter 3 The Final Barrier",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 3 The Final Barrier.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-4-the-morning-of-absolute-kinship",
+              "title": "Part 3 Chapter 4 The Morning of Absolute Kinship",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 4 The Morning of Absolute Kinship.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-5-the-suffocation-of-the-mask",
+              "title": "Part 3 Chapter 5 The Suffocation of the Mask",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 5 The Suffocation of the Mask.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-6-the-four-pillars-of-the-past",
+              "title": "Part 3 Chapter 6 The Four Pillars of the Past",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 6 The Four Pillars of the Past.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-7-the-final-bridge",
+              "title": "Part 3 Chapter 7 The Final Bridge",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 7 The Final Bridge.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-3--part-3-chapter-8-the-fire-and-the-spectrum",
+              "title": "Part 3 Chapter 8 The Fire and the Spectrum",
+              "file": "Stories/The Naked Haveli/Part 3 Chapter 8 The Fire and the Spectrum.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-4",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 4",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 4,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-1-the-sovereign-horizon",
+              "title": "Part 4 Chapter 1 The Sovereign Horizon",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 1 The Sovereign Horizon.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-2-the-mediterranean-mastery",
+              "title": "Part 4 Chapter 2 The Mediterranean Mastery ",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 2 The Mediterranean Mastery .docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-3-the-dust-of-tradition",
+              "title": "Part 4 Chapter 3 The Dust of Tradition",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 3 The Dust of Tradition.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-4-the-ministerial-key",
+              "title": "Part 4 Chapter 4 The Ministerial Key",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 4 The Ministerial Key.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-5-the-sovereign-architecture",
+              "title": "Part 4 Chapter 5 The Sovereign Architecture",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 5 The Sovereign Architecture.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-6-the-great-vanishing",
+              "title": "Part 4 Chapter 6 The Great Vanishing",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 6 The Great Vanishing.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-7-the-billionair-s-check-in",
+              "title": "Part 4 Chapter 7 The Billionair's Check-In",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 7 The Billionair's Check-In.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-4--part-4-chapter-8-the-saffron-launch",
+              "title": "Part 4 Chapter 8 The Saffron Launch",
+              "file": "Stories/The Naked Haveli/Part 4 Chapter 8 The Saffron Launch.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-5",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 5",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 5,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-1-the-sovereign-sixteen",
+              "title": "Part 5 Chapter 1 The Sovereign Sixteen",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 1 The Sovereign Sixteen.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-2-the-sovereign-manifesto",
+              "title": "Part 5 Chapter 2 The Sovereign Manifesto",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 2 The Sovereign Manifesto.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-3-the-global-premiere",
+              "title": "Part 5 Chapter 3 The Global Premiere",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 3 The Global Premiere.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-4-the-golden-decade",
+              "title": "Part 5 Chapter 4 The Golden Decade",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 4 The Golden Decade.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-5-the-double-echo",
+              "title": "Part 5 Chapter 5 The Double Echo",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 5 The Double Echo.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-6-the-guardians-of-the-bloodline",
+              "title": "Part 5 Chapter 6 The Guardians of the Bloodline",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 6 The Guardians of the Bloodline.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-7-the-sovereign-symmetry",
+              "title": "Part 5 Chapter 7 The Sovereign Symmetry",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 7 The Sovereign Symmetry.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-5--part-5-chapter-8-the-great-succession",
+              "title": "Part 5 Chapter 8 The Great Succession",
+              "file": "Stories/The Naked Haveli/Part 5 Chapter 8 The Great Succession.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-naked-haveli-part-6",
+      "title": "The Naked Haveli",
+      "subtitle": "Part 6",
+      "manuscriptKey": "the-naked-haveli",
+      "partNumber": 6,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-naked-haveli-part-6--part-6-chapter-1-the-great-handover",
+              "title": "Part 6 Chapter 1 The Great Handover",
+              "file": "Stories/The Naked Haveli/Part 6 Chapter 1 The Great Handover.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-6--part-6-chapter-2-the-naked-paradise",
+              "title": "Part 6 Chapter 2 The Naked Paradise",
+              "file": "Stories/The Naked Haveli/Part 6 Chapter 2 The Naked Paradise.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-6--part-6-chapter-3-the-sicilisn-union",
+              "title": "Part 6 Chapter 3 The sicilisn Union",
+              "file": "Stories/The Naked Haveli/Part 6 Chapter 3 The sicilisn Union.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-6--part-6-chapter-4-the-great-return",
+              "title": "Part 6 Chapter 4 The Great Return",
+              "file": "Stories/The Naked Haveli/Part 6 Chapter 4 The Great Return.docx"
+            },
+            {
+              "id": "the-naked-haveli-part-6--part-6-chapter-5-the-sovereign-explosion",
+              "title": "Part 6 Chapter 5 The Sovereign Explosion",
+              "file": "Stories/The Naked Haveli/Part 6 Chapter 5 The Sovereign Explosion.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-only-one-who-remembers",
+      "title": "The Only One Who Remembers",
+      "manuscriptKey": "the-only-one-who-remembers",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-only-one-who-remembers--chapter-1-the-delivery-of",
+              "title": "Chapter 1 The Delivery of",
+              "file": "Stories/The Only One Who Remembers/Chapter 1 The Delivery of.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-2-the-great-erasure",
+              "title": "Chapter 2 The Great Erasure",
+              "file": "Stories/The Only One Who Remembers/Chapter 2 The Great Erasure.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-3-the-hallways-of",
+              "title": "Chapter 3 The Hallways of",
+              "file": "Stories/The Only One Who Remembers/Chapter 3 The Hallways of.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-4-the-kinetic-truth",
+              "title": "Chapter 4 The Kinetic Truth",
+              "file": "Stories/The Only One Who Remembers/Chapter 4 The Kinetic Truth.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-5-the-market-of",
+              "title": "Chapter 5 The Market of",
+              "file": "Stories/The Only One Who Remembers/Chapter 5 The Market of.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-6-the-artifact-of",
+              "title": "Chapter 6 The Artifact of",
+              "file": "Stories/The Only One Who Remembers/Chapter 6 The Artifact of.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-7-the-journey-to",
+              "title": "Chapter 7 The Journey to",
+              "file": "Stories/The Only One Who Remembers/Chapter 7 The Journey to.docx"
+            },
+            {
+              "id": "the-only-one-who-remembers--chapter-8-the-festival-of",
+              "title": "Chapter 8 The Festival of",
+              "file": "Stories/The Only One Who Remembers/Chapter 8 The Festival of.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-second-skin-part-1",
+      "title": "The Second Skin",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-second-skin",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-second-skin-part-1--chapter-1-the-weight-of-the-atmosphere",
+              "title": "Chapter 1 The Weight of. the Atmosphere",
+              "file": "Stories/The Second Skin/Chapter 1 The Weight of. the Atmosphere.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-2-the-domestic-frontier",
+              "title": "Chapter 2 The Domestic Frontier",
+              "file": "Stories/The Second Skin/Chapter 2 The Domestic Frontier.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-3-the-thermal-equilibrium",
+              "title": "Chapter 3 The Thermal Equilibrium",
+              "file": "Stories/The Second Skin/Chapter 3 The Thermal Equilibrium.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-4-the-shore-of-the-new-world",
+              "title": "Chapter 4 The Shore of the New World",
+              "file": "Stories/The Second Skin/Chapter 4 The Shore of the New World.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-5-the-architecture-of-two",
+              "title": "Chapter 5 The Architecture of Two",
+              "file": "Stories/The Second Skin/Chapter 5 The Architecture of Two.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-6-the-covenant-of-lightdocx",
+              "title": "Chapter 6 The Covenant of. Lightdocx",
+              "file": "Stories/The Second Skin/Chapter 6 The Covenant of. Lightdocx.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-7-the-inheritance-of-light",
+              "title": "Chapter 7 The Inheritance of Light",
+              "file": "Stories/The Second Skin/Chapter 7 The Inheritance of Light.docx"
+            },
+            {
+              "id": "the-second-skin-part-1--chapter-8-the-mediterranean-masterclass",
+              "title": "Chapter 8 The Mediterranean Masterclass",
+              "file": "Stories/The Second Skin/Chapter 8 The Mediterranean Masterclass.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-second-skin-part-2",
+      "title": "The Second Skin",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-second-skin",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-1-the-double-blessing",
+              "title": "Part 2 Chapter 1 The Double Blessing",
+              "file": "Stories/The Second Skin/Part 2 Chapter 1 The Double Blessing.docx"
+            },
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-2-the-academy-of-the-sun",
+              "title": "Part 2 Chapter 2 The Academy of the Sun",
+              "file": "Stories/The Second Skin/Part 2 Chapter 2 The Academy of the Sun.docx"
+            },
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-3-the-architecture-of-identity",
+              "title": "Part 2 Chapter 3 The Architecture of Identity",
+              "file": "Stories/The Second Skin/Part 2 Chapter 3 The Architecture of Identity.docx"
+            },
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-4-the-glass-lens",
+              "title": "Part 2 Chapter 4 The Glass Lens",
+              "file": "Stories/The Second Skin/Part 2 Chapter 4 The Glass Lens.docx"
+            },
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-5-the-glass-symmetry",
+              "title": "Part 2 Chapter 5 The Glass Symmetry",
+              "file": "Stories/The Second Skin/Part 2 Chapter 5 The Glass Symmetry.docx"
+            },
+            {
+              "id": "the-second-skin-part-2--part-2-chapter-6-the-infinite-cycle",
+              "title": "Part 2 Chapter 6 The Infinite Cycle",
+              "file": "Stories/The Second Skin/Part 2 Chapter 6 The Infinite Cycle.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-silk-horizon",
+      "title": "The Silk Horizon",
+      "manuscriptKey": "the-silk-horizon",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-silk-horizon--chapter-1-the-silk-horizon",
+              "title": "Chapter 1 The Silk Horizon",
+              "file": "Stories/The Silk Horizon/Chapter 1 The Silk Horizon.docx"
+            },
+            {
+              "id": "the-silk-horizon--chapter-2-the-pulse-of-the-heart",
+              "title": "Chapter 2 The Pulse of the Heart",
+              "file": "Stories/The Silk Horizon/Chapter 2 The Pulse of the Heart.docx"
+            },
+            {
+              "id": "the-silk-horizon--chapter-3-the-feast-of-transparency",
+              "title": "Chapter 3 The Feast of Transparency",
+              "file": "Stories/The Silk Horizon/Chapter 3 The Feast of Transparency.docx"
+            },
+            {
+              "id": "the-silk-horizon--chapter-4-the-bloom-of-union",
+              "title": "Chapter 4 The Bloom of Union",
+              "file": "Stories/The Silk Horizon/Chapter 4 The Bloom of Union.docx"
+            },
+            {
+              "id": "the-silk-horizon--the-first-seed-of-the-future",
+              "title": "The First Seed of the Future",
+              "file": "Stories/The Silk Horizon/The First Seed of the Future.docx"
+            },
+            {
+              "id": "the-silk-horizon--the-transition-from-the-old",
+              "title": "The transition from the old",
+              "file": "Stories/The Silk Horizon/The transition from the old.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-social-fabric-part-1",
+      "title": "The Social Fabric",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-social-fabric",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-social-fabric-part-1--chapter-1-the-global-exposure",
+              "title": "Chapter 1 The Global Exposure",
+              "file": "Stories/The Social Fabric/Chapter 1 The Global Exposure.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-2-the-gilded-threshold",
+              "title": "Chapter 2 The Gilded Threshold",
+              "file": "Stories/The Social Fabric/Chapter 2 The Gilded Threshold.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-3-the-unveiled-table",
+              "title": "Chapter 3 The Unveiled Table",
+              "file": "Stories/The Social Fabric/Chapter 3 The Unveiled Table.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-4-the-new-normal",
+              "title": "Chapter 4 The New Normal",
+              "file": "Stories/The Social Fabric/Chapter 4 The New Normal.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-5-the-glass-partition",
+              "title": "Chapter 5 The Glass Partition",
+              "file": "Stories/The Social Fabric/Chapter 5 The Glass Partition.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-6-the-infinite-horizon",
+              "title": "Chapter 6 The Infinite Horizon",
+              "file": "Stories/The Social Fabric/Chapter 6 The Infinite Horizon.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-7-the-ridge-of-resilience",
+              "title": "Chapter 7 The Ridge of Resilience",
+              "file": "Stories/The Social Fabric/Chapter 7 The Ridge of Resilience.docx"
+            },
+            {
+              "id": "the-social-fabric-part-1--chapter-8-the-capital-of-skin",
+              "title": "Chapter 8 The Capital of Skin",
+              "file": "Stories/The Social Fabric/Chapter 8 The Capital of Skin.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-social-fabric-part-2",
+      "title": "The Social Fabric",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-social-fabric",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-1-the-naked-horizon",
+              "title": "Part 2 Chapter 1 The Naked Horizon",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 1 The Naked Horizon.docx"
+            },
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-2-the-girl-from-the-sand",
+              "title": "Part 2 Chapter 2 The Girl from the Sand",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 2 The Girl from the Sand.docx"
+            },
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-3-the-mirror-of-genrations",
+              "title": "Part 2 Chapter 3 The Mirror of Genrations",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 3 The Mirror of Genrations.docx"
+            },
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-4-the-saffron-and-the-sea",
+              "title": "Part 2 Chapter 4 The Saffron and the Sea",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 4 The Saffron and the Sea.docx"
+            },
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-5-the-unwoven-life",
+              "title": "Part 2 Chapter 5 The Unwoven Life",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 5 The Unwoven Life.docx"
+            },
+            {
+              "id": "the-social-fabric-part-2--part-2-chapter-6-the-saffron-vows",
+              "title": "Part 2 Chapter 6 The Saffron Vows",
+              "file": "Stories/The Social Fabric/Part 2 Chapter 6 The Saffron Vows.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-source-and-the-sapling",
+      "title": "The Source and the Sapling",
+      "manuscriptKey": "the-source-and-the-sapling",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-source-and-the-sapling--chapter-1-the-thermal-threshold",
+              "title": "Chapter 1 The Thermal Threshold",
+              "file": "Stories/The Source and the Sapling/Chapter 1 The Thermal Threshold.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-2-the-ninety-day-republic",
+              "title": "Chapter 2 The Ninety-Day Republic",
+              "file": "Stories/The Source and the Sapling/Chapter 2 The Ninety-Day Republic.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-3-the-french-convergence",
+              "title": "Chapter 3 The French Convergence",
+              "file": "Stories/The Source and the Sapling/Chapter 3 The French Convergence.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-4-the-archive-of-the-unseen",
+              "title": "Chapter 4 The Archive of the unseen",
+              "file": "Stories/The Source and the Sapling/Chapter 4 The Archive of the unseen.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-5-the-digital-bridge",
+              "title": "Chapter 5 The Digital Bridge",
+              "file": "Stories/The Source and the Sapling/Chapter 5 The Digital Bridge.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-6-the-canvas-and-the-cradlethe-cradle",
+              "title": "Chapter 6 The Canvas and the Cradlethe Cradle",
+              "file": "Stories/The Source and the Sapling/Chapter 6 The Canvas and the Cradlethe Cradle.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-7-the-source-and-the-sapling",
+              "title": "Chapter 7 The Source and the sapling",
+              "file": "Stories/The Source and the Sapling/Chapter 7 The Source and the sapling.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-8-the-village-of-light",
+              "title": "Chapter 8 The Village of light",
+              "file": "Stories/The Source and the Sapling/Chapter 8 The Village of light.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-9-the-hidden-grove",
+              "title": "Chapter 9 The Hidden Grove",
+              "file": "Stories/The Source and the Sapling/Chapter 9 The Hidden Grove.docx"
+            },
+            {
+              "id": "the-source-and-the-sapling--chapter-10-the-sovereign-silence",
+              "title": "Chapter 10 The Sovereign Silence",
+              "file": "Stories/The Source and the Sapling/Chapter 10 The Sovereign Silence.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-unburdened-guest",
+      "title": "The Unburdened Guest",
+      "manuscriptKey": "the-unburdened-guest",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-unburdened-guest--chapter-1-the-zero-lag-system",
+              "title": "Chapter 1 The Zero-Lag System",
+              "file": "Stories/The Unburdened Guest/Chapter 1 The Zero-Lag System.docx"
+            },
+            {
+              "id": "the-unburdened-guest--chapter-2-the-100-signal",
+              "title": "Chapter 2 The 100 Signal",
+              "file": "Stories/The Unburdened Guest/Chapter 2 The 100 Signal.docx"
+            },
+            {
+              "id": "the-unburdened-guest--chapter-3-the-localhost-environment",
+              "title": "Chapter 3 The Localhost Environment",
+              "file": "Stories/The Unburdened Guest/Chapter 3 The Localhost Environment.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-unveiled-life",
+      "title": "The Unveiled Life",
+      "manuscriptKey": "the-unveiled-life",
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-unveiled-life--chapter-1-the-sanctuary-of-bathroom",
+              "title": "Chapter 1 The Sanctuary of Bathroom",
+              "file": "Stories/The Unveiled Life/Chapter 1 The Sanctuary of Bathroom.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-2-the-bedroom-fortress",
+              "title": "Chapter 2 The Bedroom Fortress",
+              "file": "Stories/The Unveiled Life/Chapter 2 The Bedroom Fortress.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-3-reclaiming-the-living-space",
+              "title": "Chapter 3 Reclaiming the Living Space",
+              "file": "Stories/The Unveiled Life/Chapter 3 Reclaiming the Living Space.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-4-you-dont-need-cloths-to-watch-tv",
+              "title": "Chapter 4 You Dont Need Cloths to Watch TV",
+              "file": "Stories/The Unveiled Life/Chapter 4 You Dont Need Cloths to Watch TV.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-5-do-your-housework-in-the-buff",
+              "title": "Chapter 5 Do Your Housework in the Buff",
+              "file": "Stories/The Unveiled Life/Chapter 5 Do Your Housework in the Buff.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-6-cook-with-just-an-apron",
+              "title": "Chapter 6 Cook with Just an Apron",
+              "file": "Stories/The Unveiled Life/Chapter 6 Cook with Just an Apron.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-7-garden-like-adam-and-eve",
+              "title": "Chapter 7 Garden like Adam and Eve",
+              "file": "Stories/The Unveiled Life/Chapter 7 Garden like Adam and Eve.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-8-the-nude-house-party",
+              "title": "Chapter 8 The Nude House Party",
+              "file": "Stories/The Unveiled Life/Chapter 8 The Nude House Party.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-9-sunbathe-nude-on-your-terrace",
+              "title": "Chapter 9 Sunbathe Nude on your Terrace",
+              "file": "Stories/The Unveiled Life/Chapter 9 Sunbathe Nude on your Terrace.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-10-bathing-in-the-rain",
+              "title": "Chapter 10 Bathing in the Rain",
+              "file": "Stories/The Unveiled Life/Chapter 10 Bathing in the Rain.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-11-sleep-nude-under-the-stars",
+              "title": "Chapter 11 Sleep Nude Under the Stars",
+              "file": "Stories/The Unveiled Life/Chapter 11 Sleep Nude Under the Stars.docx"
+            },
+            {
+              "id": "the-unveiled-life--chapter-12-you-are-now-a-nudist",
+              "title": "Chapter 12 You Are Now a Nudist",
+              "file": "Stories/The Unveiled Life/Chapter 12 You Are Now a Nudist.docx"
+            },
+            {
+              "id": "the-unveiled-life--the-daily-naturist-checklist",
+              "title": "The Daily Naturist Checklist",
+              "file": "Stories/The Unveiled Life/The Daily Naturist Checklist.docx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
