@@ -3,8 +3,23 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const repoRoot = path.resolve(__dirname, '../..')
-const storiesRoot = path.join(repoRoot, 'Stories')
+const repoRoot = path.resolve(__dirname, '..')
+const storiesRootPreferred = path.join(repoRoot, 'Stories')
+const storiesRoot = fs.existsSync(storiesRootPreferred)
+  ? storiesRootPreferred
+  : repoRoot
+
+const SCAN_SKIP_DIRS = new Set([
+  'node_modules',
+  'public',
+  'src',
+  'dist',
+  '.git',
+  'scripts',
+  'Images',
+  '.vscode',
+  '.cursor',
+])
 const publicDir = path.resolve(__dirname, '../public')
 const storiesLink = path.join(publicDir, 'Stories')
 const outFile = path.join(publicDir, 'library.json')
@@ -235,7 +250,12 @@ async function main() {
 
   const bookDirs = fs
     .readdirSync(storiesRoot, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
+    .filter(
+      (d) =>
+        d.isDirectory() &&
+        !SCAN_SKIP_DIRS.has(d.name) &&
+        !d.name.startsWith('.'),
+    )
     .map((d) => d.name)
     .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
 
@@ -367,4 +387,7 @@ async function main() {
   )
 }
 
-void main()
+main().catch((err) => {
+  console.error('[generate-library]', err)
+  process.exitCode = 1
+})

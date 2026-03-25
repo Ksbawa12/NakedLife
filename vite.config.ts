@@ -4,9 +4,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const repoRoot = path.resolve(__dirname, '..')
+const repoRoot = __dirname
 
-// Stories live next to book-reader; symlink public/Stories → ../Stories
+// Dev server may read manuscript files via public/Stories → repo root
 export default defineConfig({
   plugins: [react()],
   server: {
