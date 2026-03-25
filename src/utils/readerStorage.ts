@@ -37,6 +37,7 @@ const BOOKMARKS_KEY = 'reader-bookmarks-v1'
 const COVER_OVERRIDES_KEY = 'reader-cover-overrides-v1'
 const NOTES_KEY = 'reader-notes-v1'
 const SESSIONS_KEY = 'reader-sessions-v1'
+const PINNED_BOOKS_KEY = 'reader-pinned-books-v1'
 
 function safeParseJSON<T>(s: string | null): T | undefined {
   if (!s) return undefined
@@ -207,5 +208,19 @@ export function importReaderData(data: unknown) {
   if (d.notes) window.localStorage.setItem(NOTES_KEY, JSON.stringify(d.notes))
   if (d.sessions) window.localStorage.setItem(SESSIONS_KEY, JSON.stringify(d.sessions))
   return true
+}
+
+export function loadPinnedBooks(): string[] {
+  if (typeof window === 'undefined') return []
+  return safeParseJSON<string[]>(window.localStorage.getItem(PINNED_BOOKS_KEY)) ?? []
+}
+
+export function togglePinnedBook(bookId: string) {
+  if (typeof window === 'undefined') return
+  const list = loadPinnedBooks()
+  const next = list.includes(bookId)
+    ? list.filter((id) => id !== bookId)
+    : [...list, bookId]
+  window.localStorage.setItem(PINNED_BOOKS_KEY, JSON.stringify(next))
 }
 

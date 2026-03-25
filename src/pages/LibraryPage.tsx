@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import { useLibrary } from '../context/LibraryContext'
 import {
@@ -17,8 +17,10 @@ import {
   getTodayReadMinutes,
   loadBookmarks,
   loadCoverOverrides,
+  loadPinnedBooks,
   loadProgressMap,
   setCoverOverride,
+  togglePinnedBook,
 } from '../utils/readerStorage'
 import type { ReaderBookmark } from '../utils/readerStorage'
 
@@ -38,6 +40,8 @@ const CARD_COVERS = [
 ]
 
 const DEFAULT_BOOK_COVER = '/books/naked-family-cover.png'
+type SortMode = 'az' | 'za' | 'chapters-asc' | 'chapters-desc' | 'recent'
+type FilterChip = 'all' | 'unread' | 'in-progress' | 'bookmarked' | 'short' | 'long'
 
 function hashIndex(seed: string, length: number) {
   let hash = 0
@@ -66,12 +70,16 @@ function BookCard({
   progressMap,
   cover,
   onShuffleCover,
+  pinned,
+  onTogglePin,
 }: {
   book: Book
   variant: 'single' | 'part'
   progressMap: Record<string, { chapterId: string }>
   cover: string
   onShuffleCover: (bookId: string) => void
+  pinned: boolean
+  onTogglePin: (bookId: string) => void
 }) {
   const first = firstChapter(book)
   const chapters = bookChapterCount(book)
@@ -100,6 +108,13 @@ function BookCard({
           aria-label="Change cover image"
         >
           Shuffle cover
+        </button>
+        <button
+          type="button"
+          className={pinned ? 'book-card-cover-shuffle book-card-cover-shuffle--active' : 'book-card-cover-shuffle'}
+          onClick={() => onTogglePin(book.id)}
+        >
+          {pinned ? 'Pinned' : 'Pin'}
         </button>
         <div className="book-card-actions">
           <Link className="book-card-open-link" to={to}>
@@ -136,6 +151,13 @@ function BookCard({
         aria-label="Change cover image"
       >
         Shuffle cover
+      </button>
+      <button
+        type="button"
+        className={pinned ? 'book-card-cover-shuffle book-card-cover-shuffle--active' : 'book-card-cover-shuffle'}
+        onClick={() => onTogglePin(book.id)}
+      >
+        {pinned ? 'Pinned' : 'Pin'}
       </button>
       <div className="book-card-actions">
         <Link className="book-card-open-link" to={to}>
@@ -182,14 +204,26 @@ function CollectionStrip({
   )
 }
 
-export function LibraryPage() {
+export function LibraryPage({
+  navQuery,
+  onNavQueryChange,
+}: {
+  navQuery?: string
+  onNavQueryChange?: (value: string) => void
+}) {
   const { state } = useLibrary()
-  const [query, setQuery] = useState('')
+  const location = useLocation()
+  const [localQuery, setLocalQuery] = useState('')
+  const query = navQuery ?? localQuery
+  const setQuery = onNavQueryChange ?? setLocalQuery
+  const [sortMode, setSortMode] = useState<SortMode>('az')
+  const [chip, setChip] = useState<FilterChip>('all')
   const [installReady, setInstallReady] = useState(false)
   const [installEvent, setInstallEvent] = useState<Event | null>(null)
   const [coverOverrides, setCoverOverrides] = useState<Record<string, string>>(
     () => loadCoverOverrides(),
   )
+  const [pinnedBooks, setPinnedBooks] = useState<string[]>(() => loadPinnedBooks())
 
   useEffect(() => {
     const onBeforeInstall = (e: Event) => {
@@ -205,6 +239,14 @@ export function LibraryPage() {
       )
   }, [])
 
+  useEffect(() => {
+    const hash = location.hash.replace('#', '')
+    if (!hash) return
+    const el = document.getElementById(hash)
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [location.hash])
+
   const streakDays = getReadingStreakDays()
   const todayMinutes = getTodayReadMinutes()
 
@@ -215,6 +257,10 @@ export function LibraryPage() {
     const next = nextCover(bookId, resolvedCover(bookId))
     setCoverOverride(bookId, next)
     setCoverOverrides((prev) => ({ ...prev, [bookId]: next }))
+  }
+  const onTogglePin = (bookId: string) => {
+    togglePinnedBook(bookId)
+    setPinnedBooks(loadPinnedBooks())
   }
 
   const onInstall = async () => {
@@ -234,6 +280,30 @@ export function LibraryPage() {
     const groups = groupBooksByManuscript(state.data.books)
     return partitionSinglesAndSeries(groups)
   }, [state])
+  const progressMap = useMemo(() => loadProgressMap(), [state, query])
+
+  const compareBooks = (a: Book, b: Book) => {
+    const alpha = a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
+    if (sortMode === 'az') return alpha
+    if (sortMode === 'za') return -alpha
+    if (sortMode === 'chapters-asc') return bookChapterCount(a) - bookChapterCount(b) || alpha
+    if (sortMode === 'chapters-desc') return bookChapterCount(b) - bookChapterCount(a) || alpha
+    const aUpdated = progressMap[a.id]?.updatedAt ?? 0
+    const bUpdated = progressMap[b.id]?.updatedAt ?? 0
+    return bUpdated - aUpdated || alpha
+  }
+  const matchesChip = (book: Book) => {
+    if (chip === 'all') return true
+    const hasProgress = Boolean(progressMap[book.id])
+    const hasBookmark = loadBookmarks().some((bm) => bm.bookId === book.id)
+    const count = bookChapterCount(book)
+    if (chip === 'unread') return !hasProgress
+    if (chip === 'in-progress') return hasProgress
+    if (chip === 'bookmarked') return hasBookmark
+    if (chip === 'short') return count <= 6
+    if (chip === 'long') return count >= 10
+    return true
+  }
 
   const resumeEntries = useMemo(() => {
     if (state.status !== 'ready') return []
@@ -273,7 +343,7 @@ export function LibraryPage() {
     }
 
     entries.sort((a, b) => b.updatedAt - a.updatedAt)
-    return entries.slice(0, 6)
+    return entries.slice(0, 4)
   }, [state, query])
 
   const bookmarkEntries = useMemo(() => {
@@ -318,42 +388,66 @@ export function LibraryPage() {
 
   const filteredSingles = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return singles
-    return singles.filter((book) => {
-      const first = firstChapter(book)
-      const hay = `${book.title} ${book.subtitle ?? ''} ${first?.title ?? ''}`.toLowerCase()
-      return hay.includes(q)
-    })
-  }, [singles, query])
+    const base = !q
+      ? singles
+      : singles.filter((book) => {
+          const first = firstChapter(book)
+          const hay = `${book.title} ${book.subtitle ?? ''} ${first?.title ?? ''}`.toLowerCase()
+          return hay.includes(q)
+        })
+    return [...base].filter(matchesChip).sort(compareBooks)
+  }, [singles, query, sortMode, progressMap, chip, bookmarkEntries])
 
   const filteredSeries = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return series
-    return series
-      .map((g) => ({
-        ...g,
-        books: g.books.filter((b) => {
-          const first = firstChapter(b)
-          const hay = `${b.title} ${b.subtitle ?? ''} ${first?.title ?? ''}`.toLowerCase()
-          return hay.includes(q)
-        }),
-      }))
+    const base = !q
+      ? series
+      : series
+          .map((g) => ({
+            ...g,
+            books: g.books.filter((b) => {
+              const first = firstChapter(b)
+              const hay = `${b.title} ${b.subtitle ?? ''} ${first?.title ?? ''}`.toLowerCase()
+              return hay.includes(q)
+            }),
+          }))
+          .filter((g) => g.books.length > 0)
+
+    const sortedGroups = base.map((g) => ({
+      ...g,
+      books: [...g.books].filter(matchesChip).sort(compareBooks),
+    }))
       .filter((g) => g.books.length > 0)
-  }, [series, query])
-  const progressMap = useMemo(() => loadProgressMap(), [state, query])
+    return sortedGroups.sort((a, b) => compareBooks(a.books[0], b.books[0]))
+  }, [series, query, sortMode, progressMap, chip, bookmarkEntries])
+
+  const sortedResumeEntries = useMemo(() => {
+    if (sortMode === 'recent') return resumeEntries
+    return [...resumeEntries].sort((a, b) => compareBooks(a.book, b.book))
+  }, [resumeEntries, sortMode, progressMap])
+
+  const sortedBookmarkEntries = useMemo(() => {
+    if (sortMode === 'recent') return bookmarkEntries
+    return [...bookmarkEntries].sort((a, b) => compareBooks(a.book, b.book))
+  }, [bookmarkEntries, sortMode, progressMap])
+
   const allBooks = state.status === 'ready' ? state.data.books : []
+  const pinnedList = useMemo(
+    () => allBooks.filter((b) => pinnedBooks.includes(b.id)).sort(compareBooks),
+    [allBooks, pinnedBooks, sortMode, progressMap],
+  )
   const shortReads = useMemo(
-    () => allBooks.filter((b) => bookChapterCount(b) <= 6).slice(0, 6),
-    [allBooks],
+    () => allBooks.filter((b) => bookChapterCount(b) <= 6).sort(compareBooks).slice(0, 6),
+    [allBooks, sortMode, progressMap],
   )
   const longReads = useMemo(
-    () => allBooks.filter((b) => bookChapterCount(b) >= 10).slice(0, 6),
-    [allBooks],
+    () => allBooks.filter((b) => bookChapterCount(b) >= 10).sort(compareBooks).slice(0, 6),
+    [allBooks, sortMode, progressMap],
   )
   const mostRead = useMemo(() => {
     const ids = new Set(Object.keys(progressMap))
-    return allBooks.filter((b) => ids.has(b.id)).slice(0, 6)
-  }, [allBooks, progressMap])
+    return allBooks.filter((b) => ids.has(b.id)).sort(compareBooks).slice(0, 6)
+  }, [allBooks, sortMode, progressMap])
 
   if (state.status === 'loading') {
     return (
@@ -375,26 +469,169 @@ export function LibraryPage() {
   }
 
   const { title } = state.data
-  const hasAnyResults = filteredSingles.length > 0 || filteredSeries.length > 0
+  const filteredSeriesCount = filteredSeries.reduce((acc, g) => acc + g.books.length, 0)
+  const totalResults = filteredSingles.length + filteredSeriesCount
+  const hasAnyResults = totalResults > 0
+
+  const trimmedQuery = query.trim()
+  const hasSearch = trimmedQuery.length > 0
+  const hasChipFilter = chip !== 'all'
+  const hasSortFilter = sortMode !== 'az'
+  const hasActiveFilters = hasSearch || hasChipFilter || hasSortFilter
+
+  const chipLabels: Record<FilterChip, string> = {
+    all: 'All',
+    unread: 'Unread',
+    'in-progress': 'In Progress',
+    bookmarked: 'Bookmarked',
+    short: 'Short',
+    long: 'Long',
+  }
+
+  const sortLabels: Record<SortMode, string> = {
+    az: 'A-Z',
+    za: 'Z-A',
+    'chapters-asc': 'Chapters low-high',
+    'chapters-desc': 'Chapters high-low',
+    recent: 'Recently read',
+  }
+
+  const displayQuery = trimmedQuery.length > 22 ? `${trimmedQuery.slice(0, 22)}...` : trimmedQuery
+
+  const resetAllFilters = () => {
+    setQuery('')
+    setChip('all')
+    setSortMode('az')
+  }
+
+  const resultsLabel = `${totalResults} result${totalResults === 1 ? '' : 's'}`
 
   return (
     <main className="page library-page">
       <header className="library-header">
         <h1>{title}</h1>
         <p className="muted">Search and pick a book or part</p>
-        <p className="library-goal-chip">
-          {streakDays > 0 ? `${streakDays}-day streak` : 'Start your reading streak'} · today {todayMinutes} min
-        </p>
+        <div className="library-goal-row">
+          <p className="library-goal-chip">
+            {streakDays > 0 ? `${streakDays}-day streak` : 'Start your reading streak'} · today {todayMinutes} min
+          </p>
+        </div>
+        <div className="library-header-divider" />
 
         <div className="library-search">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search books, parts, chapters..."
-            className="library-search-input"
-          />
+          <select
+            value={sortMode}
+            onChange={(e) => setSortMode(e.target.value as SortMode)}
+            className="library-sort-select"
+            aria-label="Sort books"
+          >
+            <option value="az">Sort: A-Z</option>
+            <option value="za">Sort: Z-A</option>
+            <option value="chapters-asc">Sort: Chapters low-high</option>
+            <option value="chapters-desc">Sort: Chapters high-low</option>
+            <option value="recent">Sort: Recently read</option>
+          </select>
         </div>
+        <div className="library-header-divider" />
+
+        <div className="library-filter-chips" role="group" aria-label="Quick filters">
+          {([
+            ['all', 'All'],
+            ['unread', 'Unread'],
+            ['in-progress', 'In Progress'],
+            ['bookmarked', 'Bookmarked'],
+            ['short', 'Short'],
+            ['long', 'Long'],
+          ] as Array<[FilterChip, string]>).map(([id, label]) => (
+            <button
+              type="button"
+              key={id}
+              className={chip === id ? 'library-filter-chip library-filter-chip--active' : 'library-filter-chip'}
+              onClick={() => setChip(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="library-header-meta" aria-live="polite">
+          <span className="library-results-count muted small">{resultsLabel}</span>
+          {hasActiveFilters ? (
+            <button type="button" className="library-clear-btn" onClick={resetAllFilters}>
+              Reset all
+            </button>
+          ) : null}
+        </div>
+
+        {hasActiveFilters ? (
+          <div className="library-active-badges" aria-label="Active filters">
+            {hasSearch ? (
+              <span className="library-filter-badge library-filter-badge--active">
+                Search: {displayQuery}
+                <button
+                  type="button"
+                  className="library-filter-badge-close"
+                  aria-label="Clear search"
+                  onClick={() => setQuery('')}
+                >
+                  x
+                </button>
+              </span>
+            ) : null}
+            {hasChipFilter ? (
+              <span className="library-filter-badge library-filter-badge--active">
+                Filter: {chipLabels[chip]}
+                <button
+                  type="button"
+                  className="library-filter-badge-close"
+                  aria-label="Clear filter"
+                  onClick={() => setChip('all')}
+                >
+                  x
+                </button>
+              </span>
+            ) : null}
+            {hasSortFilter ? (
+              <span className="library-filter-badge library-filter-badge--active">
+                Sort: {sortLabels[sortMode]}
+                <button
+                  type="button"
+                  className="library-filter-badge-close"
+                  aria-label="Reset sort"
+                  onClick={() => setSortMode('az')}
+                >
+                  x
+                </button>
+              </span>
+            ) : null}
+          </div>
+        ) : null}
       </header>
+
+      <section className="library-section" id="pinned">
+          <h2 className="library-section-title">Pinned books</h2>
+          {pinnedList.length ? (
+            <ul className="book-grid book-grid-in-series">
+              {pinnedList.map((book) => (
+                <li key={book.id}>
+                  <BookCard
+                    book={book}
+                    variant={book.partNumber ? 'part' : 'single'}
+                    progressMap={progressMap}
+                    cover={resolvedCover(book.id)}
+                    onShuffleCover={onShuffleCover}
+                    pinned={true}
+                    onTogglePin={onTogglePin}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="library-empty muted">
+              No pinned books yet. Pin a book to keep it here.
+            </p>
+          )}
+        </section>
 
       {installReady ? (
         <section className="library-section library-install-card">
@@ -406,20 +643,12 @@ export function LibraryPage() {
         </section>
       ) : null}
 
-      <section className="library-section">
-        <h2 className="library-section-title">Collections</h2>
-        <div className="library-collections-grid">
-          <CollectionStrip title="Short reads" books={shortReads} coverFor={resolvedCover} />
-          <CollectionStrip title="Long reads" books={longReads} coverFor={resolvedCover} />
-          <CollectionStrip title="Most read" books={mostRead} coverFor={resolvedCover} />
-        </div>
-      </section>
-
       {resumeEntries.length ? (
         <section className="library-section">
           <h2 className="library-section-title">Continue reading</h2>
-          <ul className="library-quick-list">
-            {resumeEntries.map((e) => (
+          <p className="library-continue-sub muted small">Last read</p>
+          <ul className="library-quick-list library-quick-list--horizontal">
+            {sortedResumeEntries.map((e) => (
               <li key={e.key}>
                 <Link className="quick-card" to={`/read/${e.book.id}/${e.chapterId}`}>
                   <img className="quick-card-cover" src={resolvedCover(e.book.id)} alt={`${e.book.title} cover`} loading="lazy" />
@@ -441,10 +670,10 @@ export function LibraryPage() {
       )}
 
       {bookmarkEntries.length ? (
-        <section className="library-section">
+        <section className="library-section" id="bookmarks">
           <h2 className="library-section-title">Bookmarks</h2>
           <ul className="library-quick-list">
-            {bookmarkEntries.map((e) => (
+            {sortedBookmarkEntries.map((e) => (
               <li key={e.key}>
                 <Link className="quick-card" to={`/read/${e.book.id}/${e.chapterId}`}>
                   <img className="quick-card-cover" src={resolvedCover(e.book.id)} alt={`${e.book.title} cover`} loading="lazy" />
@@ -457,7 +686,7 @@ export function LibraryPage() {
           </ul>
         </section>
       ) : (
-        <section className="library-section">
+        <section className="library-section" id="bookmarks">
           <h2 className="library-section-title">Bookmarks</h2>
           <p className="library-empty muted">
             No bookmarks yet. Use the bookmark icon while reading to save chapters.
@@ -474,9 +703,9 @@ export function LibraryPage() {
           <button
             type="button"
             className="library-empty-cta library-empty-cta-button"
-            onClick={() => setQuery('')}
+            onClick={resetAllFilters}
           >
-            Clear search
+            Reset filters
           </button>
         </section>
       ) : null}
@@ -494,7 +723,7 @@ export function LibraryPage() {
               <ul className="book-grid book-grid-in-series">
                 {filteredSingles.map((book) => (
                   <li key={book.id}>
-                    <BookCard book={book} variant="single" progressMap={progressMap} cover={resolvedCover(book.id)} onShuffleCover={onShuffleCover} />
+                    <BookCard book={book} variant="single" progressMap={progressMap} cover={resolvedCover(book.id)} onShuffleCover={onShuffleCover} pinned={pinnedBooks.includes(book.id)} onTogglePin={onTogglePin} />
                   </li>
                 ))}
               </ul>
@@ -517,7 +746,7 @@ export function LibraryPage() {
               <ul className="book-grid book-grid-in-series">
                 {books.map((book) => (
                   <li key={book.id}>
-                    <BookCard book={book} variant="part" progressMap={progressMap} cover={resolvedCover(book.id)} onShuffleCover={onShuffleCover} />
+                    <BookCard book={book} variant="part" progressMap={progressMap} cover={resolvedCover(book.id)} onShuffleCover={onShuffleCover} pinned={pinnedBooks.includes(book.id)} onTogglePin={onTogglePin} />
                   </li>
                 ))}
               </ul>
@@ -525,6 +754,15 @@ export function LibraryPage() {
           </li>
         ))}
       </ul>
+
+      <section className="library-section">
+        <h2 className="library-section-title">Collections</h2>
+        <div className="library-collections-grid">
+          <CollectionStrip title="Short reads" books={shortReads} coverFor={resolvedCover} />
+          <CollectionStrip title="Long reads" books={longReads} coverFor={resolvedCover} />
+          <CollectionStrip title="Most read" books={mostRead} coverFor={resolvedCover} />
+        </div>
+      </section>
     </main>
   )
 }

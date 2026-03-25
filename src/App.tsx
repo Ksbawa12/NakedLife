@@ -1,14 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { TextSizeToggle } from './components/TextSizeToggle'
 import { LibraryProvider } from './context/LibraryContext'
 import { LibraryPage } from './pages/LibraryPage'
+import { NotesPage } from './pages/NotesPage'
 import { ReadPage } from './pages/ReadPage'
 import { isBookmarked } from './utils/readerStorage'
 
 function App() {
   const location = useLocation()
   const [navBookmarked, setNavBookmarked] = useState(false)
+  const [libraryQuery, setLibraryQuery] = useState('')
+  const navSearchRef = useRef<HTMLInputElement | null>(null)
 
   const readRoute = useMemo(() => {
     const m = location.pathname.match(/^\/read\/([^/]+)\/([^/]+)$/)
@@ -16,6 +19,7 @@ function App() {
     return { bookId: decodeURIComponent(m[1]), chapterId: decodeURIComponent(m[2]) }
   }, [location.pathname])
   const isReadView = location.pathname.startsWith('/read/')
+  const isLibraryView = location.pathname === '/'
 
   useEffect(() => {
     document.documentElement.dataset.theme = 'reading'
@@ -28,6 +32,35 @@ function App() {
     }
     setNavBookmarked(isBookmarked(readRoute.bookId, readRoute.chapterId))
   }, [readRoute])
+
+  useEffect(() => {
+    if (!isLibraryView) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      const tag = target?.tagName?.toLowerCase()
+      const isTyping =
+        tag === 'input' ||
+        tag === 'textarea' ||
+        tag === 'select' ||
+        Boolean(target && (target as HTMLElement).isContentEditable)
+
+      if (e.key === '/' && !isTyping && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault()
+        navSearchRef.current?.focus()
+        return
+      }
+
+      if (e.key === 'Escape' && libraryQuery.trim().length > 0) {
+        e.preventDefault()
+        setLibraryQuery('')
+        navSearchRef.current?.blur()
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isLibraryView, libraryQuery])
 
   useEffect(() => {
     const onBookmarkState = (e: Event) => {
@@ -59,8 +92,41 @@ function App() {
       <div className="app">
         <header className="app-header">
           <NavBrand />
+          {isLibraryView ? (
+            <div className="app-header-center">
+              <input
+                value={libraryQuery}
+                onChange={(e) => setLibraryQuery(e.target.value)}
+                placeholder="Search books, parts, chapters..."
+                className="nav-search-input"
+                aria-label="Search books"
+                ref={navSearchRef}
+              />
+            </div>
+          ) : null}
           <div className="app-header-actions">
             {isReadView ? <TextSizeToggle /> : null}
+            {!isReadView ? (
+              <>
+                <Link to="/notes" className="nav-notes-btn" aria-label="Open notes">
+                  Notes
+                </Link>
+                <Link
+                  to="/#pinned"
+                  className="nav-quick-btn nav-quick-btn--mobile-hide"
+                  aria-label="Jump to pinned books"
+                >
+                  Pinned
+                </Link>
+                <Link
+                  to="/#bookmarks"
+                  className="nav-quick-btn nav-quick-btn--mobile-hide"
+                  aria-label="Jump to bookmarks"
+                >
+                  Bookmarks
+                </Link>
+              </>
+            ) : null}
             {readRoute ? (
               <button
                 type="button"
@@ -110,7 +176,8 @@ function App() {
         </header>
         <div className="app-body">
           <Routes>
-            <Route path="/" element={<LibraryPage />} />
+            <Route path="/" element={<LibraryPage navQuery={libraryQuery} onNavQueryChange={setLibraryQuery} />} />
+            <Route path="/notes" element={<NotesPage />} />
             <Route path="/read/:bookId/:chapterId" element={<ReadPage />} />
             <Route path="/read/:bookId" element={<ReadPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
