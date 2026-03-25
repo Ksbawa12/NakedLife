@@ -13,5 +13,9 @@ export default defineConfig({
     fs: {
       allow: [repoRoot],
     },
+    // Symlinked manuscript tree under public/Stories — do not watch (avoids restarts, false tsconfig hits)
+    watch: {
+      ignored: ['**/public/Stories/**'],
+    },
   },
 })
