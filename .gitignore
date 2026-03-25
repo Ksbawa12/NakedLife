@@ -9,6 +9,12 @@ lerna-debug.log*
 
 node_modules
 dist
+
+# Created at build time; must point at repo manuscript root (see scripts/generate-library.mjs)
+public/Stories
+
+# Generated: symlinks from each book folder into a stable Stories/ path (see generate-library.mjs)
+Stories/
 dist-ssr
 *.local
 

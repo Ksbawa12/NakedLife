@@ -4,10 +4,8 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, '..')
-const storiesRootPreferred = path.join(repoRoot, 'Stories')
-const storiesRoot = fs.existsSync(storiesRootPreferred)
-  ? storiesRootPreferred
-  : repoRoot
+/** Canonical manuscript root: symlinks to each book folder under repo root (never symlink repo root into public — Vite would copy .git). */
+const storiesRoot = path.join(repoRoot, 'Stories')
 
 const SCAN_SKIP_DIRS = new Set([
   'node_modules',
@@ -38,31 +36,74 @@ function extractPartNumber(basename) {
   return m ? parseInt(m[1], 10) : null
 }
 
+function materializeStoriesFromRepoRoot() {
+  fs.mkdirSync(storiesRoot, { recursive: true })
+  let entries
+  try {
+    entries = fs.readdirSync(repoRoot, { withFileTypes: true })
+  } catch {
+    return
+  }
+  for (const e of entries) {
+    if (!e.isDirectory()) continue
+    if (SCAN_SKIP_DIRS.has(e.name)) continue
+    if (e.name === 'Stories') continue
+    if (e.name.startsWith('.')) continue
+    const src = path.join(repoRoot, e.name)
+    const dst = path.join(storiesRoot, e.name)
+    if (fs.existsSync(dst)) continue
+    if (walkDocx(src).length === 0) continue
+    const rel = path.relative(storiesRoot, src).split(path.sep).join('/')
+    try {
+      fs.symlinkSync(rel, dst, 'dir')
+      console.log(`[generate-library] Linked Stories/${e.name} → ${src}`)
+    } catch (err) {
+      console.warn(`[generate-library] could not link Stories/${e.name}:`, err.message)
+    }
+  }
+}
+
 function ensureStoriesSymlink() {
   if (!fs.existsSync(storiesRoot)) {
     console.warn(`[generate-library] Stories folder not found: ${storiesRoot}`)
     return false
   }
+  const target = path
+    .relative(path.dirname(storiesLink), storiesRoot)
+    .split(path.sep)
+    .join('/')
+
   try {
-    if (fs.existsSync(storiesLink)) {
-      const stat = fs.lstatSync(storiesLink)
-      if (stat.isSymbolicLink()) {
+    const stat = fs.lstatSync(storiesLink)
+    if (stat.isSymbolicLink()) {
+      const resolvedCurrent = path.resolve(
+        path.dirname(storiesLink),
+        fs.readlinkSync(storiesLink),
+      )
+      const resolvedWant = path.resolve(storiesRoot)
+      if (resolvedCurrent === resolvedWant) {
         return true
       }
-      if (stat.isDirectory()) {
-        console.warn(
-          `[generate-library] ${storiesLink} exists and is not a symlink; remove it or link Stories manually.`,
-        )
-        return false
-      }
+      fs.unlinkSync(storiesLink)
+    } else if (stat.isDirectory()) {
+      console.warn(
+        `[generate-library] ${storiesLink} exists and is not a symlink; remove it or link Stories manually.`,
+      )
+      return false
     }
-  } catch {
-    /* ignore */
+  } catch (e) {
+    if (e && e.code !== 'ENOENT') {
+      console.warn('[generate-library] ensureStoriesSymlink:', e)
+    }
   }
 
-  const target = path.relative(path.dirname(storiesLink), storiesRoot)
-  fs.symlinkSync(target, storiesLink, 'dir')
-  console.log(`[generate-library] Linked public/Stories → ${storiesRoot}`)
+  try {
+    fs.symlinkSync(target, storiesLink, 'dir')
+    console.log(`[generate-library] Linked public/Stories → ${storiesRoot}`)
+  } catch (e) {
+    console.warn('[generate-library] could not create public/Stories symlink:', e.message)
+    return false
+  }
   return true
 }
 
@@ -233,29 +274,20 @@ async function chaptersFromRows(
 }
 
 async function main() {
-  if (!fs.existsSync(storiesRoot)) {
-    const fallback = {
-      title: 'Naked Stories',
-      books: [],
-      _error: `Stories folder missing: ${storiesRoot}`,
-    }
-    fs.mkdirSync(publicDir, { recursive: true })
-    fs.writeFileSync(outFile, JSON.stringify(fallback, null, 2))
-    console.error(`[generate-library] ${fallback._error}`)
-    process.exitCode = 1
-    return
-  }
-
+  materializeStoriesFromRepoRoot()
   ensureStoriesSymlink()
 
   const bookDirs = fs
     .readdirSync(storiesRoot, { withFileTypes: true })
-    .filter(
-      (d) =>
-        d.isDirectory() &&
-        !SCAN_SKIP_DIRS.has(d.name) &&
-        !d.name.startsWith('.'),
-    )
+    .filter((d) => {
+      if (d.name.startsWith('.')) return false
+      if (SCAN_SKIP_DIRS.has(d.name)) return false
+      try {
+        return fs.statSync(path.join(storiesRoot, d.name)).isDirectory()
+      } catch {
+        return false
+      }
+    })
     .map((d) => d.name)
     .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
 
