@@ -987,6 +987,156 @@
       ]
     },
     {
+      "id": "the-secret-life-of-the-singhs-part-1",
+      "title": "The Secret Life of the Singhs",
+      "subtitle": "Part 1",
+      "manuscriptKey": "the-secret-life-of-the-singhs",
+      "partNumber": 1,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-1-the-weight-of-the-armor",
+              "title": "Chapter 1 The Weight of the Armor",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 1 The Weight of the Armor.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-2-the-debugging-of-my-life",
+              "title": "Chapter 2 The Debugging of My Life",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 2 The Debugging of My Life.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-3-the-observation-phase",
+              "title": "Chapter 3 The Observation Phase",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 3 The Observation Phase.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-4-the-robe-protocol",
+              "title": "Chapter 4 The Robe Protocol",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 4 The Robe Protocol.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-5-the-external-server",
+              "title": "Chapter 5 The External Server",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 5 The External Server.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-1--chapter-6-the-trusted-network",
+              "title": "Chapter 6 The Trusted Network",
+              "file": "Stories/The Secret Life of the Singhs/Chapter 6 The Trusted Network.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-secret-life-of-the-singhs-part-2",
+      "title": "The Secret Life of the Singhs",
+      "subtitle": "Part 2",
+      "manuscriptKey": "the-secret-life-of-the-singhs",
+      "partNumber": 2,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-secret-life-of-the-singhs-part-2--part-2-chapter-1-the-gated-sanctuary",
+              "title": "Part 2 Chapter 1 The Gated Sanctuary",
+              "file": "Stories/The Secret Life of the Singhs/Part 2 Chapter 1 The Gated Sanctuary.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-2--part-2-chapter-2-the-transparency-protocol",
+              "title": "Part 2 Chapter 2 The Transparency Protocol",
+              "file": "Stories/The Secret Life of the Singhs/Part 2 Chapter 2 The Transparency Protocol.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-2--part-2-chapter-3-the-golden-protocol",
+              "title": "Part 2 Chapter 3 The Golden Protocol",
+              "file": "Stories/The Secret Life of the Singhs/Part 2 Chapter 3 The Golden Protocol.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-2--part-2-chapter-4-the-parallel-honeymoon",
+              "title": "Part 2 Chapter 4 The Parallel Honeymoon",
+              "file": "Stories/The Secret Life of the Singhs/Part 2 Chapter 4 The Parallel Honeymoon.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-secret-life-of-the-singhs-part-3",
+      "title": "The Secret Life of the Singhs",
+      "subtitle": "Part 3",
+      "manuscriptKey": "the-secret-life-of-the-singhs",
+      "partNumber": 3,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-secret-life-of-the-singhs-part-3--part-3-chapter-1-the-high-availability-household",
+              "title": "Part 3 Chapter 1 The High-Availability Household",
+              "file": "Stories/The Secret Life of the Singhs/Part 3 Chapter 1 The High-Availability Household.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-3--part-3-chapter-2-the-synchronized-release",
+              "title": "Part 3 Chapter 2 The Synchronized Release",
+              "file": "Stories/The Secret Life of the Singhs/Part 3 Chapter 2 The Synchronized Release.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-3--part-3-chapter-3-the-insfrastructure-deal",
+              "title": "Part 3 Chapter 3 The Insfrastructure Deal",
+              "file": "Stories/The Secret Life of the Singhs/Part 3 Chapter 3 The Insfrastructure Deal.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-3--part-3-chapter-4-the-silent-patch",
+              "title": "Part 3 Chapter 4 The Silent Patch",
+              "file": "Stories/The Secret Life of the Singhs/Part 3 Chapter 4 The Silent Patch.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-3--part-3-chapter-5-the-international-roaming",
+              "title": "Part 3 Chapter 5 The International Roaming",
+              "file": "Stories/The Secret Life of the Singhs/Part 3 Chapter 5 The International Roaming.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-secret-life-of-the-singhs-part-4",
+      "title": "The Secret Life of the Singhs",
+      "subtitle": "Part 4",
+      "manuscriptKey": "the-secret-life-of-the-singhs",
+      "partNumber": 4,
+      "sections": [
+        {
+          "id": "chapters",
+          "title": "Chapters",
+          "chapters": [
+            {
+              "id": "the-secret-life-of-the-singhs-part-4--part-4-chapter-1-the-identity-less-launch",
+              "title": "Part 4 Chapter 1 The Identity-Less Launch",
+              "file": "Stories/The Secret Life of the Singhs/Part 4 Chapter 1 The Identity-Less Launch.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-4--part-4-chapter-2-the-physical-connection",
+              "title": "Part 4 Chapter 2 The Physical Connection",
+              "file": "Stories/The Secret Life of the Singhs/Part 4 Chapter 2 The Physical Connection.docx"
+            },
+            {
+              "id": "the-secret-life-of-the-singhs-part-4--part-4-chapter-3-the-european-deployment",
+              "title": "Part 4 Chapter 3 The European Deployment",
+              "file": "Stories/The Secret Life of the Singhs/Part 4 Chapter 3 The European Deployment.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "the-silk-horizon",
       "title": "The Silk Horizon",
       "manuscriptKey": "the-silk-horizon",

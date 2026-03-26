@@ -14,9 +14,19 @@
 }
 
 :root,
-:root[data-theme='reading'],
-:root[data-theme='light'],
-:root[data-theme='dark'] {
+:root[data-theme='light'] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --text: #221d16;
+  --text-muted: #675f53;
+  --border: #ece6da;
+  --line: #ece6da;
+  --accent: #8d6e45;
+  --accent-soft: rgba(141, 110, 69, 0.14);
+  --error: #b91c1c;
+}
+
+:root[data-theme='reading'] {
   --bg: #f2eee4;
   --surface: #fffdf8;
   --text: #221d16;
@@ -28,6 +38,18 @@
   --error: #b91c1c;
 }
 
+:root[data-theme='dark'] {
+  --bg: #12100f;
+  --surface: #1a1714;
+  --text: #f2ede4;
+  --text-muted: #b9aea0;
+  --border: #3a2f27;
+  --line: #3a2f27;
+  --accent: #d3ab6f;
+  --accent-soft: rgba(211, 171, 111, 0.18);
+  --error: #ef4444;
+}
+
 *,
 *::before,
 *::after {
@@ -36,6 +58,10 @@
 
 html {
   color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 body {
@@ -466,6 +492,9 @@ body.reading-hide-header .app-header {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .library-results-count {
@@ -495,6 +524,9 @@ body.reading-hide-header .app-header {
   align-items: center;
   gap: 0.4rem;
   flex-wrap: wrap;
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .library-filter-badge {
@@ -583,6 +615,15 @@ body.reading-hide-header .app-header {
 
 .library-filter-chips {
   margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.library-recent-searches {
+  margin: 0.85rem auto 0;
+  max-width: 44rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -721,10 +762,34 @@ body.reading-hide-header .app-header {
   background: var(--surface);
 }
 
+.library-collection-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
 .library-collection-title {
   margin: 0 0 0.45rem;
   font-size: 0.92rem;
   color: var(--text-muted);
+}
+
+.library-collection-filter {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.library-collection-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .library-collection-list {
@@ -1131,6 +1196,42 @@ code {
   background: var(--surface);
 }
 
+.highlight-colors {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.highlight-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--border) 70%, var(--text) 30%);
+  cursor: pointer;
+  padding: 0;
+}
+
+.highlight-color--active {
+  outline: 2px solid color-mix(in oklab, var(--accent) 70%, white 30%);
+  outline-offset: 2px;
+}
+
+.highlight-color--sand {
+  background: #e6d5b8;
+}
+.highlight-color--gold {
+  background: #f6d365;
+}
+.highlight-color--mint {
+  background: #a7f3d0;
+}
+.highlight-color--sky {
+  background: #93c5fd;
+}
+.highlight-color--rose {
+  background: #fda4af;
+}
+
 .read-note-input {
   min-width: 200px;
   flex: 1;
@@ -1239,6 +1340,22 @@ code {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1rem;
+}
+
+.chapters-search-input {
+  width: 100%;
+  margin: 0 0 0.85rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 90%, transparent);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.chapters-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .chapters-drawer-head {
@@ -1373,6 +1490,22 @@ code {
   margin: 0 auto;
   width: 100%;
   min-width: 0;
+}
+
+body.reader-night-mode .read-main {
+  background: #14110f;
+  border: 1px solid color-mix(in oklab, var(--border) 75%, #000 25%);
+  border-radius: 16px;
+  margin-top: 0.85rem;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+body.reader-night-mode .prose {
+  color: color-mix(in oklab, var(--text) 92%, #fff 8%);
+}
+
+body.reader-night-mode .read-progress-line {
+  opacity: 0.92;
 }
 
 .read-top-tools {
@@ -1580,10 +1713,19 @@ body.reading-hide-header .read-progress-line {
 @media (max-width: 640px) {
   .app-header {
     padding: 0.7rem 0.95rem;
+    flex-wrap: wrap;
   }
 
   .app-header-center {
-    display: none;
+    display: flex;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.6rem;
+  }
+
+  .nav-search-input {
+    width: min(520px, 100%);
   }
 
   .nav-quick-btn--mobile-hide {
@@ -1749,4 +1891,305 @@ body.reader-font-sans .prose {
   font-family: var(--font-serif);
   font-weight: 600;
   margin: 1.25em 0 0.5em;
+}
+
+/* Find in chapter */
+mark.reader-chapter-search {
+  background: color-mix(in oklab, var(--accent-soft) 85%, var(--accent) 15%);
+  color: inherit;
+  padding: 0 0.1em;
+  border-radius: 3px;
+}
+
+mark.reader-chapter-search--active {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+body.reader-night-mode mark.reader-chapter-search {
+  background: rgba(211, 171, 111, 0.28);
+}
+
+body.reader-night-mode mark.reader-chapter-search--active {
+  outline-color: #e8c48a;
+}
+
+.read-find-row {
+  flex: 1 1 280px;
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.read-chapter-find-input {
+  flex: 1 1 140px;
+  min-width: 120px;
+  max-width: 220px;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.read-chapter-find-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.read-find-meta {
+  white-space: nowrap;
+}
+
+.read-log-minutes-label {
+  margin-left: 0.35rem;
+  margin-right: -0.15rem;
+  align-self: center;
+}
+
+/* Reading ruler (follows pointer) */
+body.reading-ruler-active::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--reading-ruler-y, 50vh);
+  height: 3px;
+  margin-top: -1px;
+  background: color-mix(in oklab, var(--accent) 50%, transparent);
+  pointer-events: none;
+  z-index: 10000;
+  box-shadow: 0 0 14px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.read-outline-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.85rem;
+  background: var(--surface);
+  max-height: 220px;
+  overflow: auto;
+}
+
+.read-outline-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.read-outline-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.read-outline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.read-outline-item {
+  margin: 0.15rem 0;
+}
+
+.read-outline-item--h1 .read-outline-link {
+  font-weight: 600;
+}
+
+.read-outline-item--h2 .read-outline-link {
+  padding-left: 0.35rem;
+}
+
+.read-outline-item--h3 .read-outline-link,
+.read-outline-item--h4 .read-outline-link {
+  padding-left: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.read-outline-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  font: inherit;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.2rem 0;
+  border-radius: 6px;
+}
+
+.read-outline-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.command-palette {
+  max-width: 420px;
+  width: calc(100% - 2rem);
+  padding: 0.85rem 1rem 0.65rem;
+}
+
+.command-palette-input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.command-palette-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.command-palette-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: min(50vh, 320px);
+  overflow: auto;
+}
+
+.command-palette-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.45rem 0.35rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.command-palette-item:hover {
+  background: var(--accent-soft);
+}
+
+.command-palette-title {
+  font-weight: 600;
+}
+
+.command-palette-sub {
+  font-size: 0.82rem;
+}
+
+.command-palette-hint {
+  margin: 0.5rem 0 0;
+  line-height: 1.35;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0.12rem 0.38rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.78rem;
+  font-family: ui-monospace, monospace;
+}
+
+.shortcuts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shortcuts-list li {
+  margin: 0.5rem 0;
+  line-height: 1.45;
+}
+
+.offline-indicator {
+  margin-right: 0.35rem;
+  opacity: 0.85;
+}
+
+.library-week-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 44px;
+  margin: 0.35rem 0 0;
+  padding: 0 0.15rem;
+}
+
+.library-week-bar-wrap {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+}
+
+.library-week-bar {
+  width: 100%;
+  max-width: 18px;
+  border-radius: 4px 4px 2px 2px;
+  background: color-mix(in oklab, var(--accent) 55%, var(--border));
+  min-height: 8px;
+  transition: height 0.2s ease-out;
+}
+
+.notes-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  align-items: flex-end;
+  margin-top: 0.65rem;
+}
+
+.notes-filter-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.notes-filter-select {
+  min-width: 160px;
+}
+
+.notes-tags-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.45rem;
+}
+
+.notes-tags-input {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.notes-export-btn {
+  align-self: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none;
+    background: color-mix(in oklab, var(--border) 80%, var(--text-muted) 20%);
+  }
+
+  .read-progress-line-fill {
+    transition: none;
+  }
 }

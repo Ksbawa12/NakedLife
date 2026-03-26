@@ -9,16 +9,21 @@ import {
   findChapter,
   hasChapter,
   chapterDisplayTitle,
+  chaptersInOrder,
 } from '../utils/book'
 import type { Book } from '../types/library'
 import type { ManuscriptGroup } from '../utils/book'
 import {
+  getLast7DaysMinutes,
+  getMinutesThisWeek,
   getReadingStreakDays,
   getTodayReadMinutes,
   loadBookmarks,
   loadCoverOverrides,
+  loadLibraryView,
   loadPinnedBooks,
   loadProgressMap,
+  saveLibraryView,
   setCoverOverride,
   togglePinnedBook,
 } from '../utils/readerStorage'
@@ -40,8 +45,45 @@ const CARD_COVERS = [
 ]
 
 const DEFAULT_BOOK_COVER = '/books/naked-family-cover.png'
-type SortMode = 'az' | 'za' | 'chapters-asc' | 'chapters-desc' | 'recent'
+type SortMode =
+  | 'az'
+  | 'za'
+  | 'chapters-asc'
+  | 'chapters-desc'
+  | 'recent'
+  | 'unread-first'
+  | 'shortest'
+  | 'longest'
+  | 'pinned-first'
 type FilterChip = 'all' | 'unread' | 'in-progress' | 'bookmarked' | 'short' | 'long'
+
+const SORT_VALUES: SortMode[] = [
+  'az',
+  'za',
+  'chapters-asc',
+  'chapters-desc',
+  'recent',
+  'unread-first',
+  'shortest',
+  'longest',
+  'pinned-first',
+]
+const CHIP_VALUES: FilterChip[] = [
+  'all',
+  'unread',
+  'in-progress',
+  'bookmarked',
+  'short',
+  'long',
+]
+
+function parseSortMode(value: string): SortMode {
+  return SORT_VALUES.includes(value as SortMode) ? (value as SortMode) : 'az'
+}
+
+function parseFilterChip(value: string): FilterChip {
+  return CHIP_VALUES.includes(value as FilterChip) ? (value as FilterChip) : 'all'
+}
 
 function hashIndex(seed: string, length: number) {
   let hash = 0
@@ -54,6 +96,30 @@ function hashIndex(seed: string, length: number) {
 function coverForBook(bookId: string) {
   if (!CARD_COVERS.length) return DEFAULT_BOOK_COVER
   return CARD_COVERS[hashIndex(bookId, CARD_COVERS.length)]
+}
+
+function progressPct(book: Book, chapterId?: string) {
+  if (!chapterId) return 0
+  const flat = chaptersInOrder(book)
+  const idx = flat.findIndex((x) => x.chapter.id === chapterId)
+  if (idx < 0 || flat.length <= 1) return 0
+  return Math.round(((idx + 1) / flat.length) * 100)
+}
+
+function formatLastRead(ts?: number) {
+  if (!ts) return null
+  const diff = Date.now() - ts
+  const min = Math.round(diff / 60000)
+  if (min < 2) return 'Just now'
+  if (min < 60) return `${min}m ago`
+  const hrs = Math.round(min / 60)
+  if (hrs < 36) return `${hrs}h ago`
+  const days = Math.round(hrs / 24)
+  if (days < 14) return `${days}d ago`
+  const weeks = Math.round(days / 7)
+  if (weeks < 10) return `${weeks}w ago`
+  const months = Math.round(days / 30)
+  return `${months}mo ago`
 }
 
 function nextCover(bookId: string, current?: string) {
@@ -85,6 +151,8 @@ function BookCard({
   const chapters = bookChapterCount(book)
   const to = first ? `/read/${book.id}/${first.id}` : `/read/${book.id}`
   const progress = progressMap[book.id]
+  const pct = progressPct(book, progress?.chapterId)
+  const lastRead = formatLastRead((progressMap as Record<string, { updatedAt?: number }>)[book.id]?.updatedAt)
   const continueTo =
     progress && hasChapter(book, progress.chapterId)
       ? `/read/${book.id}/${progress.chapterId}`
@@ -132,11 +200,20 @@ function BookCard({
 
   return (
     <article className="book-card">
+      {pct > 0 ? (
+        <div
+          className="book-progress-ring"
+          style={{ ['--progress' as string]: `${pct}%` }}
+          aria-label={`Progress ${pct} percent`}
+          title={`Progress ${pct}%`}
+        />
+      ) : null}
       <img className="book-card-cover" src={cover} alt={`${book.title} cover`} loading="lazy" />
       <span className="book-card-title">{book.title}</span>
       {book.subtitle ? (
         <span className="book-card-sub muted">{book.subtitle}</span>
       ) : null}
+      {lastRead ? <span className="muted small">Last read {lastRead}</span> : null}
       {continueTo ? (
         <span className="book-card-continue muted small">Continue where you left off</span>
       ) : null}
@@ -177,15 +254,24 @@ function CollectionStrip({
   title,
   books,
   coverFor,
+  onFilter,
 }: {
   title: string
   books: Book[]
   coverFor: (bookId: string) => string
+  onFilter?: () => void
 }) {
   if (!books.length) return null
   return (
     <section className="library-collection">
-      <h3 className="library-collection-title">{title}</h3>
+      <div className="library-collection-head">
+        <h3 className="library-collection-title">{title}</h3>
+        {onFilter ? (
+          <button type="button" className="library-collection-filter" onClick={onFilter}>
+            Filter
+          </button>
+        ) : null}
+      </div>
       <ul className="library-collection-list">
         {books.map((book) => {
           const first = firstChapter(book)
@@ -207,9 +293,13 @@ function CollectionStrip({
 export function LibraryPage({
   navQuery,
   onNavQueryChange,
+  recentSearches,
+  onCommitSearch,
 }: {
   navQuery?: string
   onNavQueryChange?: (value: string) => void
+  recentSearches?: string[]
+  onCommitSearch?: (value: string) => void
 }) {
   const { state } = useLibrary()
   const location = useLocation()
@@ -224,6 +314,17 @@ export function LibraryPage({
     () => loadCoverOverrides(),
   )
   const [pinnedBooks, setPinnedBooks] = useState<string[]>(() => loadPinnedBooks())
+
+  useEffect(() => {
+    const saved = loadLibraryView()
+    if (!saved) return
+    setSortMode(parseSortMode(saved.sortMode))
+    setChip(parseFilterChip(saved.chip))
+  }, [])
+
+  useEffect(() => {
+    saveLibraryView({ sortMode, chip })
+  }, [sortMode, chip])
 
   useEffect(() => {
     const onBeforeInstall = (e: Event) => {
@@ -288,6 +389,20 @@ export function LibraryPage({
     if (sortMode === 'za') return -alpha
     if (sortMode === 'chapters-asc') return bookChapterCount(a) - bookChapterCount(b) || alpha
     if (sortMode === 'chapters-desc') return bookChapterCount(b) - bookChapterCount(a) || alpha
+    if (sortMode === 'shortest') return bookChapterCount(a) - bookChapterCount(b) || alpha
+    if (sortMode === 'longest') return bookChapterCount(b) - bookChapterCount(a) || alpha
+    if (sortMode === 'unread-first') {
+      const aHas = Boolean(progressMap[a.id])
+      const bHas = Boolean(progressMap[b.id])
+      if (aHas !== bHas) return aHas ? 1 : -1
+      return alpha
+    }
+    if (sortMode === 'pinned-first') {
+      const aPinned = pinnedBooks.includes(a.id)
+      const bPinned = pinnedBooks.includes(b.id)
+      if (aPinned !== bPinned) return aPinned ? -1 : 1
+      return alpha
+    }
     const aUpdated = progressMap[a.id]?.updatedAt ?? 0
     const bUpdated = progressMap[b.id]?.updatedAt ?? 0
     return bUpdated - aUpdated || alpha
@@ -396,7 +511,7 @@ export function LibraryPage({
           return hay.includes(q)
         })
     return [...base].filter(matchesChip).sort(compareBooks)
-  }, [singles, query, sortMode, progressMap, chip, bookmarkEntries])
+  }, [singles, query, sortMode, progressMap, chip, bookmarkEntries, pinnedBooks])
 
   const filteredSeries = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -419,7 +534,7 @@ export function LibraryPage({
     }))
       .filter((g) => g.books.length > 0)
     return sortedGroups.sort((a, b) => compareBooks(a.books[0], b.books[0]))
-  }, [series, query, sortMode, progressMap, chip, bookmarkEntries])
+  }, [series, query, sortMode, progressMap, chip, bookmarkEntries, pinnedBooks])
 
   const sortedResumeEntries = useMemo(() => {
     if (sortMode === 'recent') return resumeEntries
@@ -438,16 +553,38 @@ export function LibraryPage({
   )
   const shortReads = useMemo(
     () => allBooks.filter((b) => bookChapterCount(b) <= 6).sort(compareBooks).slice(0, 6),
-    [allBooks, sortMode, progressMap],
+    [allBooks, sortMode, progressMap, pinnedBooks],
   )
   const longReads = useMemo(
     () => allBooks.filter((b) => bookChapterCount(b) >= 10).sort(compareBooks).slice(0, 6),
-    [allBooks, sortMode, progressMap],
+    [allBooks, sortMode, progressMap, pinnedBooks],
   )
   const mostRead = useMemo(() => {
     const ids = new Set(Object.keys(progressMap))
     return allBooks.filter((b) => ids.has(b.id)).sort(compareBooks).slice(0, 6)
-  }, [allBooks, sortMode, progressMap])
+  }, [allBooks, sortMode, progressMap, pinnedBooks])
+
+  const shortUnread = useMemo(() => {
+    return allBooks
+      .filter((b) => !progressMap[b.id] && bookChapterCount(b) <= 6)
+      .sort(compareBooks)
+      .slice(0, 6)
+  }, [allBooks, sortMode, progressMap, pinnedBooks])
+
+  const almostDone = useMemo(() => {
+    return allBooks
+      .filter((b) => {
+        const p = progressMap[b.id]
+        if (!p || !hasChapter(b, p.chapterId)) return false
+        return progressPct(b, p.chapterId) >= 70
+      })
+      .sort(compareBooks)
+      .slice(0, 6)
+  }, [allBooks, sortMode, progressMap, pinnedBooks])
+
+  const weekMinutes = getMinutesThisWeek()
+  const last7 = getLast7DaysMinutes()
+  const maxDayMin = Math.max(1, ...last7.map((d) => d.minutes))
 
   if (state.status === 'loading') {
     return (
@@ -494,6 +631,10 @@ export function LibraryPage({
     'chapters-asc': 'Chapters low-high',
     'chapters-desc': 'Chapters high-low',
     recent: 'Recently read',
+    'unread-first': 'Unread first',
+    shortest: 'Shortest',
+    longest: 'Longest',
+    'pinned-first': 'Pinned first',
   }
 
   const displayQuery = trimmedQuery.length > 22 ? `${trimmedQuery.slice(0, 22)}...` : trimmedQuery
@@ -504,7 +645,20 @@ export function LibraryPage({
     setSortMode('az')
   }
 
-  const resultsLabel = `${totalResults} result${totalResults === 1 ? '' : 's'}`
+  const applyCollectionFilter = (next: FilterChip) => {
+    setChip(next)
+    if (location.hash !== '#catalog') {
+      try {
+        window.history.replaceState(null, '', '#catalog')
+      } catch {
+        /* ignore */
+      }
+    }
+    const el = document.getElementById('catalog')
+    el?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
+  }
+
+  const resultsLabel = totalResults === 1 ? 'Result: 1' : `Results: ${totalResults}`
 
   return (
     <main className="page library-page">
@@ -514,9 +668,42 @@ export function LibraryPage({
         <div className="library-goal-row">
           <p className="library-goal-chip">
             {streakDays > 0 ? `${streakDays}-day streak` : 'Start your reading streak'} · today {todayMinutes} min
+            {' · '}
+            <span title="Rolling last 7 days">this week {weekMinutes} min</span>
           </p>
         </div>
+        <div className="library-week-chart" aria-label="Reading last 7 days">
+          {last7
+            .slice()
+            .reverse()
+            .map((d) => (
+              <div key={d.day} className="library-week-bar-wrap" title={`${d.day}: ${d.minutes} min`}>
+                <div
+                  className="library-week-bar"
+                  style={{ height: `${Math.max(8, (d.minutes / maxDayMin) * 100)}%` }}
+                />
+              </div>
+            ))}
+        </div>
         <div className="library-header-divider" />
+
+        {recentSearches?.length ? (
+          <div className="library-recent-searches" aria-label="Recent searches">
+            {recentSearches.map((q) => (
+              <button
+                key={q}
+                type="button"
+                className="library-filter-chip"
+                onClick={() => {
+                  setQuery(q)
+                  onCommitSearch?.(q)
+                }}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        ) : null}
 
         <div className="library-search">
           <select
@@ -529,6 +716,10 @@ export function LibraryPage({
             <option value="za">Sort: Z-A</option>
             <option value="chapters-asc">Sort: Chapters low-high</option>
             <option value="chapters-desc">Sort: Chapters high-low</option>
+            <option value="unread-first">Sort: Unread first</option>
+            <option value="shortest">Sort: Shortest</option>
+            <option value="longest">Sort: Longest</option>
+            <option value="pinned-first">Sort: Pinned first</option>
             <option value="recent">Sort: Recently read</option>
           </select>
         </div>
@@ -558,7 +749,7 @@ export function LibraryPage({
           <span className="library-results-count muted small">{resultsLabel}</span>
           {hasActiveFilters ? (
             <button type="button" className="library-clear-btn" onClick={resetAllFilters}>
-              Reset all
+              Reset
             </button>
           ) : null}
         </div>
@@ -710,7 +901,7 @@ export function LibraryPage({
         </section>
       ) : null}
 
-      <ul className="library-catalog">
+      <ul className="library-catalog" id="catalog">
         {filteredSingles.length > 0 ? (
           <li className="library-catalog-row library-catalog-omnibus">
             <section
@@ -758,9 +949,36 @@ export function LibraryPage({
       <section className="library-section">
         <h2 className="library-section-title">Collections</h2>
         <div className="library-collections-grid">
-          <CollectionStrip title="Short reads" books={shortReads} coverFor={resolvedCover} />
-          <CollectionStrip title="Long reads" books={longReads} coverFor={resolvedCover} />
-          <CollectionStrip title="Most read" books={mostRead} coverFor={resolvedCover} />
+          <CollectionStrip
+            title="Short reads"
+            books={shortReads}
+            coverFor={resolvedCover}
+            onFilter={() => applyCollectionFilter('short')}
+          />
+          <CollectionStrip
+            title="Long reads"
+            books={longReads}
+            coverFor={resolvedCover}
+            onFilter={() => applyCollectionFilter('long')}
+          />
+          <CollectionStrip
+            title="Most read"
+            books={mostRead}
+            coverFor={resolvedCover}
+            onFilter={() => applyCollectionFilter('in-progress')}
+          />
+          <CollectionStrip
+            title="Short & unread"
+            books={shortUnread}
+            coverFor={resolvedCover}
+            onFilter={() => applyCollectionFilter('unread')}
+          />
+          <CollectionStrip
+            title="Almost done"
+            books={almostDone}
+            coverFor={resolvedCover}
+            onFilter={() => applyCollectionFilter('in-progress')}
+          />
         </div>
       </section>
     </main>

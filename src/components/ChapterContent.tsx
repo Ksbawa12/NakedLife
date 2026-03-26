@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
 
 type Props = {
   path: string
   titleHint?: string
   onWordCount?: (count: number) => void
+  bodyClassName?: string
+  /** Called when the chapter article mounts or updates in the DOM (for find-in-page, outline, etc.). */
+  onArticleReady?: (el: HTMLElement | null) => void
 }
 
 type AsyncState<T> =
@@ -31,7 +34,13 @@ function wordCountFromHtml(html: string) {
   return wordCountFromText(html.replace(/<[^>]+>/g, ' '))
 }
 
-export function ChapterContent({ path, titleHint, onWordCount }: Props) {
+export function ChapterContent({
+  path,
+  titleHint,
+  onWordCount,
+  bodyClassName,
+  onArticleReady,
+}: Props) {
   const url = urlFromPublicPath(path)
 
   if (isDocx(path)) {
@@ -41,11 +50,21 @@ export function ChapterContent({ path, titleHint, onWordCount }: Props) {
         rawPath={path}
         titleHint={titleHint}
         onWordCount={onWordCount}
+        bodyClassName={bodyClassName}
+        onArticleReady={onArticleReady}
       />
     )
   }
 
-  return <TextChapter url={url} titleHint={titleHint} onWordCount={onWordCount} />
+  return (
+    <TextChapter
+      url={url}
+      titleHint={titleHint}
+      onWordCount={onWordCount}
+      bodyClassName={bodyClassName}
+      onArticleReady={onArticleReady}
+    />
+  )
 }
 
 function normalizeTitle(value: string) {
@@ -92,13 +111,18 @@ function TextChapter({
   url,
   titleHint,
   onWordCount,
+  bodyClassName,
+  onArticleReady,
 }: {
   url: string
   titleHint?: string
   onWordCount?: (count: number) => void
+  bodyClassName?: string
+  onArticleReady?: (el: HTMLElement | null) => void
 }) {
   const [state, setState] = useState<AsyncState<string>>({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
+  const articleRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -122,6 +146,14 @@ function TextChapter({
       cancelled = true
     }
   }, [url, attempt, titleHint, onWordCount])
+
+  useLayoutEffect(() => {
+    if (state.status !== 'ready') {
+      onArticleReady?.(null)
+      return
+    }
+    onArticleReady?.(articleRef.current)
+  }, [state, onArticleReady])
 
   if (state.status === 'loading')
     return (
@@ -149,7 +181,10 @@ function TextChapter({
     )
 
   return (
-    <article className="prose">
+    <article
+      ref={articleRef}
+      className={['prose', bodyClassName].filter(Boolean).join(' ')}
+    >
       <Markdown>{state.data}</Markdown>
     </article>
   )
@@ -160,14 +195,19 @@ function DocxChapter({
   rawPath,
   titleHint,
   onWordCount,
+  bodyClassName,
+  onArticleReady,
 }: {
   url: string
   rawPath: string
   titleHint?: string
   onWordCount?: (count: number) => void
+  bodyClassName?: string
+  onArticleReady?: (el: HTMLElement | null) => void
 }) {
   const [state, setState] = useState<AsyncState<string>>({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
+  const articleRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -205,6 +245,14 @@ function DocxChapter({
     }
   }, [url, attempt, rawPath, titleHint, onWordCount])
 
+  useLayoutEffect(() => {
+    if (state.status !== 'ready') {
+      onArticleReady?.(null)
+      return
+    }
+    onArticleReady?.(articleRef.current)
+  }, [state, onArticleReady])
+
   if (state.status === 'loading')
     return (
       <div className="prose-skeleton" aria-label="Loading chapter">
@@ -232,7 +280,8 @@ function DocxChapter({
 
   return (
     <article
-      className="prose prose-docx"
+      ref={articleRef}
+      className={['prose', 'prose-docx', bodyClassName].filter(Boolean).join(' ')}
       dangerouslySetInnerHTML={{ __html: state.data }}
     />
   )

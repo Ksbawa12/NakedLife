@@ -17,7 +17,13 @@ function getStored(): Theme | null {
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'light'
-    return getStored() ?? 'reading'
+    const stored = getStored()
+    if (stored) return stored
+
+    const datasetTheme = document.documentElement.dataset.theme
+    if (datasetTheme === 'light' || datasetTheme === 'reading' || datasetTheme === 'dark') return datasetTheme
+
+    return 'reading'
   })
 
   useEffect(() => {

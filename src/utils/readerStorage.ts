@@ -23,6 +23,9 @@ export type ReaderNote = {
   chapterId: string
   text: string
   note?: string
+  kind?: 'highlight' | 'note'
+  color?: 'sand' | 'gold' | 'mint' | 'sky' | 'rose'
+  tags?: string[]
   createdAt: number
 }
 
@@ -38,6 +41,12 @@ const COVER_OVERRIDES_KEY = 'reader-cover-overrides-v1'
 const NOTES_KEY = 'reader-notes-v1'
 const SESSIONS_KEY = 'reader-sessions-v1'
 const PINNED_BOOKS_KEY = 'reader-pinned-books-v1'
+const LIBRARY_VIEW_KEY = 'library-view-v1'
+
+export type LibraryViewState = {
+  sortMode: string
+  chip: string
+}
 
 function safeParseJSON<T>(s: string | null): T | undefined {
   if (!s) return undefined
@@ -135,11 +144,59 @@ export function removeNote(noteId: string) {
   window.localStorage.setItem(NOTES_KEY, JSON.stringify(filtered))
 }
 
+export function updateNote(noteId: string, patch: Partial<Omit<ReaderNote, 'id' | 'createdAt'>>) {
+  if (typeof window === 'undefined') return
+  const list = loadNotes()
+  const idx = list.findIndex((n) => n.id === noteId)
+  if (idx < 0) return
+  list[idx] = { ...list[idx], ...patch }
+  window.localStorage.setItem(NOTES_KEY, JSON.stringify(list))
+}
+
+export function loadLibraryView(): LibraryViewState | undefined {
+  if (typeof window === 'undefined') return undefined
+  return safeParseJSON<LibraryViewState>(window.localStorage.getItem(LIBRARY_VIEW_KEY))
+}
+
+export function saveLibraryView(view: LibraryViewState) {
+  if (typeof window === 'undefined') return
+  window.localStorage.setItem(LIBRARY_VIEW_KEY, JSON.stringify(view))
+}
+
 function dayKey(ts = Date.now()) {
   const d = new Date(ts)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
     d.getDate(),
   ).padStart(2, '0')}`
+}
+
+function dayKeyForDate(d: Date) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate(),
+  ).padStart(2, '0')}`
+}
+
+export function getMinutesThisWeek() {
+  const map = new Map(loadSessions().map((s) => [s.day, s.minutes]))
+  let total = 0
+  const d = new Date()
+  for (let i = 0; i < 7; i += 1) {
+    total += map.get(dayKeyForDate(d)) ?? 0
+    d.setDate(d.getDate() - 1)
+  }
+  return total
+}
+
+export function getLast7DaysMinutes(): Array<{ day: string; minutes: number }> {
+  const map = new Map(loadSessions().map((s) => [s.day, s.minutes]))
+  const out: Array<{ day: string; minutes: number }> = []
+  const d = new Date()
+  for (let i = 0; i < 7; i += 1) {
+    const key = dayKeyForDate(d)
+    out.push({ day: key, minutes: map.get(key) ?? 0 })
+    d.setDate(d.getDate() - 1)
+  }
+  return out
 }
 
 export function loadSessions(): ReaderSession[] {

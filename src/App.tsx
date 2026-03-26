@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { CommandPalette } from './components/CommandPalette'
+import { OfflineIndicator } from './components/OfflineIndicator'
+import { ShortcutsModal } from './components/ShortcutsModal'
 import { TextSizeToggle } from './components/TextSizeToggle'
+import { ThemeToggle } from './components/ThemeToggle'
 import { LibraryProvider } from './context/LibraryContext'
 import { LibraryPage } from './pages/LibraryPage'
 import { NotesPage } from './pages/NotesPage'
@@ -12,6 +16,9 @@ function App() {
   const [navBookmarked, setNavBookmarked] = useState(false)
   const [libraryQuery, setLibraryQuery] = useState('')
   const navSearchRef = useRef<HTMLInputElement | null>(null)
+  const [recentSearches, setRecentSearches] = useState<string[]>([])
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const [shortcutsOpen, setShortcutsOpen] = useState(false)
 
   const readRoute = useMemo(() => {
     const m = location.pathname.match(/^\/read\/([^/]+)\/([^/]+)$/)
@@ -22,8 +29,68 @@ function App() {
   const isLibraryView = location.pathname === '/'
 
   useEffect(() => {
-    document.documentElement.dataset.theme = 'reading'
+    if (typeof window === 'undefined') return
+    try {
+      const raw = localStorage.getItem('library-recent-searches-v1')
+      const parsed = raw ? (JSON.parse(raw) as unknown) : null
+      if (Array.isArray(parsed)) {
+        setRecentSearches(parsed.filter((x): x is string => typeof x === 'string').slice(0, 5))
+      }
+    } catch {
+      /* ignore */
+    }
   }, [])
+
+  const pushRecentSearch = (q: string) => {
+    const nextQ = q.trim()
+    if (nextQ.length < 2) return
+    setRecentSearches((prev) => {
+      const deduped = [nextQ, ...prev.filter((x) => x.toLowerCase() !== nextQ.toLowerCase())]
+      const next = deduped.slice(0, 5)
+      try {
+        localStorage.setItem('library-recent-searches-v1', JSON.stringify(next))
+      } catch {
+        /* ignore */
+      }
+      return next
+    })
+  }
+
+  const [initialTheme] = useState<'light' | 'reading' | 'dark'>(() => {
+    const storedTheme = (() => {
+      try {
+        const v = localStorage.getItem('reader-theme')
+        if (v === 'light' || v === 'reading' || v === 'dark') return v
+      } catch {
+        /* ignore */
+      }
+      return null
+    })()
+
+    const fallbackTheme: 'light' | 'reading' | 'dark' = isReadView ? 'reading' : 'light'
+    const theme = storedTheme ?? fallbackTheme
+    try {
+      document.documentElement.dataset.theme = theme
+    } catch {
+      /* ignore */
+    }
+    return theme
+  })
+
+  useEffect(() => {
+    const storedTheme = (() => {
+      try {
+        const v = localStorage.getItem('reader-theme')
+        if (v === 'light' || v === 'reading' || v === 'dark') return v
+      } catch {
+        /* ignore */
+      }
+      return null
+    })()
+
+    const fallbackTheme: 'light' | 'reading' | 'dark' = isReadView ? 'reading' : 'light'
+    document.documentElement.dataset.theme = storedTheme ?? fallbackTheme
+  }, [isReadView, initialTheme])
 
   useEffect(() => {
     if (!readRoute) {
@@ -32,6 +99,31 @@ function App() {
     }
     setNavBookmarked(isBookmarked(readRoute.bookId, readRoute.chapterId))
   }, [readRoute])
+
+  useEffect(() => {
+    const onGlobal = (e: KeyboardEvent) => {
+      if (paletteOpen || shortcutsOpen) return
+      const target = e.target as HTMLElement | null
+      const tag = target?.tagName?.toLowerCase()
+      const typing =
+        tag === 'input' ||
+        tag === 'textarea' ||
+        tag === 'select' ||
+        Boolean(target && (target as HTMLElement).isContentEditable)
+
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen(true)
+        return
+      }
+      if (e.key === '?' && !typing) {
+        e.preventDefault()
+        setShortcutsOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onGlobal)
+    return () => window.removeEventListener('keydown', onGlobal)
+  }, [paletteOpen, shortcutsOpen])
 
   useEffect(() => {
     if (!isLibraryView) return
@@ -97,15 +189,27 @@ function App() {
               <input
                 value={libraryQuery}
                 onChange={(e) => setLibraryQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') pushRecentSearch(libraryQuery)
+                }}
+                onBlur={() => pushRecentSearch(libraryQuery)}
                 placeholder="Search books, parts, chapters..."
                 className="nav-search-input"
                 aria-label="Search books"
                 ref={navSearchRef}
+                list="library-search-suggestions"
               />
+              <datalist id="library-search-suggestions">
+                {recentSearches.map((q) => (
+                  <option key={q} value={q} />
+                ))}
+              </datalist>
             </div>
           ) : null}
           <div className="app-header-actions">
+            <OfflineIndicator />
             {isReadView ? <TextSizeToggle /> : null}
+            <ThemeToggle />
             {!isReadView ? (
               <>
                 <Link to="/notes" className="nav-notes-btn" aria-label="Open notes">
@@ -176,13 +280,25 @@ function App() {
         </header>
         <div className="app-body">
           <Routes>
-            <Route path="/" element={<LibraryPage navQuery={libraryQuery} onNavQueryChange={setLibraryQuery} />} />
+            <Route
+              path="/"
+              element={
+                <LibraryPage
+                  navQuery={libraryQuery}
+                  onNavQueryChange={setLibraryQuery}
+                  recentSearches={recentSearches}
+                  onCommitSearch={pushRecentSearch}
+                />
+              }
+            />
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/read/:bookId/:chapterId" element={<ReadPage />} />
             <Route path="/read/:bookId" element={<ReadPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
+        <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+        <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       </div>
     </LibraryProvider>
   )
