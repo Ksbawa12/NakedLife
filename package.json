@@ -8,8 +8,10 @@
   },
   "scripts": {
     "generate:library": "node scripts/generate-library.mjs",
-    "predev": "node scripts/generate-library.mjs",
-    "prebuild": "node scripts/generate-library.mjs",
+    "generate:photos": "node scripts/generate-photos.mjs",
+    "rename:photos": "node scripts/rename-photos.mjs",
+    "predev": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
+    "prebuild": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
