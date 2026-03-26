@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import { CommandPalette } from './components/CommandPalette'
-import { OfflineIndicator } from './components/OfflineIndicator'
-import { ShortcutsModal } from './components/ShortcutsModal'
 import { TextSizeToggle } from './components/TextSizeToggle'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LibraryProvider } from './context/LibraryContext'
@@ -17,8 +14,6 @@ function App() {
   const [libraryQuery, setLibraryQuery] = useState('')
   const navSearchRef = useRef<HTMLInputElement | null>(null)
   const [recentSearches, setRecentSearches] = useState<string[]>([])
-  const [paletteOpen, setPaletteOpen] = useState(false)
-  const [shortcutsOpen, setShortcutsOpen] = useState(false)
 
   const readRoute = useMemo(() => {
     const m = location.pathname.match(/^\/read\/([^/]+)\/([^/]+)$/)
@@ -99,31 +94,6 @@ function App() {
     }
     setNavBookmarked(isBookmarked(readRoute.bookId, readRoute.chapterId))
   }, [readRoute])
-
-  useEffect(() => {
-    const onGlobal = (e: KeyboardEvent) => {
-      if (paletteOpen || shortcutsOpen) return
-      const target = e.target as HTMLElement | null
-      const tag = target?.tagName?.toLowerCase()
-      const typing =
-        tag === 'input' ||
-        tag === 'textarea' ||
-        tag === 'select' ||
-        Boolean(target && (target as HTMLElement).isContentEditable)
-
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault()
-        setPaletteOpen(true)
-        return
-      }
-      if (e.key === '?' && !typing) {
-        e.preventDefault()
-        setShortcutsOpen(true)
-      }
-    }
-    window.addEventListener('keydown', onGlobal)
-    return () => window.removeEventListener('keydown', onGlobal)
-  }, [paletteOpen, shortcutsOpen])
 
   useEffect(() => {
     if (!isLibraryView) return
@@ -207,27 +177,12 @@ function App() {
             </div>
           ) : null}
           <div className="app-header-actions">
-            <OfflineIndicator />
             {isReadView ? <TextSizeToggle /> : null}
             <ThemeToggle />
             {!isReadView ? (
               <>
                 <Link to="/notes" className="nav-notes-btn" aria-label="Open notes">
                   Notes
-                </Link>
-                <Link
-                  to="/#pinned"
-                  className="nav-quick-btn nav-quick-btn--mobile-hide"
-                  aria-label="Jump to pinned books"
-                >
-                  Pinned
-                </Link>
-                <Link
-                  to="/#bookmarks"
-                  className="nav-quick-btn nav-quick-btn--mobile-hide"
-                  aria-label="Jump to bookmarks"
-                >
-                  Bookmarks
                 </Link>
               </>
             ) : null}
@@ -286,8 +241,6 @@ function App() {
                 <LibraryPage
                   navQuery={libraryQuery}
                   onNavQueryChange={setLibraryQuery}
-                  recentSearches={recentSearches}
-                  onCommitSearch={pushRecentSearch}
                 />
               }
             />
@@ -297,8 +250,6 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
-        <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       </div>
     </LibraryProvider>
   )
