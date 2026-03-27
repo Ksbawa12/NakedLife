@@ -14,6 +14,7 @@ export type Book = {
   id: string
   title: string
   subtitle?: string
+  latestAddedAt?: number
   /** Same for every part of one manuscript; used to group cards on the library screen. */
   manuscriptKey: string
   /** Set for split parts (1, 2, …) so ordering is stable. */

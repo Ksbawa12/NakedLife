@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useMemo, useRef, useState } from 'react'
 import { useLibrary } from '../context/LibraryContext'
 import {
+  bookChapterCount,
   firstChapter,
   hasChapter,
 } from '../utils/book'
@@ -30,6 +31,9 @@ type SortMode =
   | 'az'
   | 'za'
   | 'recent'
+  | 'latestAdded'
+  | 'oldestAdded'
+  | 'mostChapters'
 
 function hashIndex(seed: string, length: number) {
   let hash = 0
@@ -121,6 +125,15 @@ export function LibraryPage({
     const alpha = a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
     if (sortMode === 'az') return alpha
     if (sortMode === 'za') return -alpha
+    if (sortMode === 'latestAdded') {
+      return (b.latestAddedAt ?? 0) - (a.latestAddedAt ?? 0) || alpha
+    }
+    if (sortMode === 'oldestAdded') {
+      return (a.latestAddedAt ?? 0) - (b.latestAddedAt ?? 0) || alpha
+    }
+    if (sortMode === 'mostChapters') {
+      return bookChapterCount(b) - bookChapterCount(a) || alpha
+    }
     const aUpdated = progressMap[a.id]?.updatedAt ?? 0
     const bUpdated = progressMap[b.id]?.updatedAt ?? 0
     return bUpdated - aUpdated || alpha
@@ -180,6 +193,9 @@ export function LibraryPage({
             <option value="az">Sort: A-Z</option>
             <option value="za">Sort: Z-A</option>
             <option value="recent">Sort: Recently read</option>
+            <option value="latestAdded">Sort: Latest added</option>
+            <option value="oldestAdded">Sort: Oldest added</option>
+            <option value="mostChapters">Sort: Most chapters</option>
           </select>
         </div>
 

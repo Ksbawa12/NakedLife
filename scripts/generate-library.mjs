@@ -308,6 +308,14 @@ async function main() {
       a.localeCompare(b, undefined, { numeric: true }),
     )
     if (!docxFiles.length) continue
+    const latestAddedAt = docxFiles.reduce((maxTs, fullPath) => {
+      try {
+        const ts = fs.statSync(fullPath).mtimeMs || 0
+        return ts > maxTs ? ts : maxTs
+      } catch {
+        return maxTs
+      }
+    }, 0)
 
     const nakedFamily = folderName.trim().toLowerCase() === 'naked family'
     const mammoth = nakedFamily ? await getMammoth() : undefined
@@ -353,6 +361,7 @@ async function main() {
       id: bookId,
       title: displayTitleForFolder(folderName),
       manuscriptKey: baseSlug,
+      latestAddedAt,
       sections,
     })
   }
