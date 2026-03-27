@@ -230,6 +230,15 @@ function DocxChapter({
           )
         }
 
+        // In chapter 1, this line was accidentally styled as a heading in source DOCX.
+        // Downgrade just this known sentence back to a normal paragraph.
+        if (rawPath.endsWith('Stories/Naked Family/1.docx')) {
+          html = html.replace(
+            /<h3>\s*My best friend, Asher, and I had a school project to finish\.[\s\S]*?the usual teenage banter\.\s*Instead, Asher opened the door completely naked\.\s*<\/h3>/i,
+            (m) => `<p>${m.replace(/^<h3>|<\/h3>$/gi, '')}</p>`,
+          )
+        }
+
         const cleaned = stripLeadingTitleFromHtml(html, titleHint)
         onWordCount?.(wordCountFromHtml(cleaned))
         if (!cancelled) setState({ status: 'ready', data: cleaned })

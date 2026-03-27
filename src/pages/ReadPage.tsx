@@ -350,20 +350,6 @@ export function ReadPage() {
             </Link>
           </section>
         ) : null}
-        <div
-          className="read-progress-line"
-          role="progressbar"
-          aria-label="Reading progress"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round(scrollProgress * 100)}
-        >
-          <span
-            className="read-progress-line-fill"
-            style={{ width: `${Math.round(scrollProgress * 100)}%` }}
-          />
-        </div>
-
         <header className="read-chapter-header">
           {book.subtitle ? (
             <p className="read-section-eyebrow muted small">{book.subtitle}</p>

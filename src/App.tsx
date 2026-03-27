@@ -153,7 +153,7 @@ function App() {
   return (
     <LibraryProvider>
       <div className="app">
-        <header className="app-header">
+        <header className={isReadView ? 'app-header app-header--reader' : 'app-header'}>
           <NavBrand />
           {isLibraryView ? (
             <div className="app-header-center">

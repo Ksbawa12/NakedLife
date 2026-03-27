@@ -11,21 +11,6 @@
           "title": "Chapters",
           "chapters": [
             {
-              "id": "naked-family--cover",
-              "title": "Our Journey to Truth",
-              "file": "books/naked-family-cover.md"
-            },
-            {
-              "id": "naked-family--introduction",
-              "title": "Introduction The Myth of the Bathroom",
-              "file": "Stories/Naked Family/Introduction.docx"
-            },
-            {
-              "id": "naked-family--0",
-              "title": "Chapter 0 Our Journey to Truth",
-              "file": "Stories/Naked Family/0.docx"
-            },
-            {
               "id": "naked-family--1",
               "title": "Chapter 1 The Myth of the Bathroom",
               "file": "Stories/Naked Family/1.docx"
@@ -99,89 +84,6 @@
               "id": "naked-family--15",
               "title": "Chapter 15 The Infinite Legacy (Sun, Soil, and Soul)",
               "file": "Stories/Naked Family/15.docx"
-            },
-            {
-              "id": "naked-family--17",
-              "title": "Chapter 17 The Myth of the Bathroom – Breaking the first social barrier.",
-              "file": "Stories/Naked Family/17.docx"
-            },
-            {
-              "id": "naked-family--conclusion",
-              "title": "Conclusion",
-              "file": "Stories/Naked Family/Conclusion.docx"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "naked-festival",
-      "title": "Naked Festival",
-      "manuscriptKey": "naked-festival",
-      "sections": [
-        {
-          "id": "chapters",
-          "title": "Chapters",
-          "chapters": [
-            {
-              "id": "naked-festival--1",
-              "title": "1",
-              "file": "Stories/Naked Festival/1.docx"
-            },
-            {
-              "id": "naked-festival--2",
-              "title": "2",
-              "file": "Stories/Naked Festival/2.docx"
-            },
-            {
-              "id": "naked-festival--3",
-              "title": "3",
-              "file": "Stories/Naked Festival/3.docx"
-            },
-            {
-              "id": "naked-festival--4",
-              "title": "4",
-              "file": "Stories/Naked Festival/4.docx"
-            },
-            {
-              "id": "naked-festival--5",
-              "title": "5",
-              "file": "Stories/Naked Festival/5.docx"
-            },
-            {
-              "id": "naked-festival--6",
-              "title": "6",
-              "file": "Stories/Naked Festival/6.docx"
-            },
-            {
-              "id": "naked-festival--7",
-              "title": "7",
-              "file": "Stories/Naked Festival/7.docx"
-            },
-            {
-              "id": "naked-festival--8",
-              "title": "8",
-              "file": "Stories/Naked Festival/8.docx"
-            },
-            {
-              "id": "naked-festival--9",
-              "title": "9",
-              "file": "Stories/Naked Festival/9.docx"
-            },
-            {
-              "id": "naked-festival--10",
-              "title": "10",
-              "file": "Stories/Naked Festival/10.docx"
-            },
-            {
-              "id": "naked-festival--epilogue",
-              "title": "Epilogue",
-              "file": "Stories/Naked Festival/Epilogue.docx"
-            },
-            {
-              "id": "naked-festival--intro",
-              "title": "Intro",
-              "file": "Stories/Naked Festival/Intro.docx"
             }
           ]
         }
@@ -202,14 +104,14 @@
               "file": "Stories/The 3-Day Kingdom/Chapter 1 The Three-Day Kingdom.docx"
             },
             {
-              "id": "the-3-day-kingdom--chapter-2-the-skin-i",
-              "title": "Chapter 2 The Skin I",
-              "file": "Stories/The 3-Day Kingdom/Chapter 2 The Skin I.docx"
+              "id": "the-3-day-kingdom--chapter-2-the-skin-i-live-in",
+              "title": "Chapter 2 The Skin I Live In",
+              "file": "Stories/The 3-Day Kingdom/Chapter 2 The Skin I Live In.docx"
             },
             {
-              "id": "the-3-day-kingdom--chapter-3-the-gospel-of",
-              "title": "Chapter 3 The Gospel of",
-              "file": "Stories/The 3-Day Kingdom/Chapter 3 The Gospel of.docx"
+              "id": "the-3-day-kingdom--chapter-3-the-gospel-of-the-skin",
+              "title": "Chapter 3 The Gospel of the Skin",
+              "file": "Stories/The 3-Day Kingdom/Chapter 3 The Gospel of the Skin.docx"
             },
             {
               "id": "the-3-day-kingdom--chapter-4-the-secret-room",
@@ -1342,34 +1244,6 @@
               "id": "the-source-and-the-sapling--chapter-10-the-sovereign-silence",
               "title": "Chapter 10 The Sovereign Silence",
               "file": "Stories/The Source and the Sapling/Chapter 10 The Sovereign Silence.docx"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "the-unburdened-guest",
-      "title": "The Unburdened Guest",
-      "manuscriptKey": "the-unburdened-guest",
-      "sections": [
-        {
-          "id": "chapters",
-          "title": "Chapters",
-          "chapters": [
-            {
-              "id": "the-unburdened-guest--chapter-1-the-zero-lag-system",
-              "title": "Chapter 1 The Zero-Lag System",
-              "file": "Stories/The Unburdened Guest/Chapter 1 The Zero-Lag System.docx"
-            },
-            {
-              "id": "the-unburdened-guest--chapter-2-the-100-signal",
-              "title": "Chapter 2 The 100 Signal",
-              "file": "Stories/The Unburdened Guest/Chapter 2 The 100 Signal.docx"
-            },
-            {
-              "id": "the-unburdened-guest--chapter-3-the-localhost-environment",
-              "title": "Chapter 3 The Localhost Environment",
-              "file": "Stories/The Unburdened Guest/Chapter 3 The Localhost Environment.docx"
             }
           ]
         }

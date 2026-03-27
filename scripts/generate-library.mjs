@@ -336,24 +336,6 @@ async function main() {
       )
       if (!chapters.length) continue
 
-      if (nakedFamily) {
-        let coverId = `${bookId}--cover`
-        let k = 1
-        while (globalChapterIds.has(coverId)) {
-          coverId = `${bookId}--cover-${k++}`
-        }
-        globalChapterIds.add(coverId)
-
-        chapters = [
-          {
-            id: coverId,
-            title: 'Our Journey to Truth',
-            file: 'books/naked-family-cover.md',
-          },
-          ...chapters,
-        ]
-      }
-
       books.push({
         id: bookId,
         title: folderName,
