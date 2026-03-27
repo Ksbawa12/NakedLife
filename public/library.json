@@ -394,6 +394,115 @@
       ]
     },
     {
+      "id": "the-grandfather-s-gate",
+      "title": "The Grandfather’s Gate",
+      "manuscriptKey": "the-grandfather-s-gate",
+      "sections": [
+        {
+          "id": "part-1",
+          "title": "Part 1",
+          "chapters": [
+            {
+              "id": "the-grandfather-s-gate--chapter-1-the-weight-of-the-city",
+              "title": "Chapter 1 The Weight of the City",
+              "file": "Stories/The Grandfather’s Gate/Chapter 1 The Weight of the City.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-2-the-transition",
+              "title": "Chapter 2 The Transition",
+              "file": "Stories/The Grandfather’s Gate/Chapter 2 The Transition.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-3-the-sanctuary-of-shekhawat",
+              "title": "Chapter 3 The Sanctuary of Shekhawat",
+              "file": "Stories/The Grandfather’s Gate/Chapter 3 The Sanctuary of Shekhawat.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-4-the-heat-of-the-truth",
+              "title": "Chapter 4 The Heat of the Truth",
+              "file": "Stories/The Grandfather’s Gate/Chapter 4 The Heat of the Truth.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-5-the-weightless-horizon",
+              "title": "Chapter 5 The Weightless Horizon",
+              "file": "Stories/The Grandfather’s Gate/Chapter 5 The Weightless Horizon.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-6-the-digital-fortress",
+              "title": "Chapter 6 The Digital Fortress",
+              "file": "Stories/The Grandfather’s Gate/Chapter 6 The Digital Fortress.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-7-the-canopy-of-stars",
+              "title": "Chapter 7 The Canopy of Stars",
+              "file": "Stories/The Grandfather’s Gate/Chapter 7 The Canopy of Stars.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--chapter-8-the-remote-sanctuary",
+              "title": "Chapter 8 The Remote Sanctuary",
+              "file": "Stories/The Grandfather’s Gate/Chapter 8 The Remote Sanctuary.docx"
+            }
+          ]
+        },
+        {
+          "id": "part-2",
+          "title": "Part 2",
+          "chapters": [
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-1-the-request",
+              "title": "Part 2 Chapter 1 The Request",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 1 The Request.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-2-the-family-code",
+              "title": "Part 2 Chapter 2 The Family Code",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 2 The Family Code.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-3-the-full-circle",
+              "title": "Part 2 Chapter 3 The Full Circle",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 3 The Full Circle.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-4-the-digital-oasis",
+              "title": "Part 2 Chapter 4 The Digital Oasis",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 4 The Digital Oasis.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-5-the-vanguard-of-the-old-guard",
+              "title": "Part 2 Chapter 5 The Vanguard of the old Guard",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 5 The Vanguard of the old Guard.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-6-the-weight-of-the-crown",
+              "title": "Part 2 Chapter 6 The Weight of the Crown",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 6 The Weight of the Crown.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-7-the-quiet-resistance",
+              "title": "Part 2 Chapter 7 The Quiet Resistance",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 7 The Quiet Resistance.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-8-the-empty-silk",
+              "title": "Part 2 Chapter 8 The Empty Silk",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 8 The Empty Silk.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-9-the-final-armor",
+              "title": "Part 2 Chapter 9 The Final Armor",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 9 The Final Armor.docx"
+            },
+            {
+              "id": "the-grandfather-s-gate--part-2-chapter-10-the-table-of-truth",
+              "title": "Part 2 Chapter 10 The Table of Truth",
+              "file": "Stories/The Grandfather’s Gate/Part 2 Chapter 10 The Table of Truth.docx"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "the-naked-haveli",
       "title": "The Naked Haveli",
       "manuscriptKey": "the-naked-haveli",

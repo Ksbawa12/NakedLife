@@ -1091,6 +1091,8 @@ body.reading-hide-header .app-header {
   width: 100%;
   max-height: min(70vh, 70svh);
   object-fit: contain;
+  touch-action: pan-y;
+  user-select: none;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: color-mix(in oklab, var(--bg) 92%, white 8%);

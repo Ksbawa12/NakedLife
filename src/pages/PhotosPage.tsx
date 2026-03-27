@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 type PhotosManifest = {
   generatedAt: number
@@ -11,6 +11,7 @@ export function PhotosPage() {
   const [data, setData] = useState<PhotosManifest | null>(null)
   const [q, setQ] = useState('')
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const touchStartX = useRef<number | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -136,14 +137,14 @@ export function PhotosPage() {
       )}
 
       {active ? (
-        <div className="modal-backdrop photo-viewer" role="dialog" aria-modal="true" aria-label="Photo viewer">
-          <button
-            type="button"
-            className="modal-backdrop-click"
-            aria-label="Close"
-            onClick={() => setActiveIndex(null)}
-          />
-          <div className="photo-viewer-card">
+        <div
+          className="modal-backdrop photo-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Photo viewer"
+          onClick={() => setActiveIndex(null)}
+        >
+          <div className="photo-viewer-card" onClick={(e) => e.stopPropagation()}>
             <div className="photo-viewer-top">
               <div className="photo-viewer-title muted small">{active.name}</div>
               <button type="button" className="pref-modal-close" aria-label="Close" onClick={() => setActiveIndex(null)}>
@@ -160,7 +161,27 @@ export function PhotosPage() {
               >
                 Previous
               </button>
-              <img className="photo-viewer-img" src={active.src} alt={active.name} />
+              <img
+                className="photo-viewer-img"
+                src={active.src}
+                alt={active.name}
+                onTouchStart={(e) => {
+                  touchStartX.current = e.touches[0]?.clientX ?? null
+                }}
+                onTouchEnd={(e) => {
+                  const startX = touchStartX.current
+                  const endX = e.changedTouches[0]?.clientX
+                  touchStartX.current = null
+                  if (startX == null || endX == null) return
+                  const delta = endX - startX
+                  if (Math.abs(delta) < 30) return
+                  if (delta < 0) {
+                    setActiveIndex((i) => (i == null ? i : (i + 1) % sortedItems.length))
+                  } else {
+                    setActiveIndex((i) => (i == null ? i : (i - 1 + sortedItems.length) % sortedItems.length))
+                  }
+                }}
+              />
               <button
                 type="button"
                 className="read-mini-btn"
