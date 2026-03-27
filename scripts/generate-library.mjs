@@ -320,68 +320,34 @@ async function main() {
     const baseSlug = slugify(folderName)
     const groups = partitionIntoPartGroups(docxFiles, storiesRoot)
 
-    if (groups.length === 1) {
-      let bookId = baseSlug
-      let n = 1
-      while (usedBookIds.has(bookId)) {
-        bookId = `${baseSlug}-${n++}`
-      }
-      usedBookIds.add(bookId)
-
-      let chapters = await chaptersFromRows(
-        groups[0].rows,
-        bookId,
-        globalChapterIds,
-        { nakedFamily, mammoth },
-      )
-      if (!chapters.length) continue
-
-      books.push({
-        id: bookId,
-        title: folderName,
-        manuscriptKey: baseSlug,
-        sections: [
-          {
-            id: 'chapters',
-            title: 'Chapters',
-            chapters,
-          },
-        ],
-      })
-    } else {
-      for (const g of groups) {
-        let splitId = `${baseSlug}-${g.sectionKey}`
-        let n = 1
-        while (usedBookIds.has(splitId)) {
-          splitId = `${baseSlug}-${g.sectionKey}-${n++}`
-        }
-        usedBookIds.add(splitId)
-
-        const chapters = await chaptersFromRows(g.rows, splitId, globalChapterIds, {
-          nakedFamily,
-          mammoth,
-        })
-        if (!chapters.length) continue
-
-        const partMatch = g.sectionKey.match(/^part-(\d+)$/)
-        const partNumber = partMatch ? parseInt(partMatch[1], 10) : undefined
-
-        books.push({
-          id: splitId,
-          title: folderName,
-          subtitle: g.sectionTitle,
-          manuscriptKey: baseSlug,
-          partNumber,
-          sections: [
-            {
-              id: 'chapters',
-              title: 'Chapters',
-              chapters,
-            },
-          ],
-        })
-      }
+    let bookId = baseSlug
+    let n = 1
+    while (usedBookIds.has(bookId)) {
+      bookId = `${baseSlug}-${n++}`
     }
+    usedBookIds.add(bookId)
+
+    const sections = []
+    for (const g of groups) {
+      const chapters = await chaptersFromRows(g.rows, bookId, globalChapterIds, {
+        nakedFamily,
+        mammoth,
+      })
+      if (!chapters.length) continue
+      sections.push({
+        id: g.sectionKey,
+        title: g.sectionTitle,
+        chapters,
+      })
+    }
+    if (!sections.length) continue
+
+    books.push({
+      id: bookId,
+      title: folderName,
+      manuscriptKey: baseSlug,
+      sections,
+    })
   }
 
   const library = {

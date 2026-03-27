@@ -4,7 +4,6 @@ import { TextSizeToggle } from './components/TextSizeToggle'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LibraryProvider } from './context/LibraryContext'
 import { LibraryPage } from './pages/LibraryPage'
-import { NotesPage } from './pages/NotesPage'
 import { PhotosPage } from './pages/PhotosPage'
 import { ReadPage } from './pages/ReadPage'
 import { isBookmarked } from './utils/readerStorage'
@@ -181,14 +180,9 @@ function App() {
             {isReadView ? <TextSizeToggle /> : null}
             <ThemeToggle />
             {!isReadView ? (
-              <>
-                <Link to="/notes" className="nav-notes-btn" aria-label="Open notes">
-                  Notes
-                </Link>
-                <Link to="/photos" className="nav-notes-btn" aria-label="Open photos">
-                  Photos
-                </Link>
-              </>
+              <Link to="/photos" className="nav-notes-btn" aria-label="Open photos">
+                Photos
+              </Link>
             ) : null}
             {readRoute ? (
               <button
@@ -248,7 +242,6 @@ function App() {
                 />
               }
             />
-            <Route path="/notes" element={<NotesPage />} />
             <Route path="/photos" element={<PhotosPage />} />
             <Route path="/read/:bookId/:chapterId" element={<ReadPage />} />
             <Route path="/read/:bookId" element={<ReadPage />} />
