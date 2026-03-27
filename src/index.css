@@ -105,8 +105,8 @@ body {
   padding: max(0.8rem, env(safe-area-inset-top, 0px)) max(1.25rem, env(safe-area-inset-right, 0px))
     0.8rem max(1.25rem, env(safe-area-inset-left, 0px));
   border-bottom: 1px solid var(--border);
-  background: color-mix(in oklab, var(--surface) 88%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -931,6 +931,74 @@ body.reading-hide-header .app-header {
   margin: 0;
 }
 
+.read-part-grid {
+  grid-template-columns: repeat(auto-fit, 220px);
+  justify-content: center;
+  grid-auto-rows: auto;
+  gap: 0.7rem;
+}
+
+.read-part-grid > li {
+  flex: 0 0 220px;
+  max-width: 220px;
+  height: auto;
+  width: 220px;
+}
+
+.read-part-grid .book-card {
+  min-height: 168px;
+  height: 168px;
+  padding: 0.76rem 0.82rem;
+  gap: 0.26rem;
+}
+
+.read-part-grid .book-card-title {
+  font-size: 1rem;
+}
+
+.read-part-grid .book-card-sub,
+.read-part-grid .book-card-meta {
+  font-size: 0.8rem;
+}
+
+.read-part-grid .book-card-open-link {
+  padding: 0.3rem 0.56rem;
+  font-size: 0.76rem;
+}
+
+.read-part-shell {
+  display: flex;
+  justify-content: center;
+}
+
+.read-part-picker-card {
+  width: min(860px, 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--surface) 97%, #fff 3%) 0%,
+    color-mix(in oklab, var(--surface) 90%, var(--bg) 10%) 100%
+  );
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  padding: 1.1rem 1.1rem 1.2rem;
+}
+
+.read-part-title,
+.read-part-subtitle {
+  text-align: center;
+}
+
+.read-part-title {
+  margin-bottom: 0.2rem;
+}
+
+.read-part-subtitle {
+  margin-bottom: 0.8rem;
+}
+
 .book-card-part .book-card-title {
   font-size: 1.05rem;
 }
@@ -974,13 +1042,14 @@ body.reading-hide-header .app-header {
   overflow: hidden;
   padding: 1.2rem 1.25rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in oklab, var(--border) 82%, var(--text) 18%);
   background: var(--surface);
   color: inherit;
   box-shadow: var(--shadow);
   transition:
-    border-color 0.15s ease,
-    transform 0.15s ease;
+    border-color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
 .book-card-cover {
@@ -1128,18 +1197,19 @@ body.reading-hide-header .app-header {
   justify-content: center;
   padding: 0.38rem 0.7rem;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in oklab, var(--border) 82%, var(--text) 18%);
   text-decoration: none;
   color: var(--text);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  background: var(--bg);
+  background: color-mix(in oklab, var(--bg) 92%, #fff 8%);
 }
 
 .book-card-open-link:hover,
 .book-card-continue-link:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: color-mix(in oklab, var(--accent-soft) 56%, var(--bg) 44%);
 }
 
 .book-card-continue-link {
@@ -1188,7 +1258,10 @@ body.reading-hide-header .app-header {
 
 .book-card:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 28px rgba(8, 8, 8, 0.08),
+    0 4px 10px rgba(8, 8, 8, 0.06);
 }
 
 .book-card-title {

@@ -46,8 +46,7 @@ function BookCard({
   book: Book
   progressMap: Record<string, { chapterId: string; updatedAt?: number }>
 }) {
-  const first = firstChapter(book)
-  const to = first ? `/read/${book.id}/${first.id}` : `/read/${book.id}`
+  const to = `/read/${book.id}`
   const progress = progressMap[book.id]
   const continueTo =
     progress && hasChapter(book, progress.chapterId)

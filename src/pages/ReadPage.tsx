@@ -269,8 +269,42 @@ export function ReadPage() {
   }
 
   const start = firstChapter(book)!
+  const nonEmptySections = book.sections.filter((s) => s.chapters.length > 0)
 
   if (!chapterId) {
+    if (nonEmptySections.length > 1) {
+      return (
+        <main className="page library-page">
+          <section className="library-section read-part-shell">
+            <div className="read-part-picker-card">
+              <h1 className="library-section-title read-part-title">{book.title}</h1>
+              <p className="muted small read-part-subtitle">Choose a part to start reading.</p>
+              <ul className="book-grid book-grid-in-series read-part-grid">
+                {nonEmptySections.map((section) => {
+                  const first = section.chapters[0]
+                  return (
+                    <li key={section.id}>
+                      <article className="book-card book-card-part">
+                        <span className="book-card-title">{book.title}</span>
+                        <span className="book-card-sub muted">{section.title}</span>
+                        <span className="book-card-meta muted small">
+                          {section.chapters.length} chapter{section.chapters.length === 1 ? '' : 's'}
+                        </span>
+                        <div className="book-card-actions">
+                          <Link className="book-card-open-link" to={`/read/${book.id}/${first.id}`}>
+                            Open
+                          </Link>
+                        </div>
+                      </article>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </section>
+        </main>
+      )
+    }
     return <Navigate to={`/read/${bookId}/${start.id}`} replace />
   }
 

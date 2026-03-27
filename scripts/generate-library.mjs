@@ -30,6 +30,13 @@ function slugify(s) {
   return slug || 'item'
 }
 
+function displayTitleForFolder(folderName) {
+  if (folderName.trim().toLowerCase() === 'the unveiled life') {
+    return 'The Unveiled Life - How to Become a Nudist'
+  }
+  return folderName
+}
+
 /** @param {string} basename without extension */
 function extractPartNumber(basename) {
   const m = basename.match(/^Part\s+(\d+)\s+/i)
@@ -344,7 +351,7 @@ async function main() {
 
     books.push({
       id: bookId,
-      title: folderName,
+      title: displayTitleForFolder(folderName),
       manuscriptKey: baseSlug,
       sections,
     })
