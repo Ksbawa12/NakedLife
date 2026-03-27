@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useLibrary } from '../context/LibraryContext'
 import {
   firstChapter,
@@ -39,19 +39,12 @@ function hashIndex(seed: string, length: number) {
   return length ? hash % length : 0
 }
 
-function coverForBook(bookId: string) {
-  if (!CARD_COVERS.length) return DEFAULT_BOOK_COVER
-  return CARD_COVERS[hashIndex(bookId, CARD_COVERS.length)]
-}
-
 function BookCard({
   book,
   progressMap,
-  cover,
 }: {
   book: Book
   progressMap: Record<string, { chapterId: string; updatedAt?: number }>
-  cover: string
 }) {
   const first = firstChapter(book)
   const to = first ? `/read/${book.id}/${first.id}` : `/read/${book.id}`
@@ -60,10 +53,35 @@ function BookCard({
     progress && hasChapter(book, progress.chapterId)
       ? `/read/${book.id}/${progress.chapterId}`
       : undefined
+  const [coverIndex, setCoverIndex] = useState(() => hashIndex(book.id, CARD_COVERS.length))
+  const touchStartX = useRef<number | null>(null)
+  const cover = CARD_COVERS[coverIndex] || DEFAULT_BOOK_COVER
+
+  const onSwipe = (dir: 1 | -1) => {
+    if (!CARD_COVERS.length) return
+    setCoverIndex((idx) => (idx + dir + CARD_COVERS.length) % CARD_COVERS.length)
+  }
 
   return (
     <article className="book-card">
-      <img className="book-card-cover" src={cover} alt={`${book.title} cover`} loading="lazy" />
+      <img
+        className="book-card-cover"
+        src={cover}
+        alt={`${book.title} cover`}
+        loading="lazy"
+        onTouchStart={(e) => {
+          touchStartX.current = e.touches[0]?.clientX ?? null
+        }}
+        onTouchEnd={(e) => {
+          const startX = touchStartX.current
+          const endX = e.changedTouches[0]?.clientX
+          touchStartX.current = null
+          if (startX == null || endX == null) return
+          const delta = endX - startX
+          if (Math.abs(delta) < 30) return
+          onSwipe(delta < 0 ? 1 : -1)
+        }}
+      />
       <span className="book-card-title">{book.title}</span>
       {book.subtitle ? (
         <span className="book-card-sub muted">{book.subtitle}</span>
@@ -98,8 +116,6 @@ export function LibraryPage({
   const setQuery = onNavQueryChange ?? setLocalQuery
   void setQuery
   const [sortMode, setSortMode] = useState<SortMode>('az')
-
-  const resolvedCover = (bookId: string) => coverForBook(bookId) || DEFAULT_BOOK_COVER
   const progressMap = useMemo(() => loadProgressMap(), [state, query, sortMode])
 
   const compareBooks = (a: Book, b: Book) => {
@@ -186,7 +202,7 @@ export function LibraryPage({
         <ul className="book-grid book-grid-in-series">
           {filtered.map((book) => (
             <li key={book.id}>
-              <BookCard book={book} progressMap={progressMap} cover={resolvedCover(book.id)} />
+              <BookCard book={book} progressMap={progressMap} />
             </li>
           ))}
         </ul>
