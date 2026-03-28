@@ -11,7 +11,7 @@ export function PhotosPage() {
   const [data, setData] = useState<PhotosManifest | null>(null)
   const [q, setQ] = useState('')
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const touchStartX = useRef<number | null>(null)
+  const swipeStartX = useRef<number | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -161,27 +161,32 @@ export function PhotosPage() {
               >
                 Previous
               </button>
-              <img
-                className="photo-viewer-img"
-                src={active.src}
-                alt={active.name}
-                onTouchStart={(e) => {
-                  touchStartX.current = e.touches[0]?.clientX ?? null
+              <div
+                className="photo-viewer-img-wrap"
+                onPointerDown={(e) => {
+                  if (!e.isPrimary) return
+                  e.currentTarget.setPointerCapture(e.pointerId)
+                  swipeStartX.current = e.clientX
                 }}
-                onTouchEnd={(e) => {
-                  const startX = touchStartX.current
-                  const endX = e.changedTouches[0]?.clientX
-                  touchStartX.current = null
-                  if (startX == null || endX == null) return
-                  const delta = endX - startX
-                  if (Math.abs(delta) < 30) return
+                onPointerUp={(e) => {
+                  if (!e.isPrimary) return
+                  const startX = swipeStartX.current
+                  swipeStartX.current = null
+                  if (startX == null) return
+                  const delta = e.clientX - startX
+                  if (Math.abs(delta) < 36) return
                   if (delta < 0) {
                     setActiveIndex((i) => (i == null ? i : (i + 1) % sortedItems.length))
                   } else {
                     setActiveIndex((i) => (i == null ? i : (i - 1 + sortedItems.length) % sortedItems.length))
                   }
                 }}
-              />
+                onPointerCancel={() => {
+                  swipeStartX.current = null
+                }}
+              >
+                <img className="photo-viewer-img" src={active.src} alt={active.name} draggable={false} />
+              </div>
               <button
                 type="button"
                 className="read-mini-btn"

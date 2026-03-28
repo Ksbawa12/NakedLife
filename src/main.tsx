@@ -14,6 +14,13 @@ createRoot(document.getElementById('root')!).render(
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    void navigator.serviceWorker.register('/sw.js')
+    void (async () => {
+      try {
+        const reg = await navigator.serviceWorker.register('/sw.js')
+        await reg.update()
+      } catch {
+        /* ignore */
+      }
+    })()
   })
 }

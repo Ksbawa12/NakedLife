@@ -1,5 +1,6 @@
-const CACHE_NAME = 'nudist-life-v1'
-const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg', '/library.json']
+const CACHE_NAME = 'nudist-life-v4'
+/** Only shell assets — never cache dynamic manifests here (stale library on phones). */
+const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -30,7 +31,12 @@ self.addEventListener('fetch', (event) => {
   const isSameOrigin = url.origin === self.location.origin
   if (!isSameOrigin) return
 
-  // App navigation fallback for offline.
+  // Always fresh — do not cache (fixes deleted books / old lists on mobile PWA).
+  if (url.pathname === '/library.json' || url.pathname === '/photos.json') {
+    event.respondWith(fetch(req, { cache: 'no-store' }))
+    return
+  }
+
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req).catch(async () => {
@@ -41,12 +47,11 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // Cache-first for static assets and chapter/library files after first load.
   const isStatic =
     url.pathname.startsWith('/assets/') ||
     url.pathname.startsWith('/Stories/') ||
     url.pathname.startsWith('/books/') ||
-    url.pathname === '/library.json'
+    url.pathname.startsWith('/covers/')
 
   if (!isStatic) return
 

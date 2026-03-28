@@ -57,7 +57,7 @@ function BookCard({
       ? `/read/${book.id}/${progress.chapterId}`
       : undefined
   const [coverIndex, setCoverIndex] = useState(() => hashIndex(book.id, CARD_COVERS.length))
-  const touchStartX = useRef<number | null>(null)
+  const swipeStartX = useRef<number | null>(null)
   const cover = CARD_COVERS[coverIndex] || DEFAULT_BOOK_COVER
 
   const onSwipe = (dir: 1 | -1) => {
@@ -65,26 +65,44 @@ function BookCard({
     setCoverIndex((idx) => (idx + dir + CARD_COVERS.length) % CARD_COVERS.length)
   }
 
+  const onSwipePointerDown = (clientX: number) => {
+    swipeStartX.current = clientX
+  }
+
+  const onSwipePointerUp = (clientX: number) => {
+    const startX = swipeStartX.current
+    swipeStartX.current = null
+    if (startX == null) return
+    const delta = clientX - startX
+    if (Math.abs(delta) < 36) return
+    onSwipe(delta < 0 ? 1 : -1)
+  }
+
   return (
     <article className="book-card">
-      <img
-        className="book-card-cover"
-        src={cover}
-        alt={`${book.title} cover`}
-        loading="lazy"
-        onTouchStart={(e) => {
-          touchStartX.current = e.touches[0]?.clientX ?? null
+      <div
+        className="book-card-cover-wrap"
+        onPointerDown={(e) => {
+          if (!e.isPrimary) return
+          e.currentTarget.setPointerCapture(e.pointerId)
+          onSwipePointerDown(e.clientX)
         }}
-        onTouchEnd={(e) => {
-          const startX = touchStartX.current
-          const endX = e.changedTouches[0]?.clientX
-          touchStartX.current = null
-          if (startX == null || endX == null) return
-          const delta = endX - startX
-          if (Math.abs(delta) < 30) return
-          onSwipe(delta < 0 ? 1 : -1)
+        onPointerUp={(e) => {
+          if (!e.isPrimary) return
+          onSwipePointerUp(e.clientX)
         }}
-      />
+        onPointerCancel={() => {
+          swipeStartX.current = null
+        }}
+      >
+        <img
+          className="book-card-cover"
+          src={cover}
+          alt={`${book.title} cover`}
+          loading="lazy"
+          draggable={false}
+        />
+      </div>
       <span className="book-card-title">{book.title}</span>
       {book.subtitle ? (
         <span className="book-card-sub muted">{book.subtitle}</span>
