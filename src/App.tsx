@@ -255,8 +255,15 @@ function App() {
 
 function NavBrand() {
   return (
-    <Link to="/" className="brand">
-      Nudist Life
+    <Link to="/" className="brand" aria-label="Naked Stories home">
+      <img
+        className="brand-mark"
+        src="/brand-logo.png"
+        alt=""
+        width={40}
+        height={40}
+        decoding="async"
+      />
     </Link>
   )
 }

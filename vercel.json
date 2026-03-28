@@ -12,7 +12,19 @@
   ],
   "rewrites": [
     {
-      "source": "/read/:path*",
+      "source": "/read/:bookId/:chapterId",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/read/:bookId",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/photos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/photos/",
       "destination": "/index.html"
     }
   ]

@@ -1,6 +1,17 @@
-const CACHE_NAME = 'nudist-life-v4'
+const CACHE_NAME = 'nudist-life-v5'
 /** Only shell assets — never cache dynamic manifests here (stale library on phones). */
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg']
+
+function pathLooksLikeStaticFile(pathname) {
+  return /\.[a-z0-9]{1,8}$/i.test(pathname)
+}
+
+async function spaShellResponse() {
+  const cached = (await caches.match('/index.html')) || (await caches.match('/'))
+  if (cached) return cached
+  const res = await fetch('/index.html', { cache: 'no-store', credentials: 'same-origin' })
+  return res.ok ? res : Response.error()
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -39,10 +50,21 @@ self.addEventListener('fetch', (event) => {
 
   if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(req).catch(async () => {
-        const cached = await caches.match('/index.html')
-        return cached || Response.error()
-      }),
+      (async () => {
+        try {
+          const res = await fetch(req)
+          if (res.ok) return res
+          // Host returned 404/5xx for an app route — serve SPA shell (common on mobile full reload / PWA).
+          if (!pathLooksLikeStaticFile(url.pathname)) {
+            const shell = await spaShellResponse()
+            if (shell && shell.ok) return shell
+          }
+          return res
+        } catch {
+          const shell = await spaShellResponse()
+          return shell && shell.ok ? shell : Response.error()
+        }
+      })(),
     )
     return
   }
@@ -51,7 +73,8 @@ self.addEventListener('fetch', (event) => {
     url.pathname.startsWith('/assets/') ||
     url.pathname.startsWith('/Stories/') ||
     url.pathname.startsWith('/books/') ||
-    url.pathname.startsWith('/covers/')
+    url.pathname.startsWith('/covers/') ||
+    url.pathname === '/brand-logo.png'
 
   if (!isStatic) return
 
