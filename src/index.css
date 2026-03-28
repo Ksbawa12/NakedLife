@@ -931,18 +931,16 @@ body.reading-hide-header .app-header {
   margin: 0;
 }
 
+/* Part grid columns are set below with .book-grid.read-part-grid (after .book-grid) so library breakpoints do not collapse parts to one column on phones. */
+
 .read-part-grid {
-  grid-template-columns: repeat(auto-fit, 220px);
   justify-content: center;
   grid-auto-rows: auto;
   gap: 0.7rem;
 }
 
 .read-part-grid > li {
-  flex: 0 0 220px;
-  max-width: 220px;
   height: auto;
-  width: 220px;
 }
 
 .read-part-grid .book-card {
@@ -2166,6 +2164,26 @@ body.reader-night-mode .prose {
   .photo-img {
     height: 150px;
   }
+}
+
+/* Multi-part picker: same multi-column flow as large screens (auto-fit), not library’s 1-col book layout */
+.book-grid.read-part-grid {
+  grid-template-columns: repeat(auto-fit, minmax(158px, 220px));
+  grid-auto-rows: auto;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.book-grid.read-part-grid > li {
+  display: flex;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  height: auto;
+  flex: 0 1 auto;
 }
 
 @media (max-width: 520px) {
