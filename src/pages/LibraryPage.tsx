@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLibrary } from '../context/LibraryContext'
 import {
   bookChapterCount,
@@ -8,25 +8,13 @@ import {
 } from '../utils/book'
 import type { Book } from '../types/library'
 import {
-  loadProgressMap,
-} from '../utils/readerStorage'
-
-const CARD_COVERS = [
-  '/covers/IMG_0070.JPG',
-  '/covers/IMG_0071.JPG',
-  '/covers/IMG_0072.JPG',
-  '/covers/IMG_0073.JPG',
-  '/covers/IMG_0074.JPG',
-  '/covers/IMG_0075.JPG',
-  '/covers/IMG_0076.JPG',
-  '/covers/IMG_0077.JPG',
-  '/covers/IMG_0078.JPG',
-  '/covers/IMG_0079.JPG',
-  '/covers/IMG_0080.JPG',
-  '/covers/IMG_0081.JPG',
-]
-
-const DEFAULT_BOOK_COVER = '/books/naked-family-cover.png'
+  assignUniqueCovers,
+  buildImagePool,
+  DEFAULT_LIBRARY_BOOK_COVER,
+  LIBRARY_CARD_COVER_PATHS,
+  libraryCoverSeed,
+} from '../utils/libraryCovers'
+import { loadProgressMap } from '../utils/readerStorage'
 type SortMode =
   | 'az'
   | 'za'
@@ -35,20 +23,14 @@ type SortMode =
   | 'oldestAdded'
   | 'mostChapters'
 
-function hashIndex(seed: string, length: number) {
-  let hash = 0
-  for (let i = 0; i < seed.length; i += 1) {
-    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0
-  }
-  return length ? hash % length : 0
-}
-
 function BookCard({
   book,
   progressMap,
+  coverSrc,
 }: {
   book: Book
   progressMap: Record<string, { chapterId: string; updatedAt?: number }>
+  coverSrc: string
 }) {
   const to = `/read/${book.id}`
   const progress = progressMap[book.id]
@@ -56,69 +38,42 @@ function BookCard({
     progress && hasChapter(book, progress.chapterId)
       ? `/read/${book.id}/${progress.chapterId}`
       : undefined
-  const [coverIndex, setCoverIndex] = useState(() => hashIndex(book.id, CARD_COVERS.length))
-  const swipeStartX = useRef<number | null>(null)
-  const cover = CARD_COVERS[coverIndex] || DEFAULT_BOOK_COVER
-
-  const onSwipe = (dir: 1 | -1) => {
-    if (!CARD_COVERS.length) return
-    setCoverIndex((idx) => (idx + dir + CARD_COVERS.length) % CARD_COVERS.length)
-  }
-
-  const onSwipePointerDown = (clientX: number) => {
-    swipeStartX.current = clientX
-  }
-
-  const onSwipePointerUp = (clientX: number) => {
-    const startX = swipeStartX.current
-    swipeStartX.current = null
-    if (startX == null) return
-    const delta = clientX - startX
-    if (Math.abs(delta) < 36) return
-    onSwipe(delta < 0 ? 1 : -1)
-  }
+  const chapterCount = bookChapterCount(book)
 
   return (
-    <article className="book-card">
-      <div
-        className="book-card-cover-wrap"
-        onPointerDown={(e) => {
-          if (!e.isPrimary) return
-          e.currentTarget.setPointerCapture(e.pointerId)
-          onSwipePointerDown(e.clientX)
-        }}
-        onPointerUp={(e) => {
-          if (!e.isPrimary) return
-          onSwipePointerUp(e.clientX)
-        }}
-        onPointerCancel={() => {
-          swipeStartX.current = null
-        }}
-      >
+    <article className="book-card" aria-label={book.title}>
+      <div className="book-card-cover-wrap">
         <img
           className="book-card-cover"
-          src={cover}
-          alt={`${book.title} cover`}
+          src={coverSrc}
+          alt=""
           loading="lazy"
           draggable={false}
         />
       </div>
-      <span className="book-card-title">{book.title}</span>
-      {book.subtitle ? (
-        <span className="book-card-sub muted">{book.subtitle}</span>
-      ) : null}
-      {continueTo ? (
-        <span className="book-card-continue muted small">Continue where you left off</span>
-      ) : null}
-      <div className="book-card-actions">
-        <Link className="book-card-open-link" to={to}>
-          Open
-        </Link>
+      <div className="book-card-body">
+        <div className="book-card-text-block">
+          <span className="book-card-title">{book.title}</span>
+          {book.subtitle ? (
+            <span className="book-card-sub muted">{book.subtitle}</span>
+          ) : null}
+          <span className="book-card-chapter-pill">
+            {chapterCount === 1 ? '1 chapter' : `${chapterCount} chapters`}
+          </span>
+        </div>
         {continueTo ? (
-          <Link className="book-card-continue-link" to={continueTo}>
-            Continue
-          </Link>
+          <span className="book-card-continue muted small">Continue where you left off</span>
         ) : null}
+        <div className="book-card-actions">
+          <Link className="book-card-open-link" to={to}>
+            Open
+          </Link>
+          {continueTo ? (
+            <Link className="book-card-continue-link" to={continueTo}>
+              Continue
+            </Link>
+          ) : null}
+        </div>
       </div>
     </article>
   )
@@ -137,7 +92,38 @@ export function LibraryPage({
   const setQuery = onNavQueryChange ?? setLocalQuery
   void setQuery
   const [sortMode, setSortMode] = useState<SortMode>('az')
+  const [photoSrcs, setPhotoSrcs] = useState<string[] | null>(null)
   const progressMap = useMemo(() => loadProgressMap(), [state, query, sortMode])
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/photos.json', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : { items: [] }))
+      .then((data: { items?: { src?: string }[] }) => {
+        if (cancelled) return
+        const items = data?.items
+        if (!items?.length) {
+          setPhotoSrcs([])
+          return
+        }
+        const srcs = items.map((it) => it.src).filter((s): s is string => typeof s === 'string')
+        setPhotoSrcs(srcs)
+      })
+      .catch(() => {
+        if (!cancelled) setPhotoSrcs([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const coverByBookId = useMemo(() => {
+    if (state.status !== 'ready' || photoSrcs === null) return null
+    const ids = state.data.books.map((b) => b.id)
+    const pool = buildImagePool(LIBRARY_CARD_COVER_PATHS, photoSrcs)
+    const seed = libraryCoverSeed(ids)
+    return assignUniqueCovers(ids, pool, seed, DEFAULT_LIBRARY_BOOK_COVER)
+  }, [state, photoSrcs])
 
   const compareBooks = (a: Book, b: Book) => {
     const alpha = a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
@@ -235,7 +221,13 @@ export function LibraryPage({
         <ul className="book-grid book-grid-in-series">
           {filtered.map((book) => (
             <li key={book.id}>
-              <BookCard book={book} progressMap={progressMap} />
+              <BookCard
+                book={book}
+                progressMap={progressMap}
+                coverSrc={
+                  coverByBookId?.[book.id] ?? DEFAULT_LIBRARY_BOOK_COVER
+                }
+              />
             </li>
           ))}
         </ul>

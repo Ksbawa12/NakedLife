@@ -248,6 +248,20 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
+        <footer className="app-footer" role="contentinfo">
+          <nav className="app-footer-nav" aria-label="Footer">
+            <Link to="/" className="app-footer-link">
+              Library
+            </Link>
+            <span className="app-footer-sep" aria-hidden="true">
+              ·
+            </span>
+            <Link to="/photos" className="app-footer-link">
+              Photos
+            </Link>
+          </nav>
+          <p className="app-footer-meta">Naked Stories · offline reader</p>
+        </footer>
       </div>
     </LibraryProvider>
   )

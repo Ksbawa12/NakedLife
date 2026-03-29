@@ -15,6 +15,9 @@ public/Stories
 
 # Generated: symlinks from each book folder into a stable Stories/ path (see generate-library.mjs)
 Stories/
+
+# Combined book PDFs (npm run export:book-pdfs)
+Book PDFs/
 dist-ssr
 *.local
 

@@ -12,6 +12,7 @@
     "rename:photos": "node scripts/rename-photos.mjs",
     "predev": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
     "prebuild": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
+    "export:book-pdfs": "node scripts/generate-library.mjs && node scripts/export-book-pdfs.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
