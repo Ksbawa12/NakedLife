@@ -215,7 +215,7 @@ async function nakedFamilyChapterDisplayTitle({ mammoth, fullPath, base }) {
 }
 
 /**
- * Split manuscript rows into part groups (or one "Chapters" group).
+ * Return one merged chapter group; old part tags only affect ordering.
  * @returns {{ sectionTitle: string, sectionKey: string, rows: object[] }[]}
  */
 function partitionIntoPartGroups(docxFiles, storiesRoot) {
@@ -247,46 +247,32 @@ function partitionIntoPartGroups(docxFiles, storiesRoot) {
     })
   }
 
-  const anyPartTag = rows.some((r) => r.part !== null)
-
-  if (!anyPartTag) {
-    const sorted = [...rows].sort(chapterOrderCompare)
-    return [{ sectionTitle: 'Chapters', sectionKey: 'chapters', rows: sorted }]
-  }
-
-  const bucketByRow = rows.map((r) => ({
-    ...r,
-    bucket: r.part ?? 1,
-  }))
-
-  const bucketNums = [...new Set(bucketByRow.map((r) => r.bucket))].sort(
-    (a, b) => a - b,
-  )
-
-  if (bucketNums.length === 1) {
-    const sorted = [...rows].sort(chapterOrderCompare)
-    return [{ sectionTitle: 'Chapters', sectionKey: 'chapters', rows: sorted }]
-  }
-
-  return bucketNums.map((num) => {
-    const inBucket = bucketByRow.filter((r) => r.bucket === num)
-    inBucket.sort(chapterOrderCompare)
-    return {
-      sectionTitle: `Part ${num}`,
-      sectionKey: `part-${num}`,
-      rows: inBucket,
-    }
+  const sorted = [...rows].sort((a, b) => {
+    const aPart = a.part ?? 1
+    const bPart = b.part ?? 1
+    if (aPart !== bPart) return aPart - bPart
+    return chapterOrderCompare(a, b)
   })
+  return [{ sectionTitle: 'Chapters', sectionKey: 'chapters', rows: sorted }]
+}
+
+function normalizeChapterTitleSequential(title, seq) {
+  const t = title.trim()
+  const m = t.match(/^(?:Part\s+\d+\s+)?Chapter\s+\d+\s*(.*)$/i)
+  if (!m) return t
+  const suffix = (m[1] || '').trim()
+  return suffix ? `Chapter ${seq} ${suffix}` : `Chapter ${seq}`
 }
 
 async function chaptersFromRows(
   rows,
   bookEntryId,
   globalChapterIds,
-  { nakedFamily = false, mammoth } = {},
+  { nakedFamily = false, mammoth, renumberSequential = false } = {},
 ) {
   const chapters = []
-  for (const row of rows) {
+  for (let i = 0; i < rows.length; i += 1) {
+    const row = rows[i]
     const { relFromStories, base, full } = row
     const baseSlug = slugify(base)
     let id = `${bookEntryId}--${baseSlug}`
@@ -304,6 +290,9 @@ async function chaptersFromRows(
         fullPath: full,
         base,
       })
+    }
+    if (renumberSequential) {
+      title = normalizeChapterTitleSequential(title, i + 1)
     }
 
     chapters.push({
@@ -382,6 +371,7 @@ async function main() {
       const chapters = await chaptersFromRows(g.rows, bookId, globalChapterIds, {
         nakedFamily,
         mammoth,
+        renumberSequential: true,
       })
       if (!chapters.length) continue
       sections.push({

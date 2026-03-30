@@ -2072,9 +2072,19 @@ code {
   padding: 1.2rem max(1.25rem, env(safe-area-inset-left, 0px)) 3rem
     max(1.25rem, env(safe-area-inset-right, 0px));
   max-width: var(--reader-content-width);
-  margin: 0 auto;
+  margin: 0.7rem auto 0;
   width: 100%;
   min-width: 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--surface) 94%, #f6efdf 6%) 0%,
+    color-mix(in oklab, var(--surface) 98%, #f6efdf 2%) 100%
+  );
+  border: 1px solid color-mix(in oklab, var(--border) 82%, var(--text) 18%);
+  border-radius: 16px;
+  box-shadow:
+    0 10px 28px rgba(16, 12, 9, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 body.reader-night-mode .read-main {
@@ -2193,9 +2203,35 @@ body.reader-night-mode .prose {
 }
 
 .read-chapter-header {
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.7rem;
   position: relative;
   text-align: center;
+  padding: 0.5rem 0 0.3rem;
+}
+
+.read-chapter-header::before,
+.read-chapter-header::after {
+  content: '';
+  display: block;
+  width: min(340px, 84%);
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--border) 72%, var(--accent) 28%) 25%,
+    color-mix(in oklab, var(--border) 88%, #fff 12%) 50%,
+    color-mix(in oklab, var(--border) 72%, var(--accent) 28%) 75%,
+    transparent 100%
+  );
+}
+
+.read-chapter-header::before {
+  margin-bottom: 0.72rem;
+}
+
+.read-chapter-header::after {
+  margin-top: 0.85rem;
 }
 
 .read-title-lines {
@@ -2256,19 +2292,20 @@ body.reader-night-mode .prose {
 }
 
 .read-title-line-1 {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--text-soft);
-  font-weight: 700;
+  letter-spacing: 0.23em;
+  color: color-mix(in oklab, var(--text-muted) 88%, var(--text) 12%);
+  font-weight: 600;
 }
 
 .read-title-line-2 {
-  font-size: clamp(1.38rem, 3vw, 1.94rem);
-  letter-spacing: -0.014em;
-  line-height: 1.18;
-  color: color-mix(in oklab, var(--text) 94%, black 6%);
-  font-weight: 760;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: 0.008em;
+  line-height: 1.2;
+  color: color-mix(in oklab, var(--text) 96%, black 4%);
+  font-weight: 620;
+  font-variant: small-caps;
 }
 
 .bookmark-btn {
@@ -2631,9 +2668,14 @@ body.reader-night-mode .prose {
 
 .prose {
   font-family: var(--font-serif);
-  font-size: calc(1.0625rem * var(--reader-font-scale));
-  line-height: var(--reader-line-height);
+  font-size: calc(1.03rem * var(--reader-font-scale));
+  line-height: max(1.78, var(--reader-line-height));
   color: var(--text);
+  max-width: 68ch;
+  margin: 0 auto;
+  text-align: justify;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 body.reader-font-sans .prose {
@@ -2663,7 +2705,20 @@ body.reader-font-sans .prose {
 }
 
 .prose p {
-  margin: 0 0 calc(1em * var(--reader-para-space));
+  margin: 0;
+  text-indent: 1.5em;
+}
+
+.prose p + p {
+  margin-top: calc(0.12em * var(--reader-para-space));
+}
+
+.prose p:first-of-type,
+.prose h1 + p,
+.prose h2 + p,
+.prose h3 + p,
+.prose hr + p {
+  text-indent: 0;
 }
 
 .prose ul,

@@ -321,9 +321,10 @@ export function ReadPage() {
   const totalMinutes = Math.max(1, Math.round(wordCount / 220))
   const minutesLeft = Math.max(0, Math.ceil(totalMinutes * (1 - scrollProgress)))
   const chapterMapDots = 7
+  const chapterProgress = n <= 1 ? 0 : Math.max(0, Math.min(1, currentIndex / (n - 1)))
   const chapterMapActive = Math.min(
     chapterMapDots - 1,
-    Math.max(0, Math.round(scrollProgress * (chapterMapDots - 1))),
+    Math.max(0, Math.round(chapterProgress * (chapterMapDots - 1))),
   )
   const nextChapterId = hasNextChapter ? flat[currentIndex + 1]?.chapter.id : undefined
   const endNextTo = nextChapterId
