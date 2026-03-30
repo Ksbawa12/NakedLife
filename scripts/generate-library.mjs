@@ -43,8 +43,43 @@ function extractPartNumber(basename) {
   return m ? parseInt(m[1], 10) : null
 }
 
+function pruneStaleStorySymlinks() {
+  fs.mkdirSync(storiesRoot, { recursive: true })
+  let entries
+  try {
+    entries = fs.readdirSync(storiesRoot, { withFileTypes: true })
+  } catch {
+    return
+  }
+  for (const e of entries) {
+    const full = path.join(storiesRoot, e.name)
+    let stat
+    try {
+      stat = fs.lstatSync(full)
+    } catch {
+      continue
+    }
+    if (!stat.isSymbolicLink()) continue
+    let resolved
+    try {
+      resolved = path.resolve(path.dirname(full), fs.readlinkSync(full))
+    } catch {
+      resolved = null
+    }
+    if (!resolved) continue
+    if (fs.existsSync(resolved)) continue
+    try {
+      fs.unlinkSync(full)
+      console.log(`[generate-library] Removed stale Stories/${e.name} (missing target)`)
+    } catch (err) {
+      console.warn(`[generate-library] could not remove stale Stories/${e.name}:`, err.message)
+    }
+  }
+}
+
 function materializeStoriesFromRepoRoot() {
   fs.mkdirSync(storiesRoot, { recursive: true })
+  pruneStaleStorySymlinks()
   let entries
   try {
     entries = fs.readdirSync(repoRoot, { withFileTypes: true })

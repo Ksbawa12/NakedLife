@@ -48,6 +48,12 @@ function BookCard({
           alt=""
           loading="lazy"
           draggable={false}
+          onError={(e) => {
+            const el = e.currentTarget
+            if (el.dataset.fallbackApplied === '1') return
+            el.dataset.fallbackApplied = '1'
+            el.src = DEFAULT_LIBRARY_BOOK_COVER
+          }}
         />
       </div>
       <div className="book-card-body">
@@ -129,6 +135,17 @@ export function LibraryPage({
     if (state.status !== 'ready') return
     if (photoSrcs === null) return
     if (!assignedCoverByBookId) return
+
+    const available = new Set(photoSrcs)
+
+    // Fix any persisted covers that point to deleted photos.
+    for (const b of state.data.books) {
+      const persisted = coverOverrides[b.id]
+      if (persisted && !available.has(persisted)) {
+        const next = assignedCoverByBookId[b.id] ?? DEFAULT_LIBRARY_BOOK_COVER
+        setCoverOverride(b.id, next)
+      }
+    }
 
     // Persist covers once so they never reshuffle across refreshes.
     for (const b of state.data.books) {
