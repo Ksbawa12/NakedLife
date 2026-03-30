@@ -11,7 +11,6 @@ import {
   assignUniqueCovers,
   buildImagePool,
   DEFAULT_LIBRARY_BOOK_COVER,
-  LIBRARY_CARD_COVER_PATHS,
   libraryCoverSeed,
 } from '../utils/libraryCovers'
 import { loadProgressMap } from '../utils/readerStorage'
@@ -120,7 +119,7 @@ export function LibraryPage({
   const coverByBookId = useMemo(() => {
     if (state.status !== 'ready' || photoSrcs === null) return null
     const ids = state.data.books.map((b) => b.id)
-    const pool = buildImagePool(LIBRARY_CARD_COVER_PATHS, photoSrcs)
+    const pool = buildImagePool(photoSrcs)
     const seed = libraryCoverSeed(ids)
     return assignUniqueCovers(ids, pool, seed, DEFAULT_LIBRARY_BOOK_COVER)
   }, [state, photoSrcs])

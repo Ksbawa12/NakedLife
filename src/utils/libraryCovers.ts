@@ -1,20 +1,17 @@
-/** Static cover art paths (see `public/covers/`). */
-export const LIBRARY_CARD_COVER_PATHS = [
-  '/covers/IMG_0070.JPG',
-  '/covers/IMG_0071.JPG',
-  '/covers/IMG_0072.JPG',
-  '/covers/IMG_0073.JPG',
-  '/covers/IMG_0074.JPG',
-  '/covers/IMG_0075.JPG',
-  '/covers/IMG_0076.JPG',
-  '/covers/IMG_0077.JPG',
-  '/covers/IMG_0078.JPG',
-  '/covers/IMG_0079.JPG',
-  '/covers/IMG_0080.JPG',
-  '/covers/IMG_0081.JPG',
-]
-
 export const DEFAULT_LIBRARY_BOOK_COVER = '/books/naked-family-cover.png'
+
+/** Deduplicated URLs from `public/photos.json` only (no legacy `/covers/` assets). */
+export function buildImagePool(photoSrcs: string[]): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  for (const p of photoSrcs) {
+    const t = p?.trim()
+    if (!t || seen.has(t)) continue
+    seen.add(t)
+    out.push(t)
+  }
+  return out
+}
 
 function hashStringToUint32(s: string): number {
   let h = 2166136261
@@ -36,18 +33,6 @@ export function seededShuffle<T>(arr: T[], seed: number): T[] {
   for (let i = out.length - 1; i > 0; i -= 1) {
     const j = Math.floor(nextUnit() * (i + 1))
     ;[out[i], out[j]] = [out[j], out[i]]
-  }
-  return out
-}
-
-export function buildImagePool(staticCovers: string[], photoSrcs: string[]): string[] {
-  const seen = new Set<string>()
-  const out: string[] = []
-  for (const p of [...staticCovers, ...photoSrcs]) {
-    const t = p?.trim()
-    if (!t || seen.has(t)) continue
-    seen.add(t)
-    out.push(t)
   }
   return out
 }
