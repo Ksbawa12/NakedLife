@@ -20,6 +20,7 @@ Stories/
 Book PDFs/
 dist-ssr
 *.local
+*.bak
 
 # Editor directories and files
 .vscode/*

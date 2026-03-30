@@ -597,271 +597,71 @@
       "id": "the-naked-haveli",
       "title": "The Naked Haveli",
       "manuscriptKey": "the-naked-haveli",
-      "latestAddedAt": 1774351572041.5312,
+      "latestAddedAt": 1774849772000,
       "sections": [
         {
-          "id": "part-1",
-          "title": "Part 1",
+          "id": "chapters",
+          "title": "Chapters",
           "chapters": [
             {
-              "id": "the-naked-haveli--chapter-1-the-descent-of-the-mercury",
-              "title": "Chapter 1 The Descent of the Mercury",
-              "file": "Stories/The Naked Haveli/Chapter 1 The Descent of the Mercury.docx"
+              "id": "the-naked-haveli--chapter-1-the-sandstone-boundary",
+              "title": "Chapter 1 The Sandstone Boundary",
+              "file": "Stories/The Naked Haveli/Chapter 1 The Sandstone Boundary.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-2-the-parallel-sanctuaries",
-              "title": "Chapter 2 The Parallel Sanctuaries",
-              "file": "Stories/The Naked Haveli/Chapter 2 The Parallel Sanctuaries.docx"
+              "id": "the-naked-haveli--chapter-2-the-logic-of-the-rooftop",
+              "title": "Chapter 2 The Logic of the Rooftop",
+              "file": "Stories/The Naked Haveli/Chapter 2 The Logic of the Rooftop.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-3-the-surprise-at-the-gate",
-              "title": "Chapter 3 The Surprise at the Gate",
-              "file": "Stories/The Naked Haveli/Chapter 3 The Surprise at the Gate.docx"
+              "id": "the-naked-haveli--chapter-3-the-shattered-mask",
+              "title": "Chapter 3 The Shattered Mask",
+              "file": "Stories/The Naked Haveli/Chapter 3 The Shattered Mask.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-4-the-silent-observer",
-              "title": "Chapter 4 The Silent Observer",
-              "file": "Stories/The Naked Haveli/Chapter 4 The Silent Observer.docx"
+              "id": "the-naked-haveli--chapter-4-the-natural-rhythm",
+              "title": "Chapter 4 The Natural Rhythm",
+              "file": "Stories/The Naked Haveli/Chapter 4 The Natural Rhythm.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-5-the-invisible-weight",
-              "title": "Chapter 5 The Invisible Weight",
-              "file": "Stories/The Naked Haveli/Chapter 5 The Invisible Weight.docx"
+              "id": "the-naked-haveli--chapter-5-the-digital-atman",
+              "title": "Chapter 5 The Digital Atman",
+              "file": "Stories/The Naked Haveli/Chapter 5 The Digital Atman.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-6-the-unveiling",
-              "title": "Chapter 6 The Unveiling",
-              "file": "Stories/The Naked Haveli/Chapter 6 The Unveiling.docx"
+              "id": "the-naked-haveli--chapter-6-the-digital-sanctuary",
+              "title": "Chapter 6 The Digital Sanctuary",
+              "file": "Stories/The Naked Haveli/Chapter 6 The Digital Sanctuary.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-8-the-silicon-sanctuary",
-              "title": "Chapter 8 The Silicon Sanctuary",
-              "file": "Stories/The Naked Haveli/Chapter 8 The Silicon Sanctuary.docx"
+              "id": "the-naked-haveli--chapter-7-the-northern-thread",
+              "title": "Chapter 7 The Northern Thread",
+              "file": "Stories/The Naked Haveli/Chapter 7 The Northern Thread.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-9-the-dual-identity-setup",
-              "title": "Chapter 9 The Dual-Identity Setup",
-              "file": "Stories/The Naked Haveli/Chapter 9 The Dual-Identity Setup.docx"
+              "id": "the-naked-haveli--chapter-8-the-convergence-of-the-bare-truth",
+              "title": "Chapter 8 The Convergence of the Bare Truth",
+              "file": "Stories/The Naked Haveli/Chapter 8 The Convergence of the Bare Truth.docx"
             },
             {
-              "id": "the-naked-haveli--chapter-10-the-fortress-of-freedom",
-              "title": "Chapter 10 The Fortress of Freedom",
-              "file": "Stories/The Naked Haveli/Chapter 10 The Fortress of Freedom.docx"
-            }
-          ]
-        },
-        {
-          "id": "part-2",
-          "title": "Part 2",
-          "chapters": [
-            {
-              "id": "the-naked-haveli--part-2-chapter-1-the-digital-echo",
-              "title": "Part 2 Chapter 1 The Digital Echo",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 1 The Digital Echo.docx"
+              "id": "the-naked-haveli--chapter-9-the-ancestral-blessing",
+              "title": "Chapter 9 The Ancestral Blessing",
+              "file": "Stories/The Naked Haveli/Chapter 9 The Ancestral Blessing.docx"
             },
             {
-              "id": "the-naked-haveli--part-2-chapter-2-the-silent-vows-of-the-haveli",
-              "title": "Part 2 Chapter 2 The Silent Vows of the Haveli",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 2 The Silent Vows of the Haveli.docx"
+              "id": "the-naked-haveli--chapter-10-the-transparent-vivah",
+              "title": "Chapter 10 The Transparent Vivah",
+              "file": "Stories/The Naked Haveli/Chapter 10 The Transparent Vivah.docx"
             },
             {
-              "id": "the-naked-haveli--part-2-chapter-3-the-convergence-of-truth",
-              "title": "Part 2 Chapter 3 The Convergence of Truth",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 3 The Convergence of Truth.docx"
+              "id": "the-naked-haveli--chapter-11-the-unified-clan",
+              "title": "Chapter 11 The Unified Clan",
+              "file": "Stories/The Naked Haveli/Chapter 11 The Unified Clan.docx"
             },
             {
-              "id": "the-naked-haveli--part-2-chapter-4-the-pilgrimage-of-vows",
-              "title": "Part 2 Chapter 4 The Pilgrimage of Vows",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 4 The Pilgrimage of Vows.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-2-chapter-5-the-saffron-and-sandstone-wedding",
-              "title": "Part 2 Chapter 5 The Saffron and Sandstone Wedding",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 5 The Saffron and Sandstone Wedding.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-2-chapter-6-the-garden-of-eden",
-              "title": "Part 2 Chapter 6 The Garden of Eden",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 6 The Garden of Eden.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-2-chapter-7-the-games-of-the-heart",
-              "title": "Part 2 Chapter 7 The Games of the Heart",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 7 The Games of the Heart.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-2-chapter-8-the-sovereign-sanctuary",
-              "title": "Part 2 Chapter 8 The Sovereign Sanctuary",
-              "file": "Stories/The Naked Haveli/Part 2 Chapter 8 The Sovereign Sanctuary.docx"
-            }
-          ]
-        },
-        {
-          "id": "part-3",
-          "title": "Part 3",
-          "chapters": [
-            {
-              "id": "the-naked-haveli--part-3-chapter-1-the-expanding-fortress",
-              "title": "Part 3 Chapter 1 The Expanding Fortress",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 1 The Expanding Fortress.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-2-the-merging-of-roots",
-              "title": "Part 3 Chapter 2 The Merging of Roots",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 2 The Merging of Roots.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-3-the-final-barrier",
-              "title": "Part 3 Chapter 3 The Final Barrier",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 3 The Final Barrier.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-4-the-morning-of-absolute-kinship",
-              "title": "Part 3 Chapter 4 The Morning of Absolute Kinship",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 4 The Morning of Absolute Kinship.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-5-the-suffocation-of-the-mask",
-              "title": "Part 3 Chapter 5 The Suffocation of the Mask",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 5 The Suffocation of the Mask.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-6-the-four-pillars-of-the-past",
-              "title": "Part 3 Chapter 6 The Four Pillars of the Past",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 6 The Four Pillars of the Past.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-7-the-final-bridge",
-              "title": "Part 3 Chapter 7 The Final Bridge",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 7 The Final Bridge.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-3-chapter-8-the-fire-and-the-spectrum",
-              "title": "Part 3 Chapter 8 The Fire and the Spectrum",
-              "file": "Stories/The Naked Haveli/Part 3 Chapter 8 The Fire and the Spectrum.docx"
-            }
-          ]
-        },
-        {
-          "id": "part-4",
-          "title": "Part 4",
-          "chapters": [
-            {
-              "id": "the-naked-haveli--part-4-chapter-1-the-sovereign-horizon",
-              "title": "Part 4 Chapter 1 The Sovereign Horizon",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 1 The Sovereign Horizon.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-2-the-mediterranean-mastery",
-              "title": "Part 4 Chapter 2 The Mediterranean Mastery ",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 2 The Mediterranean Mastery .docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-3-the-dust-of-tradition",
-              "title": "Part 4 Chapter 3 The Dust of Tradition",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 3 The Dust of Tradition.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-4-the-ministerial-key",
-              "title": "Part 4 Chapter 4 The Ministerial Key",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 4 The Ministerial Key.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-5-the-sovereign-architecture",
-              "title": "Part 4 Chapter 5 The Sovereign Architecture",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 5 The Sovereign Architecture.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-6-the-great-vanishing",
-              "title": "Part 4 Chapter 6 The Great Vanishing",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 6 The Great Vanishing.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-7-the-billionair-s-check-in",
-              "title": "Part 4 Chapter 7 The Billionair's Check-In",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 7 The Billionair's Check-In.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-4-chapter-8-the-saffron-launch",
-              "title": "Part 4 Chapter 8 The Saffron Launch",
-              "file": "Stories/The Naked Haveli/Part 4 Chapter 8 The Saffron Launch.docx"
-            }
-          ]
-        },
-        {
-          "id": "part-5",
-          "title": "Part 5",
-          "chapters": [
-            {
-              "id": "the-naked-haveli--part-5-chapter-1-the-sovereign-sixteen",
-              "title": "Part 5 Chapter 1 The Sovereign Sixteen",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 1 The Sovereign Sixteen.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-2-the-sovereign-manifesto",
-              "title": "Part 5 Chapter 2 The Sovereign Manifesto",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 2 The Sovereign Manifesto.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-3-the-global-premiere",
-              "title": "Part 5 Chapter 3 The Global Premiere",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 3 The Global Premiere.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-4-the-golden-decade",
-              "title": "Part 5 Chapter 4 The Golden Decade",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 4 The Golden Decade.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-5-the-double-echo",
-              "title": "Part 5 Chapter 5 The Double Echo",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 5 The Double Echo.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-6-the-guardians-of-the-bloodline",
-              "title": "Part 5 Chapter 6 The Guardians of the Bloodline",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 6 The Guardians of the Bloodline.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-7-the-sovereign-symmetry",
-              "title": "Part 5 Chapter 7 The Sovereign Symmetry",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 7 The Sovereign Symmetry.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-5-chapter-8-the-great-succession",
-              "title": "Part 5 Chapter 8 The Great Succession",
-              "file": "Stories/The Naked Haveli/Part 5 Chapter 8 The Great Succession.docx"
-            }
-          ]
-        },
-        {
-          "id": "part-6",
-          "title": "Part 6",
-          "chapters": [
-            {
-              "id": "the-naked-haveli--part-6-chapter-1-the-great-handover",
-              "title": "Part 6 Chapter 1 The Great Handover",
-              "file": "Stories/The Naked Haveli/Part 6 Chapter 1 The Great Handover.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-6-chapter-2-the-naked-paradise",
-              "title": "Part 6 Chapter 2 The Naked Paradise",
-              "file": "Stories/The Naked Haveli/Part 6 Chapter 2 The Naked Paradise.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-6-chapter-3-the-sicilisn-union",
-              "title": "Part 6 Chapter 3 The sicilisn Union",
-              "file": "Stories/The Naked Haveli/Part 6 Chapter 3 The sicilisn Union.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-6-chapter-4-the-great-return",
-              "title": "Part 6 Chapter 4 The Great Return",
-              "file": "Stories/The Naked Haveli/Part 6 Chapter 4 The Great Return.docx"
-            },
-            {
-              "id": "the-naked-haveli--part-6-chapter-5-the-sovereign-explosion",
-              "title": "Part 6 Chapter 5 The Sovereign Explosion",
-              "file": "Stories/The Naked Haveli/Part 6 Chapter 5 The Sovereign Explosion.docx"
+              "id": "the-naked-haveli--chapter-12-the-fourth-generation",
+              "title": "Chapter 12 The Fourth Generation",
+              "file": "Stories/The Naked Haveli/Chapter 12 The Fourth Generation.docx"
             }
           ]
         }
