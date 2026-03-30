@@ -13,7 +13,7 @@ import {
   DEFAULT_LIBRARY_BOOK_COVER,
   libraryCoverSeed,
 } from '../utils/libraryCovers'
-import { loadProgressMap } from '../utils/readerStorage'
+import { loadCoverOverrides, loadProgressMap, setCoverOverride } from '../utils/readerStorage'
 type SortMode =
   | 'az'
   | 'za'
@@ -93,6 +93,7 @@ export function LibraryPage({
   const [sortMode, setSortMode] = useState<SortMode>('az')
   const [photoSrcs, setPhotoSrcs] = useState<string[] | null>(null)
   const progressMap = useMemo(() => loadProgressMap(), [state, query, sortMode])
+  const coverOverrides = useMemo(() => loadCoverOverrides(), [])
 
   useEffect(() => {
     let cancelled = false
@@ -116,13 +117,32 @@ export function LibraryPage({
     }
   }, [])
 
-  const coverByBookId = useMemo(() => {
+  const assignedCoverByBookId = useMemo(() => {
     if (state.status !== 'ready' || photoSrcs === null) return null
     const ids = state.data.books.map((b) => b.id)
     const pool = buildImagePool(photoSrcs)
     const seed = libraryCoverSeed(ids)
     return assignUniqueCovers(ids, pool, seed, DEFAULT_LIBRARY_BOOK_COVER)
   }, [state, photoSrcs])
+
+  useEffect(() => {
+    if (state.status !== 'ready') return
+    if (photoSrcs === null) return
+    if (!assignedCoverByBookId) return
+
+    // Persist covers once so they never reshuffle across refreshes.
+    for (const b of state.data.books) {
+      if (coverOverrides[b.id]) continue
+      const cover = assignedCoverByBookId[b.id]
+      if (cover) setCoverOverride(b.id, cover)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.status, photoSrcs, assignedCoverByBookId])
+
+  const coverByBookId = useMemo(() => {
+    if (!assignedCoverByBookId) return null
+    return { ...assignedCoverByBookId, ...coverOverrides }
+  }, [assignedCoverByBookId, coverOverrides])
 
   const compareBooks = (a: Book, b: Book) => {
     const alpha = a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })

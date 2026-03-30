@@ -13,6 +13,8 @@
     "predev": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
     "prebuild": "node scripts/generate-library.mjs && node scripts/generate-photos.mjs",
     "export:book-pdfs": "node scripts/generate-library.mjs && node scripts/export-book-pdfs.mjs",
+    "export:book-summaries": "node scripts/generate-library.mjs && node scripts/export-book-summaries.mjs",
+    "export:chapter-summaries": "node scripts/generate-library.mjs && node scripts/export-book-chapter-summaries.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

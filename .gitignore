@@ -18,6 +18,10 @@ Stories/
 
 # Combined book PDFs (npm run export:book-pdfs)
 Book PDFs/
+# Book summary PDFs (npm run export:book-summaries)
+Book Summaries/
+# Book chapter summary PDFs (npm run export:chapter-summaries)
+Book Chapter Summaries/
 dist-ssr
 *.local
 *.bak
