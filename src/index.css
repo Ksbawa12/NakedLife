@@ -1675,30 +1675,48 @@ code {
 }
 
 .read-pager-toolbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 
 .read-pager-toolbar--inline {
-  padding: 0.65rem 1rem;
-  margin: 0 0 1.25rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  position: sticky;
+  bottom: 0;
+  z-index: 12;
+  width: 100%;
+  margin: 0;
+  padding: 0.42rem max(0.7rem, env(safe-area-inset-right, 0px))
+    max(0.42rem, env(safe-area-inset-bottom, 0px))
+    max(0.7rem, env(safe-area-inset-left, 0px));
+  border: none;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: color-mix(in oklab, var(--surface) 96%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .read-pager-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 500;
   padding: 0.4rem 0.75rem;
+  min-height: 38px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
+  text-decoration: none;
+  line-height: 1.15;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .read-pager-btn:hover:not(:disabled) {
@@ -1712,7 +1730,7 @@ code {
 }
 
 .read-pager-count {
-  min-width: 4rem;
+  min-width: 3.6rem;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
@@ -2085,6 +2103,7 @@ code {
   box-shadow:
     0 10px 28px rgba(16, 12, 9, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  padding-bottom: max(6.2rem, calc(env(safe-area-inset-bottom, 0px) + 5.4rem));
 }
 
 body.reader-night-mode .read-main {
@@ -2411,45 +2430,22 @@ body.reader-night-mode .prose {
     text-align: right;
   }
 
-  .read-main {
-    padding-bottom: max(6.2rem, calc(env(safe-area-inset-bottom, 0px) + 5.4rem));
-  }
-
   .read-pager-toolbar {
-    flex-wrap: nowrap;
-    row-gap: 0;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
   }
 
   .read-pager-toolbar--inline {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 12;
-    margin: 0;
-    width: 100%;
     padding: 0.42rem max(0.55rem, env(safe-area-inset-right, 0px))
       max(0.42rem, env(safe-area-inset-bottom, 0px))
       max(0.55rem, env(safe-area-inset-left, 0px));
-    border: none;
-    border-top: 1px solid var(--border);
-    border-radius: 0;
-    background: var(--surface);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.1);
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
 
   .read-pager-btn {
     min-height: 44px;
-    flex: 1 1 0;
     min-width: 0;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .read-pager-count {
