@@ -19,7 +19,7 @@ function isDocx(path: string) {
   return path.toLowerCase().endsWith('.docx')
 }
 
-/** Path relative to `public/` (e.g. Stories/Book/file.docx); encodes spaces for fetch. */
+/** Path relative to `public/` (e.g. Books/Book/file.docx); encodes spaces for fetch. */
 function urlFromPublicPath(publicPath: string): string {
   const trimmed = publicPath.replace(/^\/+/, '')
   if (!trimmed) return '/'
@@ -223,7 +223,7 @@ function DocxChapter({
 
         // Naked Family has some introduction material embedded in `0.docx`.
         // User asked to remove that introduction section from chapter 0.
-        if (rawPath.endsWith('Stories/Naked Family/0.docx')) {
+        if (rawPath.endsWith('Books/Naked Family/0.docx')) {
           html = html.replace(
             /<p><strong>\s*Introduction:\s*The Myth of the Bathroom\s*<\/strong><\/p>[\s\S]*$/i,
             '',
@@ -232,7 +232,7 @@ function DocxChapter({
 
         // In chapter 1, this line was accidentally styled as a heading in source DOCX.
         // Downgrade just this known sentence back to a normal paragraph.
-        if (rawPath.endsWith('Stories/Naked Family/1.docx')) {
+        if (rawPath.endsWith('Books/Naked Family/1.docx')) {
           html = html.replace(
             /<h3>\s*My best friend, Asher, and I had a school project to finish\.[\s\S]*?the usual teenage banter\.\s*Instead, Asher opened the door completely naked\.\s*<\/h3>/i,
             (m) => `<p>${m.replace(/^<h3>|<\/h3>$/gi, '')}</p>`,

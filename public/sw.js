@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nudist-life-v5'
+const CACHE_NAME = 'naked-stories-v6'
 /** Only shell assets — never cache dynamic manifests here (stale library on phones). */
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg']
 
@@ -71,7 +71,7 @@ self.addEventListener('fetch', (event) => {
 
   const isStatic =
     url.pathname.startsWith('/assets/') ||
-    url.pathname.startsWith('/Stories/') ||
+    url.pathname.startsWith('/Books/') ||
     url.pathname.startsWith('/books/') ||
     url.pathname.startsWith('/covers/') ||
     url.pathname === '/brand-logo.png'

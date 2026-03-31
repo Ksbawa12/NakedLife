@@ -6,16 +6,17 @@ import react from '@vitejs/plugin-react'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = __dirname
 
-// Dev server may read manuscript files via public/Stories → repo root
+// Dev server reads manuscripts via public/Books → ../Books
 export default defineConfig({
+  // Relative base so JS/CSS load correctly inside the Capacitor Android WebView
+  base: './',
   plugins: [react()],
   server: {
     fs: {
       allow: [repoRoot],
     },
-    // Symlinked manuscript tree under public/Stories — do not watch (avoids restarts, false tsconfig hits)
     watch: {
-      ignored: ['**/public/Stories/**'],
+      ignored: ['**/public/Books/**'],
     },
   },
 })

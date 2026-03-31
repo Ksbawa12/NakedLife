@@ -16,7 +16,7 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     void (async () => {
       try {
-        const reg = await navigator.serviceWorker.register('/sw.js')
+        const reg = await navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`)
         await reg.update()
       } catch {
         /* ignore */

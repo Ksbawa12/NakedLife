@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { AndroidKindleTabBar } from './components/AndroidKindleTabBar'
 import { TextSizeToggle } from './components/TextSizeToggle'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LibraryProvider } from './context/LibraryContext'
 import { LibraryPage } from './pages/LibraryPage'
 import { PhotosPage } from './pages/PhotosPage'
 import { ReadPage } from './pages/ReadPage'
+import { useAndroidNative } from './hooks/useAndroidNative'
 import { isBookmarked } from './utils/readerStorage'
 
 function App() {
+  const isAndroidKindle = useAndroidNative()
   const location = useLocation()
   const [navBookmarked, setNavBookmarked] = useState(false)
   const [libraryQuery, setLibraryQuery] = useState('')
@@ -125,6 +128,18 @@ function App() {
   }, [isLibraryView, libraryQuery])
 
   useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (isAndroidKindle) {
+      document.documentElement.dataset.androidKindle = '1'
+    } else {
+      delete document.documentElement.dataset.androidKindle
+    }
+    return () => {
+      delete document.documentElement.dataset.androidKindle
+    }
+  }, [isAndroidKindle])
+
+  useEffect(() => {
     const onBookmarkState = (e: Event) => {
       const custom = e as CustomEvent<{ bookId: string; chapterId: string; bookmarked: boolean }>
       if (!readRoute) return
@@ -149,10 +164,25 @@ function App() {
     window.dispatchEvent(new CustomEvent('reader-open-chapters'))
   }
 
+  const appShellClass = [
+    'app',
+    isAndroidKindle && 'app--android-kindle',
+    isAndroidKindle && isReadView && 'app--android-kindle-reading',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <LibraryProvider>
-      <div className="app">
-        <header className={isReadView ? 'app-header app-header--reader' : 'app-header'}>
+      <div className={appShellClass}>
+        <header
+          className={[
+            isReadView ? 'app-header app-header--reader' : 'app-header',
+            isAndroidKindle ? 'app-header--android-kindle' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           <NavBrand />
           {isLibraryView ? (
             <div className="app-header-center">
@@ -165,6 +195,7 @@ function App() {
                 onBlur={() => pushRecentSearch(libraryQuery)}
                 placeholder="Search books, parts, chapters..."
                 className="nav-search-input"
+                id="library-search"
                 aria-label="Search books"
                 ref={navSearchRef}
                 list="library-search-suggestions"
@@ -177,7 +208,9 @@ function App() {
             </div>
           ) : null}
           <div className="app-header-actions">
-            {isReadView ? <TextSizeToggle /> : null}
+            <span className={isReadView ? undefined : 'app-header-text-size'}>
+              <TextSizeToggle />
+            </span>
             <ThemeToggle />
             {!isReadView ? (
               <Link to="/photos" className="nav-notes-btn" aria-label="Open photos">
@@ -248,20 +281,23 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        <footer className="app-footer" role="contentinfo">
-          <nav className="app-footer-nav" aria-label="Footer">
-            <Link to="/" className="app-footer-link">
-              Library
-            </Link>
-            <span className="app-footer-sep" aria-hidden="true">
-              ·
-            </span>
-            <Link to="/photos" className="app-footer-link">
-              Photos
-            </Link>
-          </nav>
-          <p className="app-footer-meta">Naked Stories · offline reader</p>
-        </footer>
+        {!isAndroidKindle ? (
+          <footer className="app-footer" role="contentinfo">
+            <nav className="app-footer-nav" aria-label="Footer">
+              <Link to="/" className="app-footer-link">
+                Library
+              </Link>
+              <span className="app-footer-sep" aria-hidden="true">
+                ·
+              </span>
+              <Link to="/photos" className="app-footer-link">
+                Photos
+              </Link>
+            </nav>
+            <p className="app-footer-meta">Naked Stories · offline reader</p>
+          </footer>
+        ) : null}
+        {isAndroidKindle && !isReadView ? <AndroidKindleTabBar /> : null}
       </div>
     </LibraryProvider>
   )

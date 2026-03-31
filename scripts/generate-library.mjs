@@ -4,22 +4,11 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, '..')
-/** Canonical manuscript root: symlinks to each book folder under repo root (never symlink repo root into public — Vite would copy .git). */
-const storiesRoot = path.join(repoRoot, 'Stories')
+/** Manuscripts live in repo-root Books/ — exposed to the dev server via public/Books → ../Books */
+const booksRoot = path.join(repoRoot, 'Books')
 
-const SCAN_SKIP_DIRS = new Set([
-  'node_modules',
-  'public',
-  'src',
-  'dist',
-  '.git',
-  'scripts',
-  'Images',
-  '.vscode',
-  '.cursor',
-])
 const publicDir = path.resolve(__dirname, '../public')
-const storiesLink = path.join(publicDir, 'Stories')
+const booksLink = path.join(publicDir, 'Books')
 const outFile = path.join(publicDir, 'library.json')
 
 function slugify(s) {
@@ -43,107 +32,39 @@ function extractPartNumber(basename) {
   return m ? parseInt(m[1], 10) : null
 }
 
-function pruneStaleStorySymlinks() {
-  fs.mkdirSync(storiesRoot, { recursive: true })
-  let entries
-  try {
-    entries = fs.readdirSync(storiesRoot, { withFileTypes: true })
-  } catch {
-    return
-  }
-  for (const e of entries) {
-    const full = path.join(storiesRoot, e.name)
-    let stat
-    try {
-      stat = fs.lstatSync(full)
-    } catch {
-      continue
-    }
-    if (!stat.isSymbolicLink()) continue
-    let resolved
-    try {
-      resolved = path.resolve(path.dirname(full), fs.readlinkSync(full))
-    } catch {
-      resolved = null
-    }
-    if (!resolved) continue
-    if (fs.existsSync(resolved)) continue
-    try {
-      fs.unlinkSync(full)
-      console.log(`[generate-library] Removed stale Stories/${e.name} (missing target)`)
-    } catch (err) {
-      console.warn(`[generate-library] could not remove stale Stories/${e.name}:`, err.message)
-    }
-  }
-}
-
-function materializeStoriesFromRepoRoot() {
-  fs.mkdirSync(storiesRoot, { recursive: true })
-  pruneStaleStorySymlinks()
-  let entries
-  try {
-    entries = fs.readdirSync(repoRoot, { withFileTypes: true })
-  } catch {
-    return
-  }
-  for (const e of entries) {
-    if (!e.isDirectory()) continue
-    if (SCAN_SKIP_DIRS.has(e.name)) continue
-    if (e.name === 'Stories') continue
-    if (e.name.startsWith('.')) continue
-    const src = path.join(repoRoot, e.name)
-    const dst = path.join(storiesRoot, e.name)
-    if (fs.existsSync(dst)) continue
-    if (walkDocx(src).length === 0) continue
-    const rel = path.relative(storiesRoot, src).split(path.sep).join('/')
-    try {
-      fs.symlinkSync(rel, dst, 'dir')
-      console.log(`[generate-library] Linked Stories/${e.name} → ${src}`)
-    } catch (err) {
-      console.warn(`[generate-library] could not link Stories/${e.name}:`, err.message)
-    }
-  }
-}
-
-function ensureStoriesSymlink() {
-  if (!fs.existsSync(storiesRoot)) {
-    console.warn(`[generate-library] Stories folder not found: ${storiesRoot}`)
+function ensureBooksSymlink() {
+  if (!fs.existsSync(booksRoot)) {
+    console.error(`[generate-library] Books folder not found: ${booksRoot}`)
     return false
   }
-  const target = path
-    .relative(path.dirname(storiesLink), storiesRoot)
-    .split(path.sep)
-    .join('/')
+  const target = path.relative(path.dirname(booksLink), booksRoot).split(path.sep).join('/')
 
   try {
-    const stat = fs.lstatSync(storiesLink)
+    const stat = fs.lstatSync(booksLink)
     if (stat.isSymbolicLink()) {
-      const resolvedCurrent = path.resolve(
-        path.dirname(storiesLink),
-        fs.readlinkSync(storiesLink),
-      )
-      const resolvedWant = path.resolve(storiesRoot)
+      const resolvedCurrent = path.resolve(path.dirname(booksLink), fs.readlinkSync(booksLink))
+      const resolvedWant = path.resolve(booksRoot)
       if (resolvedCurrent === resolvedWant) {
         return true
       }
-      fs.unlinkSync(storiesLink)
+      fs.unlinkSync(booksLink)
     } else if (stat.isDirectory()) {
       console.warn(
-        `[generate-library] ${storiesLink} exists and is not a symlink; remove it or link Stories manually.`,
+        `[generate-library] ${booksLink} exists and is not a symlink; remove it or link Books manually.`,
       )
       return false
     }
   } catch (e) {
     if (e && e.code !== 'ENOENT') {
-      console.warn('[generate-library] ensureStoriesSymlink:', e)
+      console.warn('[generate-library] ensureBooksSymlink:', e)
     }
   }
 
   try {
-    fs.symlinkSync(target, storiesLink, 'dir')
-    console.log(`[generate-library] Linked public/Stories → ${storiesRoot}`)
+    fs.symlinkSync(target, booksLink, 'dir')
+    console.log(`[generate-library] Linked public/Books → ${booksRoot}`)
   } catch (e) {
-    console.warn('[generate-library] could not create public/Stories symlink:', e.message)
+    console.warn('[generate-library] could not create public/Books symlink:', e.message)
     return false
   }
   return true
@@ -214,15 +135,11 @@ async function nakedFamilyChapterDisplayTitle({ mammoth, fullPath, base }) {
   return `Chapter ${chapterNumber} ${candidate}`
 }
 
-/**
- * Return one merged chapter group; old part tags only affect ordering.
- * @returns {{ sectionTitle: string, sectionKey: string, rows: object[] }[]}
- */
-function partitionIntoPartGroups(docxFiles, storiesRoot) {
+function partitionIntoPartGroups(docxFiles, rootDir) {
   const rows = docxFiles.map((full) => {
-    const relFromStories = path.relative(storiesRoot, full).split(path.sep).join('/')
+    const relFromBooks = path.relative(rootDir, full).split(path.sep).join('/')
     const base = path.basename(full, path.extname(full))
-    return { full, relFromStories, base, part: extractPartNumber(base) }
+    return { full, relFromBooks, base, part: extractPartNumber(base) }
   })
 
   function chapterOrderCompare(a, b) {
@@ -273,7 +190,7 @@ async function chaptersFromRows(
   const chapters = []
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i]
-    const { relFromStories, base, full } = row
+    const { relFromBooks, base, full } = row
     const baseSlug = slugify(base)
     let id = `${bookEntryId}--${baseSlug}`
     let n = 1
@@ -298,23 +215,26 @@ async function chaptersFromRows(
     chapters.push({
       id,
       title,
-      file: `Stories/${relFromStories}`,
+      file: `Books/${relFromBooks}`,
     })
   }
   return chapters
 }
 
 async function main() {
-  materializeStoriesFromRepoRoot()
-  ensureStoriesSymlink()
+  if (!fs.existsSync(booksRoot)) {
+    console.error('[generate-library] No Books/ directory at repo root.')
+    process.exitCode = 1
+    return
+  }
+  ensureBooksSymlink()
 
   const bookDirs = fs
-    .readdirSync(storiesRoot, { withFileTypes: true })
+    .readdirSync(booksRoot, { withFileTypes: true })
     .filter((d) => {
       if (d.name.startsWith('.')) return false
-      if (SCAN_SKIP_DIRS.has(d.name)) return false
       try {
-        return fs.statSync(path.join(storiesRoot, d.name)).isDirectory()
+        return fs.statSync(path.join(booksRoot, d.name)).isDirectory()
       } catch {
         return false
       }
@@ -327,7 +247,7 @@ async function main() {
   const globalChapterIds = new Set()
 
   for (const folderName of bookDirs) {
-    const bookDir = path.join(storiesRoot, folderName)
+    const bookDir = path.join(booksRoot, folderName)
     const docxFiles = walkDocx(bookDir).sort((a, b) =>
       a.localeCompare(b, undefined, { numeric: true }),
     )
@@ -357,7 +277,7 @@ async function main() {
     }
 
     const baseSlug = slugify(folderName)
-    const groups = partitionIntoPartGroups(docxFiles, storiesRoot)
+    const groups = partitionIntoPartGroups(docxFiles, booksRoot)
 
     let bookId = baseSlug
     let n = 1

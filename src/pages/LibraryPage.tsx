@@ -85,17 +85,13 @@ function BookCard({
 }
 
 export function LibraryPage({
-  navQuery,
-  onNavQueryChange,
+  navQuery = '',
 }: {
   navQuery?: string
   onNavQueryChange?: (value: string) => void
 }) {
   const { state } = useLibrary()
-  const [localQuery, setLocalQuery] = useState('')
-  const query = navQuery ?? localQuery
-  const setQuery = onNavQueryChange ?? setLocalQuery
-  void setQuery
+  const query = navQuery
   const [sortMode, setSortMode] = useState<SortMode>('az')
   const [photoSrcs, setPhotoSrcs] = useState<string[] | null>(null)
   const progressMap = useMemo(() => loadProgressMap(), [state, query, sortMode])
